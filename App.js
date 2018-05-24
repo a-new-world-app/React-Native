@@ -13,7 +13,7 @@ import {
   View,
   PermissionsAndroid
 } from 'react-native';
-import MapView from 'react-native-maps';
+// import MapView from 'react-native-maps';
 
 
 var {height, width} = Dimensions.get('window')
