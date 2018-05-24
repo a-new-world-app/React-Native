@@ -47,7 +47,7 @@ export default class App extends Component<{}> {
           <MapView.Marker
              coordinate = {this.state.markerPos}>
              <View style={styles.radius}>
-               
+               <View style={styles.marker}></View>
              </View>
           </MapView.Marker>
         </MapView>
@@ -86,6 +86,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   marker: {
+    width: 20,
+    height: 20,
+    borderRadius: 20/2,
+    borderWidth:3,
+    borderColor: 'white',
+    backgroundColor:'#007AFF'
 
   }
 });
