@@ -8,12 +8,20 @@ import React, { Component } from 'react';
 import {
   Platform,
   StyleSheet,
+  Dimensions,
   Text,
   View
 } from 'react-native';
 import MapView from 'react-native-maps';
 
 
+var {height, width} = Dimensions.get('window')
+
+const SCREEN_HEIGHT = height;
+const SCREEN_WIDTH = width;
+const ASPECT_RATIO = width / height;
+const LATITUDE_DELTA = 0.0922;
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 
 export default class App extends Component<{}> {
@@ -36,7 +44,45 @@ export default class App extends Component<{}> {
 
   watchID: number = null;
 
+  componentDidMount(){
+    navigator.geolocation.getCurrentPosition((pos) => {
+      let lat = parseFloat(pos.coords.latitude)
+      let lng = parseFloat(pos.coords.longitude)
 
+      let initialRegion = {
+        latitude:lat,
+        longitude: lng,
+        latitudeDelta: LATITUDE_DELTA,
+        longitudeDelta: LONGITUDE_DELTA
+      }
+      this.setState({initialPos: initialRegion})
+      this.setState({markerPos: initialRegion})
+
+    },
+    (error) => alert(JSON.stringify(error)),
+    {enableHighAccuracy: true, timeout: 20000, maximumAge: 100})
+
+    this.watchID = navigator.geolocation.watchPosition(
+      (pos) => {
+        let lat = parseFloat(pos.coords.latitude)
+        let lng = parseFloat(pos.coords.longitude)
+        let currentRegion = {
+          latitude:lat,
+          longitude: lng,
+          latitudeDelta: LATITUDE_DELTA,
+          longitudeDelta: LONGITUDE_DELTA
+        }
+
+        this.setState({initialPos: currentRegion})
+        this.setState({markerPos: currentRegion})
+
+      }
+    )
+  }
+
+  componentWillUnmount(){
+    navigator.geolocation.clearWatch(this.watchId)
+  }
 
   render() {
     return (
