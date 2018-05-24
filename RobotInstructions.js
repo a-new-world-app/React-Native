@@ -14,10 +14,15 @@ export default class RobotInstuctions extends Component<Props> {
     super(props);
     this.state = {
       pic: require("./assets/robots/robo1.png"),
-      work: ["Waiting", "Exploring", "Carrying", "Building"]
+      work: ["Waiting", "Exploring", "Carrying", "Building"],
+      alert: false,
     }
+    this.inputAlert = this.inputAlert.bind(this)
   };
   
+  inputAlert(string){
+    this.setState({alert: string})
+  }
 
   render() {
     // const picLoc =require(`./assets/robots/${this.state.pic}`)
@@ -31,7 +36,7 @@ export default class RobotInstuctions extends Component<Props> {
           Good at ... well nothing but tries REALLY hard.
         </Text>
         {
-          this.state.work.map((job) => <RobotJob id={job} job={job} count={1}/>)
+          this.state.work.map((job) => <RobotJob key={job} job={job} count={1}/>)
         }
       </View>
     );
@@ -49,12 +54,5 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
-  },
-  map: {
-    position: 'absolute',
-    top:0,
-    left:0,
-    right:0,
-    bottom:0,
   },
 });
