@@ -11,6 +11,7 @@ import {
   Text,
   View
 } from 'react-native';
+import MapView from 'react-native-maps';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -25,14 +26,18 @@ export default class App extends Component<Props> {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Welcome to React !
+          Welcome to React Native!
         </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Text style={styles.instructions}>
-          {instructions}
-        </Text>
+
+        <MapView
+          style={styles.map}
+           initialRegion={{
+             latitude: 37.78825,
+             longitude: -122.4324,
+             latitudeDelta: 0.0922,
+             longitudeDelta: 0.0421,
+           }}
+         />
       </View>
     );
   }
@@ -50,9 +55,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 10,
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+  map: {
+    position: 'absolute',
+    top:0,
+    left:0,
+    right:0,
+    bottom:0,
   },
 });
