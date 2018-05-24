@@ -15,26 +15,39 @@ import MapView from 'react-native-maps';
 
 
 
+
+
 type Props = {};
 export default class App extends Component<Props> {
+  constructor(props){
+    super(props)
+
+    this.state = {
+      initialPos: {
+        latitude: 37.78825,
+        longitude: -122.4324,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421
+      },
+      markerPos: {
+        latitude: 37.78825,
+        longitude: -122.4324
+      }
+    }
+  }
+
+  watchID: number = null;
+
   render() {
     return (
       <View style={styles.container}>
         <MapView
           style={styles.map}
-           initialRegion={{
-             latitude: 37.78825,
-             longitude: -122.4324,
-             latitudeDelta: 0.0922,
-             longitudeDelta: 0.0421,
-           }}>
-           <MapView.Marker
-              coordinate={{
-                latitude: 37.78825,
-                longitude: -122.4324,
-              }}
-            />
-         </MapView>
+          initialRegion = {this.state.initialPos}>
+          <MapView.Marker
+             coordinate = {this.state.markerPos}>
+          </MapView.Marker>
+        </MapView>
       </View>
     );
   }
