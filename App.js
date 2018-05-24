@@ -11,7 +11,7 @@ import {
   Text,
   View
 } from 'react-native';
-// import MapView from 'react-native-maps';
+import MapView from 'react-native-maps';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' +
@@ -29,7 +29,7 @@ export default class App extends Component<Props> {
           Welcome to React Native!
         </Text>
 
-        {/* <MapView
+        <MapView
           style={styles.map}
            initialRegion={{
              latitude: 37.78825,
@@ -37,7 +37,7 @@ export default class App extends Component<Props> {
              latitudeDelta: 0.0922,
              longitudeDelta: 0.0421,
            }}
-         /> */}
+         />
       </View>
     );
   }
