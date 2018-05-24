@@ -16,9 +16,7 @@ import MapView from 'react-native-maps';
 
 
 
-
-type Props = {};
-export default class App extends Component<Props> {
+export default class App extends Component<{}> {
   constructor(props){
     super(props)
 
@@ -38,6 +36,8 @@ export default class App extends Component<Props> {
 
   watchID: number = null;
 
+
+
   render() {
     return (
       <View style={styles.container}>
@@ -46,6 +46,9 @@ export default class App extends Component<Props> {
           initialRegion = {this.state.initialPos}>
           <MapView.Marker
              coordinate = {this.state.markerPos}>
+             <View style={styles.radius}>
+               
+             </View>
           </MapView.Marker>
         </MapView>
       </View>
@@ -72,4 +75,17 @@ const styles = StyleSheet.create({
     right:0,
     bottom:0,
   },
+  radius: {
+    width: 50,
+    height: 50,
+    borderRadius: 50/2,
+    overflow:'hidden',
+    borderWidth:1,
+    borderColor: 'rgba(0,112,225,0.3)',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  marker: {
+
+  }
 });
