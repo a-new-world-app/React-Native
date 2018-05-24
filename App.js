@@ -1,8 +1,8 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
+// /**
+//  * Sample React Native App
+//  * https://github.com/facebook/react-native
+//  * @flow
+//  */
 
 import React, { Component } from 'react';
 import {
@@ -10,7 +10,8 @@ import {
   StyleSheet,
   Dimensions,
   Text,
-  View
+  View,
+  PermissionsAndroid
 } from 'react-native';
 import MapView from 'react-native-maps';
 
@@ -25,13 +26,15 @@ const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 
 export default class App extends Component<{}> {
+
+
   constructor(props){
     super(props)
 
     this.state = {
       initialPos: {
-        latitude: 37.78825,
-        longitude: -122.4324,
+        latitude: 0,
+        longitude: 0,
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421
       },
@@ -44,10 +47,31 @@ export default class App extends Component<{}> {
 
   watchID: number = null;
 
-  componentDidMount(){
-    navigator.geolocation.getCurrentPosition((pos) => {
+  async  requestMapPermission() {
+  try {
+
+    const granted = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+      {
+        'title': 'Cool Photo App Camera Permission',
+        'message': 'Cool Photo App needs access to your camera ' +
+                   'so you can take awesome pictures.'
+      }
+    )
+    if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+      console.log("You can use the camera")
+    } else {
+      console.log("Camera permission denied")
+    }
+  } catch (err) {
+    console.warn(err)
+  }
+}
+  async componentDidMount(){
+    await navigator.geolocation.getCurrentPosition((pos) => {
       let lat = parseFloat(pos.coords.latitude)
       let lng = parseFloat(pos.coords.longitude)
+      console.log('pos', lat, lng)
 
       let initialRegion = {
         latitude:lat,
@@ -55,12 +79,14 @@ export default class App extends Component<{}> {
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA
       }
-      this.setState({initialPos: initialRegion})
-      this.setState({markerPos: initialRegion})
+      this.setState({initialPos: initialRegion,
+      markerPos: initialRegion},console.log('state'))
 
     },
-    (error) => alert(JSON.stringify(error)),
-    {enableHighAccuracy: true, timeout: 20000, maximumAge: 100})
+    (error) => console.log(JSON.stringify(error)),
+   {enableHighAccuracy: true, timeout:20000, maximumAge:100})
+
+
 
     this.watchID = navigator.geolocation.watchPosition(
       (pos) => {
@@ -73,8 +99,9 @@ export default class App extends Component<{}> {
           longitudeDelta: LONGITUDE_DELTA
         }
 
-        this.setState({initialPos: currentRegion})
-        this.setState({markerPos: currentRegion})
+        this.setState({initialPos: currentRegion,
+        markerPos: currentRegion})
+
 
       }
     )
@@ -85,6 +112,7 @@ export default class App extends Component<{}> {
   }
 
   render() {
+    console.log('render', this.state.initialPos)
     return (
       <View style={styles.container}>
         <MapView
