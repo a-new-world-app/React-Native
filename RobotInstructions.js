@@ -6,7 +6,9 @@ import {
   View,
   Image
 } from 'react-native';
+
 import RobotJob from './RobotJob.js';
+import AssignmentAlert from './AssignmentAlert.js'
 
 export default class RobotInstuctions extends Component<Props> {
 
@@ -14,7 +16,12 @@ export default class RobotInstuctions extends Component<Props> {
     super(props);
     this.state = {
       pic: require("./assets/robots/robo1.png"),
-      work: ["Waiting", "Exploring", "Carrying", "Building"],
+      jobs: {
+        Waiting: 100,
+        Exploring: 1,
+        Carrying: 1,
+        Building: 1,
+      },
       alert: false,
     }
     this.inputAlert = this.inputAlert.bind(this)
@@ -29,14 +36,19 @@ export default class RobotInstuctions extends Component<Props> {
     // console.log(picLoc)
     // const picLoc =`./assets/robots/robo1.png`
     console.log(this.state)
+    this.state.alert ? <AssignmentAlert messsage={this.state.alert} /> : '';
     return (
       <View style={styles.container}>
+        {this.state.alert}
         <Image  source={this.state.pic} />
         <Text style={styles.welcome}>
           Good at ... well nothing but tries REALLY hard.
         </Text>
+        <Text style={styles.welcome}>
+          Waiting: {this.state.jobs.Waiting}
+        </Text>
         {
-          this.state.work.map((job) => <RobotJob key={job} job={job} count={1}/>)
+          Object.keys(this.state.jobs).slice(1).map((job) => <RobotJob key={job} job={job} count={1}/>)
         }
       </View>
     );

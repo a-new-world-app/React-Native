@@ -1,7 +1,7 @@
 import React, {Component, Dimensions} from 'react';
-import {Platform, StyleSheet, Text, View, TextInput} from 'react-native';
+import {Platform, StyleSheet, Text, View, TextInput, Alert, TouchableOpacity} from 'react-native';
 
-export default class RobotInstuctions extends Component < Props > {
+export default class RobotInstuctions extends Component <Props> {
   constructor(props) {
     super(props)
     this.state = {
@@ -12,12 +12,16 @@ export default class RobotInstuctions extends Component < Props > {
       .bind(this)
   }
 
-  updateWorkers(string) {
-    let number = Number(string)
+  updateWorkers(input) {
+    let number = Number(input)
     if (number % 1 !== 0) {
-      alert()
+      Alert.alert("You can't have partial robots")
+      this.setState({count: this.state.count})
+    }else if(Math.sign(number) === -1) {
+      Alert.alert("You can't have less than zero workers")
+    }else{
+      this.setState({count: Number(input)})
     }
-    this.setState({count: Number(string)})
   }
 
   render() {
@@ -32,14 +36,33 @@ export default class RobotInstuctions extends Component < Props > {
         borderBottomColor: 'grey',
         borderBottomWidth: 1
       },
+      numberCont: {
+        flexDirection: 'row'
+      },
 
       job: {
         fontSize: 20
       },
 
+      buttonStyle: {
+        width: 40,
+        height: 40,
+        backgroundColor: '#a1c3e6'
+      },
+
+      buttonLabel: {
+        height: 40,
+        fontSize: 30,
+        color: 'white',
+        textAlign: 'center',
+        textAlignVertical: 'center'
+      },
+
       input: {
         backgroundColor: 'white',
-        lineHeight: 25
+        lineHeight: 25,
+        fontSize: 25,
+        textAlign: 'center'
       }
     }
     return (
@@ -47,6 +70,13 @@ export default class RobotInstuctions extends Component < Props > {
         <Text style={styles.job}>
           {this.props.job}
         </Text>
+        <View style={styles.numberCont}>
+        <TouchableOpacity title="-"
+                style={styles.buttonStyle}
+                onPress={() => this.updateWorkers(this.state.count - 1)}
+                >
+          <Text style={styles.buttonLabel}>-</Text>
+        </TouchableOpacity>
         <TextInput
           style={styles.input}
           value={this
@@ -55,6 +85,12 @@ export default class RobotInstuctions extends Component < Props > {
           .toString()}
           keyboardType={"numeric"}
           onChangeText={(number) => this.updateWorkers(number)}/>
+          <TouchableOpacity title="+"
+                style={styles.buttonStyle}
+                onPress={() => this.updateWorkers(this.state.count + 1)}>
+            <Text style={styles.buttonLabel}>+</Text>
+          </TouchableOpacity>
+          </View>
       </View>
     )
   }
