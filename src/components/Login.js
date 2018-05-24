@@ -1,12 +1,18 @@
 import React from "react";
-import { Stylesheet, TextInput, View, Button, Linking, Text } from "react-native";
+import {
+  Stylesheet,
+  TextInput,
+  View,
+  Button,
+  Linking,
+  Text
+} from "react-native";
 import CookieManager from "react-native-cookies";
 
 export default class Test extends React.Component {
   constructor(props) {
     super(props);
     this.state = { description: "" };
-    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleOpenURL = this.handleOpenURL.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
@@ -27,11 +33,9 @@ export default class Test extends React.Component {
   }
 
   handleOpenURL({ url }) {
-    console.log(url);
     const [, token] = url.match(/token=([^#]+)/);
-    this.setState({token});
-  };
-
+    this.setState({ token });
+  }
 
   handleSubmit() {
     fetch("https://a-new-world.herokuapp.com/api/paths", {
@@ -39,21 +43,24 @@ export default class Test extends React.Component {
         path: { pathData: { description: this.state.description } }
       }),
       method: "POST",
-      headers: { "Content-Type": "application/json", "Authorization": `Bearer ${this.state.token}` },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${this.state.token}`
+      },
       credentials: "include"
     }).then(console.log);
   }
 
-  handleChange(e) {
-    this.setState({description: e.target.value})
+  handleChange(description) {
+    this.setState({ description });
   }
 
   handleLogin() {
-    Linking.openURL('https://a-new-world.herokuapp.com/auth/google');
+    Linking.openURL("https://a-new-world.herokuapp.com/auth/google");
   }
 
   handleLogout() {
-    this.setState({token: null})
+    this.setState({ token: null });
   }
 
   render() {
@@ -63,7 +70,7 @@ export default class Test extends React.Component {
         <TextInput
           multiline
           value={this.state.description}
-          onChange={this.handleChange}
+          onChangeText={description => this.setState({description})}
         />
         <Button onPress={this.handleSubmit} title="Submit" />
         <Button onPress={this.handleLogin} title="Log In With Google" />
