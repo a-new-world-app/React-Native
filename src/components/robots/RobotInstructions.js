@@ -5,7 +5,8 @@ import {
   Text,
   View,
   Image,
-  Alert
+  Alert,
+  KeyboardAvoidingView
 } from 'react-native';
 // import {merge} from 'lodash'
 
@@ -53,6 +54,10 @@ export default class RobotInstuctions extends Component<Props> {
     }
   }
 
+  componentDidMount(){
+    
+  }
+
   render() {
     // const picLoc =require(`./assets/robots/${this.state.pic}`)
     // console.log(picLoc)
@@ -60,7 +65,10 @@ export default class RobotInstuctions extends Component<Props> {
     console.log("render", this.state)
     this.state.alert ? <AssignmentAlert messsage={this.state.alert} /> : '';
     return (
-      <View style={styles.container}>
+      <KeyboardAvoidingView 
+        enabled
+        behavior='padding'
+        style={styles.container}>
         {this.state.alert}
         <Image  source={this.state.pic} />
         <Text style={styles.welcome}>
@@ -79,7 +87,7 @@ export default class RobotInstuctions extends Component<Props> {
                                         />
                     )
         }
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 }

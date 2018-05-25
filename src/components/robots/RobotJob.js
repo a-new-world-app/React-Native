@@ -1,7 +1,15 @@
 import React, {Component, Dimensions} from 'react';
-import {Platform, StyleSheet, Text, View, TextInput, Alert, TouchableOpacity} from 'react-native';
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Alert,
+  TouchableOpacity
+} from 'react-native';
 
-export default class RobotInstuctions extends Component <Props> {
+export default class RobotInstuctions extends Component < Props > {
   constructor(props) {
     super(props)
     this.state = {
@@ -10,7 +18,9 @@ export default class RobotInstuctions extends Component <Props> {
     this.updateWorkers = this
       .updateWorkers
       .bind(this)
-    this.changeCount = this.changeCount.bind(this)
+    this.changeCount = this
+      .changeCount
+      .bind(this)
   }
 
   changeCount(input) {
@@ -19,7 +29,9 @@ export default class RobotInstuctions extends Component <Props> {
   }
 
   updateWorkers(input) {
-    this.props.update(this.props.job, input)
+    this
+      .props
+      .update(this.props.job, input)
   }
 
   render() {
@@ -69,27 +81,28 @@ export default class RobotInstuctions extends Component <Props> {
           {this.props.job}
         </Text>
         <View style={styles.numberCont}>
-        <TouchableOpacity title="-"
-                style={styles.buttonStyle}
-                onPress={() => this.updateWorkers(this.state.count - 1)}
-                >
-          <Text style={styles.buttonLabel}>-</Text>
-        </TouchableOpacity>
-        <TextInput
-          style={styles.input}
-          value={this
-          .state
-          .count
-          .toString()}
-          keyboardType={"numeric"}
-          onChangeText={(value) => this.changeCount(value)}
-          onSubmitEditing={(number) => this.updateWorkers(this.state.count)}/>
-          <TouchableOpacity title="+"
-                style={styles.buttonStyle}
-                onPress={() => this.updateWorkers(this.state.count + 1)}>
+          <TouchableOpacity
+            title="-"
+            style={styles.buttonStyle}
+            onPress={() => this.updateWorkers(this.state.count - 1)}>
+            <Text style={styles.buttonLabel}>-</Text>
+          </TouchableOpacity>
+          <TextInput
+            style={styles.input}
+            value={this
+            .state
+            .count
+            .toString()}
+            keyboardType={"numeric"}
+            onChangeText={(value) => this.changeCount(value)}
+            onSubmitEditing={(number) => this.updateWorkers(this.state.count)}/>
+          <TouchableOpacity
+            title="+"
+            style={styles.buttonStyle}
+            onPress={() => this.updateWorkers(this.state.count + 1)}>
             <Text style={styles.buttonLabel}>+</Text>
           </TouchableOpacity>
-          </View>
+        </View>
       </View>
     )
   }

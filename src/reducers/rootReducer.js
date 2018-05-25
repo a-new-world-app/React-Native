@@ -1,10 +1,12 @@
 import { combineReducers } from "redux";
 
 import session from "./sessionReducer";
+import robots from "./robotReducer";
 import { LOG_OUT } from "../actions/sessionActions";
 
 const rootReducer = combineReducers({
-  session
+  session,
+  robots
 });
 
 export default (state, action) => {
