@@ -10,18 +10,16 @@ export default class RobotInstuctions extends Component <Props> {
     this.updateWorkers = this
       .updateWorkers
       .bind(this)
+    this.changeCount = this.changeCount.bind(this)
+  }
+
+  changeCount(input) {
+    console.log("changeCount", input)
+    this.setState({count: Number(input)})
   }
 
   updateWorkers(input) {
-    let number = Number(input)
-    if (number % 1 !== 0) {
-      Alert.alert("You can't have partial robots")
-      this.setState({count: this.state.count})
-    }else if(Math.sign(number) === -1) {
-      Alert.alert("You can't have less than zero workers")
-    }else{
-      this.setState({count: Number(input)})
-    }
+    this.props.update(this.props.job, input)
   }
 
   render() {
@@ -84,7 +82,8 @@ export default class RobotInstuctions extends Component <Props> {
           .count
           .toString()}
           keyboardType={"numeric"}
-          onChangeText={(number) => this.updateWorkers(number)}/>
+          onChangeText={(value) => this.changeCount(value)}
+          onSubmitEditing={(number) => this.updateWorkers(this.state.count)}/>
           <TouchableOpacity title="+"
                 style={styles.buttonStyle}
                 onPress={() => this.updateWorkers(this.state.count + 1)}>
