@@ -27,7 +27,7 @@ export default class App extends Component<{}> {
 
   constructor(props){
     super(props)
-
+    this.mapRef = null
     this.state = {
       initialPos: {
         latitude: 37.78825,
@@ -35,11 +35,18 @@ export default class App extends Component<{}> {
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421
       },
-      markerPos: {
+      currentPos: {
         latitude: 37.78825,
         longitude: -122.4324
       },
-      description: "please describe the path"
+      description: "please describe the path",
+      landmarkPos: [
+      {pos: {latitude: 37.78825, longitude: -122.4224}, name: 1},
+      {pos: {latitude: 37.78725, longitude: -122.4124}, name: 2},
+      {pos: {latitude: 37.78625, longitude: -122.4424}, name: 3},
+      {pos: {latitude: 37.78925, longitude: -122.4524}, name: 4},
+      {pos: {latitude: 37.79025, longitude: -122.4624}, name: 5},
+    ],
     }
   }
 
@@ -78,7 +85,7 @@ export default class App extends Component<{}> {
         longitudeDelta: LONGITUDE_DELTA
       }
       this.setState({initialPos: initialRegion,
-      markerPos: initialRegion},console.log('state'))
+      currentPos: initialRegion},console.log('state'))
 
     },
     (error) => console.log(JSON.stringify(error)),
@@ -98,12 +105,20 @@ export default class App extends Component<{}> {
         }
 
         this.setState({initialPos: currentRegion,
-        markerPos: currentRegion})
+        currentPos: currentRegion})
 
 
       }
     )
+    // this.mapRef.fitToSuppliedMarkers(
+    //   this.state.landmark,
+    //   flase,
+    // );
+
+
   }
+
+  onPress	{ coordinate: LatLng, position: Point }
 
   componentWillUnmount(){
     navigator.geolocation.clearWatch(this.watchId)
@@ -121,14 +136,24 @@ export default class App extends Component<{}> {
       behavior = 'position'
       style={styles.container}>
         <MapView
+          ref = {(ref) => this.mapRef = ref}
           style={styles.map}
           initialRegion = {this.state.initialPos}>
           <MapView.Marker
-             coordinate = {this.state.markerPos}>
+             coordinate = {this.state.currentPos}>
              <View style={styles.radius}>
                <View style={styles.marker}></View>
              </View>
           </MapView.Marker>
+
+          {this.state.landmarkPos.map((landmark) => {
+            return(
+              <MapView.Marker
+               coordinate = {landmark.pos}>
+            </MapView.Marker>
+            )
+          }
+          )}
         </MapView>
         <TextInput
           multiline = {true}
