@@ -8,6 +8,8 @@ import {
   Text
 } from "react-native";
 
+import { submitPath } from "../utils/pathAPIUtils";
+
 export default class Test extends React.Component {
   constructor(props) {
     super(props);
@@ -37,17 +39,7 @@ export default class Test extends React.Component {
   }
 
   handleSubmit() {
-    fetch("https://a-new-world.herokuapp.com/api/paths", {
-      body: JSON.stringify({
-        path: { pathData: { description: this.state.description } }
-      }),
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${this.state.token}`
-      },
-      credentials: "include"
-    }).then(console.log);
+    submitPath(this.props.user.sessionToken, this.state.description);
   }
 
   handleChange(description) {
