@@ -1,6 +1,5 @@
 import React from "react";
 import { Stylesheet, TextInput, View, Button, Linking, Text } from "react-native";
-import CookieManager from "react-native-cookies";
 
 export default class Test extends React.Component {
   constructor(props) {
