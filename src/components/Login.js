@@ -7,7 +7,6 @@ import {
   Linking,
   Text
 } from "react-native";
-import CookieManager from "react-native-cookies";
 
 export default class Test extends React.Component {
   constructor(props) {
@@ -15,7 +14,6 @@ export default class Test extends React.Component {
     this.state = { description: "" };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleOpenURL = this.handleOpenURL.bind(this);
-    this.handleLogout = this.handleLogout.bind(this);
   }
 
   componentDidMount() {
@@ -35,6 +33,7 @@ export default class Test extends React.Component {
   handleOpenURL({ url }) {
     const [, token] = url.match(/token=([^#]+)/);
     this.setState({ token });
+    this.props.logIn(token);
   }
 
   handleSubmit() {
@@ -59,22 +58,19 @@ export default class Test extends React.Component {
     Linking.openURL("https://a-new-world.herokuapp.com/auth/google");
   }
 
-  handleLogout() {
-    this.setState({ token: null });
-  }
-
   render() {
+    console.log(this.props);
     return (
       <View>
-        <Text>{this.state.token}</Text>
+        <Text>{this.props.user.sessionToken}</Text>
         <TextInput
           multiline
           value={this.state.description}
-          onChangeText={description => this.setState({description})}
+          onChangeText={description => this.setState({ description })}
         />
         <Button onPress={this.handleSubmit} title="Submit" />
         <Button onPress={this.handleLogin} title="Log In With Google" />
-        <Button onPress={this.handleLogout} title="Log Out" />
+        <Button onPress={this.props.logOut} title="Log Out" />
       </View>
     );
   }
