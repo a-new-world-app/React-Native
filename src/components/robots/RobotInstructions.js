@@ -16,6 +16,7 @@ export default class RobotInstuctions extends Component<Props> {
   constructor(props){
     super(props);
     this.state = {
+      id: 1,
       pic: require("../../../assets/robots/robo1.png"),
       jobs: {
         Waiting: 100,
