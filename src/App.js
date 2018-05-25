@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import Login from "./components/Login";
+import Login from "./components/LoginContainer";
 
 export default () => (
   <Login />
