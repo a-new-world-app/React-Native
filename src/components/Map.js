@@ -8,7 +8,8 @@ import {
   KeyboardAvoidingView,
   PermissionsAndroid,
   TextInput,
-  TouchableOpacity
+  TouchableOpacity,
+  Alert
 } from 'react-native';
 import MapView from 'react-native-maps';
 
@@ -76,7 +77,7 @@ export default class App extends Component<{}> {
     await navigator.geolocation.getCurrentPosition((pos) => {
       let lat = parseFloat(pos.coords.latitude)
       let lng = parseFloat(pos.coords.longitude)
-      console.log('pos', lat, lng)
+
 
       let initialRegion = {
         latitude:lat,
@@ -85,7 +86,7 @@ export default class App extends Component<{}> {
         longitudeDelta: LONGITUDE_DELTA
       }
       this.setState({initialPos: initialRegion,
-      currentPos: initialRegion},console.log('state'))
+      currentPos: initialRegion})
 
     },
     (error) => console.log(JSON.stringify(error)),
@@ -118,10 +119,11 @@ export default class App extends Component<{}> {
 
   }
 
-  onPress	{ coordinate: LatLng, position: Point }
+  // onPress	{ coordinate: LatLng, position: Point }
 
   componentWillUnmount(){
     navigator.geolocation.clearWatch(this.watchId)
+
   }
 
   updateDescription = (field) => {
@@ -129,7 +131,7 @@ export default class App extends Component<{}> {
   }
 
   render() {
-    console.log('render', this.state.initialPos)
+    console.log("render", this.state)
     return (
       <KeyboardAvoidingView
       enabled
@@ -149,7 +151,21 @@ export default class App extends Component<{}> {
           {this.state.landmarkPos.map((landmark) => {
             return(
               <MapView.Marker
-               coordinate = {landmark.pos}>
+              key={Math.random()}
+               coordinate = {landmark.pos}
+               onPress = {() =>
+                  Alert.alert(
+                    'Alert',
+                    'Go to this location?',
+                    [
+                      {text: 'No', onPress: () => {}},
+                      {text: 'OK', onPress: () => this.setState(
+                        {landmarkPos: [{pos:landmark.pos, name: 1}]}
+                      )},
+                    ],
+                    { onDismiss: () => {} }
+                  )}>
+
             </MapView.Marker>
             )
           }
@@ -175,6 +191,7 @@ export default class App extends Component<{}> {
       </KeyboardAvoidingView>
     );
   }
+
 }
 
 
