@@ -1,13 +1,13 @@
 
 import React from 'react';
-import {View, Image, TouchableOpacity, Text} from 'react-native';
+import {View, Image, TouchableOpacity, Text, Alert} from 'react-native';
 import {secondsToHms} from '../../util/timeConversion'
 
 export default class RobotBuild extends React.Component<Props> {
   constructor(props) {
     super(props)
     this.state = {
-      currentlyBuilding: 1,
+      currentlyBuilding: 2,
       lookingAt: 1,
       buildingProgress: 10,
       resources: {
@@ -50,13 +50,44 @@ export default class RobotBuild extends React.Component<Props> {
   buildNext = () => this.setState({lookingAt: this.state.lookingAt + 1})
 
   buildPrev = () => this.setState({lookingAt: this.state.lookingAt - 1})
+
+  changeBuildCheck = () => {
+    console.log('looking at', this.state.currentlyBuilding !== this.state.lookingAt)
+    console.log("cbc", this.state.currentlyBuilding, this.state.lookingAt)
+    if (this.state.currentlyBuilding === null ) this.checkResources()
+    else if (this.state.currentlyBuilding !== this.state.lookingAt) {  
+      console.log("test")
+      Alert.alert("Change Build", "This will reset your progress, are you sure?",
+        [{text: "Nevermind", onPress: ()=> console.log('things')},
+        {text: "I'm sure", onPress: () => this.checkResources() }])
+    }
+  }
   
+  checkResources =() => {
+    const robot = this.state.robots[this.state.lookingAt]
+    const neededRes = robot.resources
+    const myRes = this.state.resources
+    for (resource in neededRes) {
+      if (neededRes[resource] > myRes[resource]){
+        Alert.alert(`Not Enough Resources`, `You do not have enough ${resource}.`)
+        return false;
+      }
+    }
+    this.changeBuild()
+  }
+
+  changeBuild = () => {
+    this.setState({currentlyBuilding: this.state.lookingAt,
+      buildingProgress: 0});
+  }
+
+
 
   render() {
     let previous = this.state.robots[this.state.lookingAt - 1];
     let next = this.state.robots[this.state.lookingAt + 1];
     const currentRobot = this.state.robots[this.state.lookingAt]
-    let timeRemaining = this.state.currentlyBuilding === this.state.lookingAt ? 
+    let timeRemaining = this.state.currentlyBuilding === this.state.lookingAt ?
       currentRobot.time - this.state.buildingProgress : currentRobot.time
     const left = '<';
     const right = '>';
@@ -118,23 +149,45 @@ export default class RobotBuild extends React.Component<Props> {
         fontSize: 20,
         marginRight: 10,
         color: 'green'
+      },
+      buttonBar: {
+        flexDirection: 'row',
+      },
+      build: {
+        height: 40,
+        width: '50%',
+        borderRadius: 5,
+        backgroundColor: 'green',
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
+      cancel: {
+        height: 40,
+        width: '50%',
+        borderRadius: 5,
+        backgroundColor: 'red',
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
+      buttonText: {
+        fontSize: 30,
       }
     }
     return(
       <View>
         <View style={styles.mainPicAndArrows}>
           <TouchableOpacity style={previous ? styles.activeArrow : styles.inactiveArrow}
-                            onPress= {previous ? () => this.buildPrev() : null } > 
+                            onPress= {previous ? () => this.buildPrev() : null } >
             <Text style={styles.arrow}>{left}</Text>
           </TouchableOpacity>
           <Image source={currentRobot.pic}/>
           <TouchableOpacity style={next ? styles.activeArrow : styles.inactiveArrow}
-                            onPress={next ? () => this.buildNext() : null} > 
+                            onPress={next ? () => this.buildNext() : null} >
             <Text style={styles.arrow}>{right}</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.nameAndTime}>
-          <Text style={styles.name}>{currentRobot.name}: 
+          <Text style={styles.name}>{currentRobot.name}:
             <Text style={styles.time}>{secondsToHms(timeRemaining)}</Text>
           </Text>
         </View>
@@ -151,6 +204,15 @@ export default class RobotBuild extends React.Component<Props> {
               </Text>
             </View>)
         })}
+        <View style={styles.buttonBar}>
+          <TouchableOpacity style={styles.build}
+                            onPress={() => this.changeBuildCheck()}>
+            <Text style={styles.buttonText}>Build</Text>
+          </ TouchableOpacity>
+          <TouchableOpacity style={styles.cancel}>
+            <Text style={styles.buttonText}>Cancel</Text>
+          </ TouchableOpacity>
+        </ View>
       </View>
 
     )
