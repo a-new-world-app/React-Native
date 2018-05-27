@@ -8,6 +8,8 @@ export default class RobotBuild extends React.Component<Props> {
     super(props)
     this.state = {
       currentlyBuilding: 1,
+      lookingAt: 1,
+      buildingProgress: 10,
       resources: {
         steel: 10000,
         gold: 1000,
@@ -36,7 +38,7 @@ export default class RobotBuild extends React.Component<Props> {
           steel: 20,
           gold: 30,
           titanium: 20,
-          aluminum: 2000,
+          aluminum: 20000,
           copper: 2,
           }
         }
@@ -45,17 +47,20 @@ export default class RobotBuild extends React.Component<Props> {
 
   }
 
-  buildNext = () => this.setState({currentlyBuilding: this.state.currentlyBuilding + 1})
+  buildNext = () => this.setState({lookingAt: this.state.lookingAt + 1})
 
-  buildPrev = () => this.setState({currentlyBuilding: this.state.currentlyBuilding - 1})
+  buildPrev = () => this.setState({lookingAt: this.state.lookingAt - 1})
   
 
   render() {
-    let previous = this.state.robots[this.state.currentlyBuilding - 1];
-    let next = this.state.robots[this.state.currentlyBuilding + 1];
-    const currentRobot = this.state.robots[this.state.currentlyBuilding]
+    let previous = this.state.robots[this.state.lookingAt - 1];
+    let next = this.state.robots[this.state.lookingAt + 1];
+    const currentRobot = this.state.robots[this.state.lookingAt]
+    let timeRemaining = this.state.currentlyBuilding === this.state.lookingAt ? 
+      currentRobot.time - this.state.buildingProgress : currentRobot.time
     const left = '<';
     const right = '>';
+    console.log(Object.keys(currentRobot.resources))
 
     const styles = {
       mainPicAndArrows: {
@@ -84,7 +89,8 @@ export default class RobotBuild extends React.Component<Props> {
       },
       nameAndTime: {
         width: '100%',
-        alignItems: 'center'
+        alignItems: 'center',
+        borderBottomWidth: 1
       },
       name: {
         fontSize: 40,
@@ -93,7 +99,25 @@ export default class RobotBuild extends React.Component<Props> {
         fontSize: 30
       },
       resource: {
-        
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        height:40,
+        width: '100%',
+        borderBottomWidth: 1
+      },
+      resourceName: {
+        fontSize: 20,
+        marginLeft: 10
+      },
+      resourceAmountRed: {
+        fontSize: 20,
+        marginRight: 10,
+        color: 'red'
+      },
+      resourceAmountGreen: {
+        fontSize: 20,
+        marginRight: 10,
+        color: 'green'
       }
     }
     return(
@@ -103,7 +127,7 @@ export default class RobotBuild extends React.Component<Props> {
                             onPress= {previous ? () => this.buildPrev() : null } > 
             <Text style={styles.arrow}>{left}</Text>
           </TouchableOpacity>
-          <Image source={this.state.robots[this.state.currentlyBuilding].pic}/>
+          <Image source={currentRobot.pic}/>
           <TouchableOpacity style={next ? styles.activeArrow : styles.inactiveArrow}
                             onPress={next ? () => this.buildNext() : null} > 
             <Text style={styles.arrow}>{right}</Text>
@@ -111,11 +135,21 @@ export default class RobotBuild extends React.Component<Props> {
         </View>
         <View style={styles.nameAndTime}>
           <Text style={styles.name}>{currentRobot.name}: 
-            <Text style={styles.time}>{secondsToHms(currentRobot.time)}</Text>
+            <Text style={styles.time}>{secondsToHms(timeRemaining)}</Text>
           </Text>
         </View>
         {Object.keys(currentRobot.resources).map((resource) => {
-          
+          let required = currentRobot.resources[resource]
+          let owned = this.state.resources[resource]
+          let enough = required <= owned
+          return(
+            <View style={styles.resource}
+                  key={resource + currentRobot} >
+              <Text style={styles.resourceName}>{resource}</Text>
+              <Text style={enough  ? styles.resourceAmountGreen : styles.resourceAmountRed}>
+                {currentRobot.resources[resource]}/{this.state.resources[resource]}
+              </Text>
+            </View>)
         })}
       </View>
 
