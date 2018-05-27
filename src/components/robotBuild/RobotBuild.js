@@ -10,6 +10,7 @@ export default class RobotBuild extends React.Component<Props> {
       currentlyBuilding: 2,
       lookingAt: 1,
       buildingProgress: 10,
+      buildRate: 5,
       resources: {
         steel: 10000,
         gold: 1000,
@@ -89,6 +90,8 @@ export default class RobotBuild extends React.Component<Props> {
     const currentRobot = this.state.robots[this.state.lookingAt]
     let timeRemaining = this.state.currentlyBuilding === this.state.lookingAt ?
       currentRobot.time - this.state.buildingProgress : currentRobot.time
+    timeRemaining /= this.state.buildRate
+    timeRemaining = Math.floor(timeRemaining)
     const left = '<';
     const right = '>';
     console.log(Object.keys(currentRobot.resources))
