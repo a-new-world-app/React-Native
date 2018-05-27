@@ -1,4 +1,4 @@
-import { RECEIVE_ROBOT, RECEIVE_ROBOTS } from "../actions/run_actions";
+import { RECEIVE_ROBOT, RECEIVE_ROBOTS } from "../actions/robotActions";
 
 const robotReducer = (oldState = {}, action) => {
   Object.freeze(oldState);

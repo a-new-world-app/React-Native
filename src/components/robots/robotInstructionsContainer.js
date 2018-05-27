@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import RobotInstructions from "./RobotInstructions";
-import { retrieveRobots } from "../../actions/run_actions";
+import { retrieveRobots } from "../../actions/robotActions";
 
 const mapStateToProps = state => ({
   runs: Object.values(state.entities.runs),
@@ -8,8 +8,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  retrieveRuns: () => dispatch(retrieveRuns())
+  retrieveRuns: () => dispatch(retrieveRobots())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RunIndex);
+export default connect(mapStateToProps, mapDispatchToProps)(RobotInstructions);
 

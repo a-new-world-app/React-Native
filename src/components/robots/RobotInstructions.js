@@ -6,6 +6,7 @@ import {
   View,
   Image,
   Alert,
+  TouchableOpacity,
   KeyboardAvoidingView
 } from 'react-native';
 // import {merge} from 'lodash'
@@ -19,6 +20,7 @@ export default class RobotInstuctions extends Component<Props> {
     this.state = {
       id: 1,
       pic: require("../../../assets/robots/robo1.png"),
+      next: require("../../../assets/robots/robo2.png"),
       jobs: {
         Waiting: 100,
         Exploring: 1,
@@ -71,6 +73,12 @@ export default class RobotInstuctions extends Component<Props> {
         style={styles.container}>
         {this.state.alert}
         <Image  source={this.state.pic} />
+        <TouchableOpacity onPress={() => console.log('hello')}
+                          style= {styles.nextOpac} >
+          <Image  source={this.state.next}
+                  onClick= {() => console.log('hello')} 
+                  style={styles.nextRobot}/>
+        </ TouchableOpacity>
         <Text style={styles.welcome}>
           Good at ... well nothing but tries REALLY hard.
         </Text>
@@ -104,4 +112,19 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 10,
   },
+  nextOpac: {
+    height: 70,
+    width: 70,
+    position: 'absolute',
+    right: '5%',
+    top: '30%',
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderRadius: 5, 
+    borderColor: '#cdcdcd'
+  },
+  nextRobot: {
+    width: 70,
+    height: 70
+  }
 });
