@@ -12,6 +12,8 @@ import {
   Alert
 } from 'react-native';
 import MapView from 'react-native-maps';
+import { connect } from 'react-redux';
+import {saveDescription} from '../actions/Description'
 
 
 var {height, width} = Dimensions.get('window')
@@ -23,7 +25,7 @@ const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 
-export default class App extends Component<{}> {
+class Map extends Component<{}> {
 
 
   constructor(props){
@@ -49,6 +51,7 @@ export default class App extends Component<{}> {
       {pos: {latitude: 37.79025, longitude: -122.4624}, name: 5},
     ],
     }
+    this.handleDescription = this.handleDescription.bind(this);
   }
 
   watchID: number = null;
@@ -111,15 +114,8 @@ export default class App extends Component<{}> {
 
       }
     )
-    // this.mapRef.fitToSuppliedMarkers(
-    //   this.state.landmark,
-    //   flase,
-    // );
-
 
   }
-
-  // onPress	{ coordinate: LatLng, position: Point }
 
   componentWillUnmount(){
     navigator.geolocation.clearWatch(this.watchId)
@@ -128,6 +124,11 @@ export default class App extends Component<{}> {
 
   updateDescription = (field) => {
     this.setState({description: field});
+  }
+
+  handleDescription(e) {
+    e.preventDefault();
+    this.props.saveDescription(this.state.description);
   }
 
   render() {
@@ -184,7 +185,9 @@ export default class App extends Component<{}> {
         <TouchableOpacity style={styles.button}>
             <Text style={styles.text}>Submit Picture</Text>
         </TouchableOpacity>
-        <TouchableOpacity style = {styles.button}>
+        <TouchableOpacity
+          style = {styles.button}
+          onPress={this.handleDescription}>
           <Text style={styles.text}>Submit Description</Text>
         </TouchableOpacity>
         </View>
@@ -193,7 +196,6 @@ export default class App extends Component<{}> {
   }
 
 }
-
 
 
 const styles = StyleSheet.create({
@@ -260,3 +262,13 @@ const styles = StyleSheet.create({
   }
 
 });
+
+
+
+
+
+const mapDispatchToProps = (dispatch) => ({
+  saveDescription: (description) => dispatch(saveDescription(description))
+});
+
+export default connect(null, mapDispatchToProps)(Map);
