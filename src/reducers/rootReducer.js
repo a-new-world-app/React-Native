@@ -1,14 +1,20 @@
-// export default (state = {}, action) => {
-//   return state;
-// }
+import { combineReducers } from "redux";
 
-import { FETCH_USER } from '../actions/Description';
+import session from "./sessionReducer";
+import robots from "./robotReducer";
+import { LOG_OUT } from "../actions/sessionActions";
 
-export default function(state = {}, action) {
-  switch (action.type) {
-    case FETCH_USER:
-      return action.payload || false;
-    default:
-    return state;
+const rootReducer = combineReducers({
+  session,
+  robots
+});
+
+export default (state, action) => {
+  console.log(action);
+  console.log(state);
+  if (action.type === LOG_OUT) {
+    state = undefined;
   }
-}
+  console.log(rootReducer(state, action));
+  return rootReducer(state, action);
+};
