@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
   Alert
 } from 'react-native';
+import {merge} from 'lodash';
 import MapView from 'react-native-maps';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { connect } from 'react-redux';
@@ -40,8 +41,8 @@ class Map extends Component<{}> {
         longitudeDelta: 0.0421
       },
       currentPos: {
-        latitude: 37.78825,
-        longitude: -122.4324
+        latitude: null,
+        longitude: null
       },
       description: "please describe the path",
       landmarkPos: [
@@ -51,6 +52,11 @@ class Map extends Component<{}> {
       {pos: {latitude: 37.78925, longitude: -122.4524}, name: 4},
       {pos: {latitude: 37.79025, longitude: -122.4624}, name: 5},
     ],
+      path:null,
+      currentStep: {}
+      steps:[],
+      nextLocation:null,
+      pathID: null,
     }
     this.handleDescription = this.handleDescription.bind(this);
   }
@@ -118,6 +124,7 @@ class Map extends Component<{}> {
 
   }
 
+
   componentWillUnmount(){
     navigator.geolocation.clearWatch(this.watchId)
 
@@ -132,8 +139,30 @@ class Map extends Component<{}> {
     this.props.saveDescription(this.state.description);
   }
 
+  handleSubmit = () => {
+    if(this.state.pathID){
+
+    } else {
+      
+    }
+  }
+
+  chooseLocation = (location) => {
+    if(this.state.path) {
+      this.setState({nextLocation: location})
+    } else {
+      this.setState({path:{
+        'start_point':location.pos}
+      },
+      {currentStep:{
+        'start_point': location.pos
+      }})
+    }
+  }
+
   render() {
     console.log("render", this.state)
+    let alertMessage = this.state.path ? "please choose next step" : 'please choose starting location'
     return (
       <KeyboardAvoidingView
       enabled
@@ -161,9 +190,7 @@ class Map extends Component<{}> {
                     'Go to this location?',
                     [
                       {text: 'No', onPress: () => {}},
-                      {text: 'OK', onPress: () => this.setState(
-                        {landmarkPos: [{pos:landmark.pos, name: 1}]}
-                      )},
+                      {text: 'OK', onPress: () => this.chooseLocation(landmark)},
                     ],
                     { onDismiss: () => {} }
                   )}>
@@ -207,6 +234,17 @@ class Map extends Component<{}> {
           </View>
         </View>
 
+        {  this.state.currentStep ? '' :
+          Alert.alert(
+          'Next Location',
+          alertMessage,
+
+          [
+            {text: 'OK', onPress: () => {}},
+          ],
+          { onDismiss: () => {} }
+        )}>
+        }
 
       </KeyboardAvoidingView>
     );
@@ -249,7 +287,7 @@ const styles = StyleSheet.create({
     height: height/4.5,
     textAlignVertical: 'top',
     padding: 20,
-    marginTop:'3%',
+    // marginTop:'3%',
     fontFamily:'serif',
     borderColor: '#6CB397',
     borderWidth:5,
@@ -262,8 +300,8 @@ const styles = StyleSheet.create({
   buttons:{
     flexDirection:'column',
     justifyContent:'space-between',
-    height:'14%',
-    marginTop:'3%',
+    height:'17%',
+    // marginTop:'3%',
     paddingTop:'-2%',
     backgroundColor:'#8AC8DD'
   },
@@ -276,15 +314,15 @@ const styles = StyleSheet.create({
     paddingRight:'5%',
   },
   button: {
-    width: '14%',
+    width: '18%',
     borderRadius: 50,
     backgroundColor:'#0D417A',
-    padding: 10
+    padding: 16
   },
   textContainer:{
     flexDirection:'row',
     justifyContent: 'space-between',
-    top:'-2%',
+    top:'-4%',
     paddingLeft:'5%',
     paddingRight:'3%',
   },
