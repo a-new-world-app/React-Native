@@ -191,7 +191,7 @@ class Map extends Component<{}> {
             style = {styles.button}
             onPress={this.handleDescription}>
             <Text style={styles.text}>
-              <Icon name="comments" size={30} color="#EBBF92" />
+              <Icon name="paper-plane" size={30} color="#EBBF92" />
             </Text>
           </TouchableOpacity>
 
