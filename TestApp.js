@@ -6,16 +6,18 @@ import { createStackNavigator } from 'react-navigation'; // Version can be speci
 import Root from './src/Root';
 import RobotInstructions from './src/components/robots/RobotInstructions';
 import RobotBuild from './src/components/robotBuild/RobotBuild';
+import HomeScreen from './src/components/homeScreen/HomeScreen';
+import CreateRoute from './App';
 
-class HomeScreen extends React.Component {
-  render() {
-    return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Test</Text>
-      </View>
-    );
-  }
-}
+// class HomeScreen extends React.Component {
+//   render() {
+//     return (
+//       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+//         <Text>Test</Text>
+//       </View>
+//     );
+//   }
+// }
 
 class DetailsScreen extends React.Component {
   render() {
@@ -29,14 +31,16 @@ class DetailsScreen extends React.Component {
 
 const RootStack = createStackNavigator(
   {
-    Home: HomeScreen,
+    // Home: HomeScreen,
     Details: DetailsScreen,
     Root: Root,
-    RobotInstructions: RobotInstructions,
-    RobotBuild: RobotBuild
+    CreateRoute, 
+    RobotInstructions,
+    RobotBuild,
+    HomeScreen
   },
   {
-    initialRouteName: 'RobotInstructions',
+    initialRouteName: 'HomeScreen',
     headerMode: 'none'
   }
 );
