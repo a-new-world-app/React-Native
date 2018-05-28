@@ -24,7 +24,6 @@ export default class RobotInstuctions extends Component < Props > {
   }
 
   changeCount(input) {
-    console.log("changeCount", input)
     this.setState({count: Number(input)})
   }
 
@@ -35,7 +34,6 @@ export default class RobotInstuctions extends Component < Props > {
   }
 
   render() {
-    // console.log(Dimensions) let width = Dimensions.get('window').width;
     const styles = {
       container: {
         flexDirection: 'row',

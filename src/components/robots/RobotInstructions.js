@@ -34,12 +34,9 @@ export default class RobotInstuctions extends Component<Props> {
   };
 
   updateWorkers(string, input){
-    console.log("input", input)
     const number = Number(input)
-    console.log("jobs", this.state.jobs)
     const unemployed = this.state.jobs.Waiting 
     let nextUnemployed = unemployed - (input - this.state.jobs[string])
-    console.log("number", number)
     if (number % 1 !== 0) {
       Alert.alert("You can't have partial robots")
       // this.setState({jobs: {[string]: this.state.jobs[string]}})
@@ -49,9 +46,7 @@ export default class RobotInstuctions extends Component<Props> {
       Alert.alert("You don't have that many robots")
     }else{
       // let newJobs = this.state.jobs.dup
-      // console.log("newjobs", newJobs, this.state.jobs)
       jobs = Object.assign({},this.state.jobs, {[string]: Number(input), Waiting: nextUnemployed} )
-      console.log("else", jobs)
       this.setState({jobs: jobs})
     }
   }
@@ -62,9 +57,7 @@ export default class RobotInstuctions extends Component<Props> {
 
   render() {
     // const picLoc =require(`./assets/robots/${this.state.pic}`)
-    // console.log(picLoc)
     // const picLoc =`./assets/robots/robo1.png`
-    console.log("render", this.state)
     this.state.alert ? <AssignmentAlert messsage={this.state.alert} /> : '';
     return (
       <KeyboardAvoidingView 
@@ -73,10 +66,8 @@ export default class RobotInstuctions extends Component<Props> {
         style={styles.container}>
         {this.state.alert}
         <Image  source={this.state.pic} />
-        <TouchableOpacity onPress={() => console.log('hello')}
                           style= {styles.nextOpac} >
           <Image  source={this.state.next}
-                  onClick= {() => console.log('hello')} 
                   style={styles.nextRobot}/>
         </ TouchableOpacity>
         <Text style={styles.welcome}>

@@ -1,9 +1,8 @@
-
 import React from 'react';
 import {View, Image, TouchableOpacity, Text, Alert} from 'react-native';
 import {secondsToHms} from '../../util/timeConversion'
 
-export default class RobotBuild extends React.Component<Props> {
+export default class RobotBuild extends React.Component < Props > {
   constructor(props) {
     super(props)
     this.state = {
@@ -16,7 +15,7 @@ export default class RobotBuild extends React.Component<Props> {
         gold: 1000,
         titanium: 50,
         aluminum: 5000,
-        copper: 50,
+        copper: 50
       },
       robots: {
         1: {
@@ -24,23 +23,23 @@ export default class RobotBuild extends React.Component<Props> {
           time: 100000,
           name: 'Bob',
           resources: {
-          steel: 50,
-          gold: 0,
-          titanium: 20,
-          aluminum: 20,
-          copper: 5,
+            steel: 50,
+            gold: 0,
+            titanium: 20,
+            aluminum: 20,
+            copper: 5
           }
         },
         2: {
           pic: require("../../../assets/robots/robo2.png"),
           time: 1000000,
           name: "Shirley",
-          resources:{
-          steel: 20,
-          gold: 30,
-          titanium: 20,
-          aluminum: 20000,
-          copper: 2,
+          resources: {
+            steel: 20,
+            gold: 30,
+            titanium: 20,
+            aluminum: 20000,
+            copper: 2
           }
         }
       }
@@ -48,28 +47,35 @@ export default class RobotBuild extends React.Component<Props> {
 
   }
 
-  buildNext = () => this.setState({lookingAt: this.state.lookingAt + 1})
+  buildNext = () => this.setState({
+    lookingAt: this.state.lookingAt + 1
+  })
 
-  buildPrev = () => this.setState({lookingAt: this.state.lookingAt - 1})
+  buildPrev = () => this.setState({
+    lookingAt: this.state.lookingAt - 1
+  })
 
   changeBuildCheck = () => {
-    console.log('looking at', this.state.currentlyBuilding !== this.state.lookingAt)
-    console.log("cbc", this.state.currentlyBuilding, this.state.lookingAt)
-    if (this.state.currentlyBuilding === null ) this.checkResources()
-    else if (this.state.currentlyBuilding !== this.state.lookingAt) {  
-      console.log("test")
-      Alert.alert("Change Build", "This will reset your progress, are you sure?",
-        [{text: "Nevermind", onPress: ()=> console.log('things')},
-        {text: "I'm sure", onPress: () => this.checkResources() }])
+    if (this.state.currentlyBuilding === null) 
+      this.checkResources()
+    else if (this.state.currentlyBuilding !== this.state.lookingAt) {
+      Alert.alert("Change Build", "This will reset your progress, are you sure?", [
+        {
+          text: "Nevermind"
+        }, {
+          text: "I'm sure",
+          onPress: () => this.checkResources()
+        }
+      ])
     }
   }
-  
-  checkResources =() => {
+
+  checkResources = () => {
     const robot = this.state.robots[this.state.lookingAt]
     const neededRes = robot.resources
     const myRes = this.state.resources
     for (resource in neededRes) {
-      if (neededRes[resource] > myRes[resource]){
+      if (neededRes[resource] > myRes[resource]) {
         Alert.alert(`Not Enough Resources`, `You do not have enough ${resource}.`)
         return false;
       }
@@ -78,23 +84,20 @@ export default class RobotBuild extends React.Component<Props> {
   }
 
   changeBuild = () => {
-    this.setState({currentlyBuilding: this.state.lookingAt,
-      buildingProgress: 0});
+    this.setState({currentlyBuilding: this.state.lookingAt, buildingProgress: 0});
   }
-
-
 
   render() {
     let previous = this.state.robots[this.state.lookingAt - 1];
     let next = this.state.robots[this.state.lookingAt + 1];
     const currentRobot = this.state.robots[this.state.lookingAt]
-    let timeRemaining = this.state.currentlyBuilding === this.state.lookingAt ?
-      currentRobot.time - this.state.buildingProgress : currentRobot.time
+    let timeRemaining = this.state.currentlyBuilding === this.state.lookingAt
+      ? currentRobot.time - this.state.buildingProgress
+      : currentRobot.time
     timeRemaining /= this.state.buildRate
     timeRemaining = Math.floor(timeRemaining)
     const left = '<';
     const right = '>';
-    console.log(Object.keys(currentRobot.resources))
 
     const styles = {
       mainPicAndArrows: {
@@ -127,7 +130,7 @@ export default class RobotBuild extends React.Component<Props> {
         borderBottomWidth: 1
       },
       name: {
-        fontSize: 40,
+        fontSize: 40
       },
       time: {
         fontSize: 30
@@ -135,7 +138,7 @@ export default class RobotBuild extends React.Component<Props> {
       resource: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        height:40,
+        height: 40,
         width: '100%',
         borderBottomWidth: 1
       },
@@ -154,7 +157,7 @@ export default class RobotBuild extends React.Component<Props> {
         color: 'green'
       },
       buttonBar: {
-        flexDirection: 'row',
+        flexDirection: 'row'
       },
       build: {
         height: 40,
@@ -162,7 +165,7 @@ export default class RobotBuild extends React.Component<Props> {
         borderRadius: 5,
         backgroundColor: 'green',
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'center'
       },
       cancel: {
         height: 40,
@@ -170,22 +173,31 @@ export default class RobotBuild extends React.Component<Props> {
         borderRadius: 5,
         backgroundColor: 'red',
         justifyContent: 'center',
-        alignItems: 'center',
+        alignItems: 'center'
       },
       buttonText: {
-        fontSize: 30,
+        fontSize: 30
       }
     }
-    return(
+    return (
       <View>
         <View style={styles.mainPicAndArrows}>
-          <TouchableOpacity style={previous ? styles.activeArrow : styles.inactiveArrow}
-                            onPress= {previous ? () => this.buildPrev() : null } >
+          <TouchableOpacity
+            style={previous
+            ? styles.activeArrow
+            : styles.inactiveArrow}
+            onPress=
+            {previous ? () => this.buildPrev() : null }>
             <Text style={styles.arrow}>{left}</Text>
           </TouchableOpacity>
           <Image source={currentRobot.pic}/>
-          <TouchableOpacity style={next ? styles.activeArrow : styles.inactiveArrow}
-                            onPress={next ? () => this.buildNext() : null} >
+          <TouchableOpacity
+            style={next
+            ? styles.activeArrow
+            : styles.inactiveArrow}
+            onPress={next
+            ? () => this.buildNext()
+            : null}>
             <Text style={styles.arrow}>{right}</Text>
           </TouchableOpacity>
         </View>
@@ -194,22 +206,26 @@ export default class RobotBuild extends React.Component<Props> {
             <Text style={styles.time}>{secondsToHms(timeRemaining)}</Text>
           </Text>
         </View>
-        {Object.keys(currentRobot.resources).map((resource) => {
-          let required = currentRobot.resources[resource]
-          let owned = this.state.resources[resource]
-          let enough = required <= owned
-          return(
-            <View style={styles.resource}
-                  key={resource + currentRobot} >
-              <Text style={styles.resourceName}>{resource}</Text>
-              <Text style={enough  ? styles.resourceAmountGreen : styles.resourceAmountRed}>
-                {currentRobot.resources[resource]}/{this.state.resources[resource]}
-              </Text>
-            </View>)
-        })}
+        {Object
+          .keys(currentRobot.resources)
+          .map((resource) => {
+            let required = currentRobot.resources[resource]
+            let owned = this.state.resources[resource]
+            let enough = required <= owned
+            return (
+              <View style={styles.resource} key={resource + currentRobot}>
+                <Text style={styles.resourceName}>{resource}</Text>
+                <Text
+                  style={enough
+                  ? styles.resourceAmountGreen
+                  : styles.resourceAmountRed}>
+                  {currentRobot.resources[resource]}/{this.state.resources[resource]}
+                </Text>
+              </View>
+            )
+          })}
         <View style={styles.buttonBar}>
-          <TouchableOpacity style={styles.build}
-                            onPress={() => this.changeBuildCheck()}>
+          <TouchableOpacity style={styles.build} onPress={() => this.changeBuildCheck()}>
             <Text style={styles.buttonText}>Build</Text>
           </ TouchableOpacity>
           <TouchableOpacity style={styles.cancel}>
