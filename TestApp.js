@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text } from 'react-native';
+import { Provider } from 'react-redux';
 import { createStackNavigator } from 'react-navigation'; // Version can be specified in package.json
 
 
@@ -8,45 +9,28 @@ import RobotInstructions from './src/components/robots/RobotInstructions';
 import RobotBuild from './src/components/robotBuild/RobotBuild';
 import HomeScreen from './src/components/homeScreen/HomeScreen';
 import CreateRoute from './App';
-
-// class HomeScreen extends React.Component {
-//   render() {
-//     return (
-//       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-//         <Text>Test</Text>
-//       </View>
-//     );
-//   }
-// }
-
-class DetailsScreen extends React.Component {
-  render() {
-    return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Details Screen</Text>
-      </View>
-    );
-  }
-}
+import configureStore from "./src/store";
 
 const RootStack = createStackNavigator(
   {
-    // Home: HomeScreen,
-    Details: DetailsScreen,
-    Root: Root,
+    Root,
     CreateRoute, 
     RobotInstructions,
     RobotBuild,
     HomeScreen
   },
   {
-    initialRouteName: 'HomeScreen',
+    initialRouteName: 'Root',
     headerMode: 'none'
   }
 );
 
 export default class App extends React.Component {
   render() {
-    return <RootStack />;
+    return (
+      <Provider store={configureStore()} >
+        <RootStack />
+      </ Provider>
+    );
   }
 }
