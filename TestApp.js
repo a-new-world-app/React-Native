@@ -5,6 +5,7 @@ import { createStackNavigator } from 'react-navigation'; // Version can be speci
 
 import Root from './src/Root';
 import RobotInstructions from './src/components/robots/RobotInstructions';
+import RobotBuild from './src/components/robotBuild/RobotBuild';
 
 class HomeScreen extends React.Component {
   render() {
@@ -32,9 +33,11 @@ const RootStack = createStackNavigator(
     Details: DetailsScreen,
     Root: Root,
     RobotInstructions: RobotInstructions,
+    RobotBuild: RobotBuild
   },
   {
-    initialRouteName: 'Root',
+    initialRouteName: 'RobotInstructions',
+    headerMode: 'none'
   }
 );
 

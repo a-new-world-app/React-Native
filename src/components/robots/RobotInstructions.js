@@ -17,6 +17,7 @@ export default class RobotInstuctions extends Component<Props> {
 
   constructor(props){
     super(props);
+    console.log(props)
     this.state = {
       id: 1,
       pic: require("../../../assets/robots/robo1.png"),
@@ -31,6 +32,7 @@ export default class RobotInstuctions extends Component<Props> {
     }
     
     this.updateWorkers = this.updateWorkers.bind(this)
+
   };
 
   updateWorkers(string, input){
@@ -51,6 +53,10 @@ export default class RobotInstuctions extends Component<Props> {
     }
   }
 
+  doThing = () => {
+    this.props.navigation.navigate('RobotBuild')
+  }
+
   componentDidMount(){
     
   }
@@ -66,7 +72,7 @@ export default class RobotInstuctions extends Component<Props> {
         style={styles.container}>
         {this.state.alert}
         <Image  source={this.state.pic} />
-        <TouchableOpacity 
+        <TouchableOpacity onPress={() => this.doThing()}
                           style= {styles.nextOpac} >
           <Image  source={this.state.next}
                   style={styles.nextRobot}/>
