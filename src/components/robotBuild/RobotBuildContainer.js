@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import RobotInstructions from "./RobotInstructions";
+import RobotBuild from "./RobotBuild";
 import { retrieveRobots } from "../../actions/robotActions";
 
 const mapStateToProps = state => ({
@@ -10,5 +10,4 @@ const mapDispatchToProps = dispatch => ({
   retrieveRobots: () => dispatch(retrieveRobots())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RobotInstructions);
-
+export default connect(mapStateToProps, mapDispatchToProps)(RobotBuild);
