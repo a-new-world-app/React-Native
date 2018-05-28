@@ -12,6 +12,7 @@ import {
   Alert
 } from 'react-native';
 import MapView from 'react-native-maps';
+import Icon from 'react-native-vector-icons/FontAwesome'
 import { connect } from 'react-redux';
 import {saveDescription} from '../actions/Description'
 
@@ -172,6 +173,7 @@ class Map extends Component<{}> {
           }
           )}
         </MapView>
+
         <TextInput
           multiline = {true}
           numberOfLines = {8}
@@ -181,16 +183,31 @@ class Map extends Component<{}> {
           value = {this.state.description}
           onChangeText = { (field) => this.updateDescription(field)}>
         </TextInput>
+
+
         <View style={styles.buttons}>
-        <TouchableOpacity style={styles.button}>
-            <Text style={styles.text}>Submit Picture</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style = {styles.button}
-          onPress={this.handleDescription}>
-          <Text style={styles.text}>Submit Description</Text>
-        </TouchableOpacity>
+          <View style = {styles.iconContainer}>
+          <TouchableOpacity
+            style = {styles.button}
+            onPress={this.handleDescription}>
+            <Text style={styles.text}>
+              <Icon name="comments" size={30} color="white" />
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.text}>
+              <Icon name="camera" size={30} color="white" />
+            </Text>
+          </TouchableOpacity>
+          </View>
+          <View style={styles.textContainer}>
+            <Text style={styles.text}> Submit</Text>
+            <Text style={styles.text}> Add Photo</Text>
+          </View>
         </View>
+
+
       </KeyboardAvoidingView>
     );
   }
@@ -199,25 +216,14 @@ class Map extends Component<{}> {
 
 
 const styles = StyleSheet.create({
-  // container: {
-  //   flex: 1,
-  //   justifyContent: 'space-between',
-  //   alignItems: 'center',
-  //   backgroundColor: '#F5FCFF',
-  // },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+
+  container: {
+    // backgroundColor:'#FFF033'
   },
   map: {
-    // position: 'absolute',
-    // top:0,
-    // left:0,
-    // right:0,
-    // bottom:1/2 * height,
-    height: height/2,
-    width: width
+    height: height/1.7,
+    width: width,
+
   },
   radius: {
     width: 50,
@@ -237,28 +243,52 @@ const styles = StyleSheet.create({
     borderColor: 'white',
     backgroundColor:'#007AFF'
   },
+
   input:{
     width: width,
     height: height/4,
     textAlignVertical: 'top',
-    borderColor: 'gray',
-    borderWidth: 1
+    padding: 20,
+    marginTop:'1%',
+    fontFamily:'serif',
+    borderColor: '#FC3F1F',
+    borderWidth:5,
+    borderTopRightRadius: 20,
+    fontSize:16,
+    fontWeight:'400'
   },
   buttons:{
+    flexDirection:'column',
+    justifyContent:'space-between',
+    height:'13%',
+    paddingTop:'-2%',
+    backgroundColor:'#FEAB43'
+  },
+  iconContainer:{
     flexDirection:'row',
     justifyContent:'space-between',
-    height:'10%'
+    height:'60%',
+    paddingTop:'1%',
+    paddingLeft:'5%',
+    paddingRight:'5%',
   },
   button: {
-    flexDirection: 'row',
-    height: '100%',
-    width: '35%',
-    margin:'5%',
-    backgroundColor:'#a1c3e6',
+    width: '15%',
+    borderRadius: 50,
+    backgroundColor:'#FC5A29',
+    padding: 10
+  },
+  textContainer:{
+    flexDirection:'row',
+    justifyContent: 'space-between',
+    top:'-2%',
+    paddingLeft:'5%',
+    paddingRight:'3%',
   },
   text:{
-    margin: 'auto',
-    fontSize:13,
+    color:'white',
+    fontWeight:'700',
+    fontSize:15,
   }
 
 });
