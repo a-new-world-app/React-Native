@@ -4,7 +4,7 @@ import { createStackNavigator } from 'react-navigation'; // Version can be speci
 
 
 import Root from './src/Root';
-import RobotInstructions from './src/components/';
+import RobotInstructions from './src/components/robots/RobotInstructions';
 
 class HomeScreen extends React.Component {
   render() {
