@@ -191,13 +191,13 @@ class Map extends Component<{}> {
             style = {styles.button}
             onPress={this.handleDescription}>
             <Text style={styles.text}>
-              <Icon name="comments" size={30} color="white" />
+              <Icon name="comments" size={30} color="#EBBF92" />
             </Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.button}>
             <Text style={styles.text}>
-              <Icon name="camera" size={30} color="white" />
+              <Icon name="camera" size={30} color="#EBBF92" />
             </Text>
           </TouchableOpacity>
           </View>
@@ -246,36 +246,39 @@ const styles = StyleSheet.create({
 
   input:{
     width: width,
-    height: height/4,
+    height: height/4.5,
     textAlignVertical: 'top',
     padding: 20,
-    marginTop:'1%',
+    marginTop:'3%',
     fontFamily:'serif',
-    borderColor: '#FC3F1F',
+    borderColor: '#6CB397',
     borderWidth:5,
     borderTopRightRadius: 20,
     fontSize:16,
-    fontWeight:'400'
+    fontWeight:'700',
+    color:'grey',
+
   },
   buttons:{
     flexDirection:'column',
     justifyContent:'space-between',
-    height:'13%',
+    height:'14%',
+    marginTop:'3%',
     paddingTop:'-2%',
-    backgroundColor:'#FEAB43'
+    backgroundColor:'#8AC8DD'
   },
   iconContainer:{
     flexDirection:'row',
     justifyContent:'space-between',
     height:'60%',
-    paddingTop:'1%',
+    paddingTop:'2%',
     paddingLeft:'5%',
     paddingRight:'5%',
   },
   button: {
-    width: '15%',
+    width: '14%',
     borderRadius: 50,
-    backgroundColor:'#FC5A29',
+    backgroundColor:'#0D417A',
     padding: 10
   },
   textContainer:{
