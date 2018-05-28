@@ -8,7 +8,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  retrieveRuns: () => dispatch(retrieveRobots())
+  retrieveRobots: () => dispatch(retrieveRobots())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RobotInstructions);
