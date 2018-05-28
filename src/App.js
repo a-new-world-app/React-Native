@@ -6,3 +6,5 @@ import {View, Text} from 'react-native';
 import Login from "./components/LoginContainer";
 
 const App =  () => <Login />;
+
+export default App;

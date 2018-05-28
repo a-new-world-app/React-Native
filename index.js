@@ -1,4 +1,4 @@
 import { AppRegistry } from 'react-native';
-import Root from './src/components/robotBuild/RobotBuild';
+import Root from './src/Root';
 
 AppRegistry.registerComponent('NewWorld', () => Root);
