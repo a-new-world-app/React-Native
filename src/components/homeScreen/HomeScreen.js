@@ -4,7 +4,7 @@ import {View, Text, Image, TouchableOpacity} from 'react-native';
 
 export default class HomeScreen extends React.Component<Props> {
 
-  goCreateRoute = () => this.props.navigation.navigate('CreateRoute')
+  goCreateRoute = () => this.props.navigation.navigate('Map')
 
   goRobotBuild = () => this.props.navigation.navigate('RobotBuild')
 

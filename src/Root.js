@@ -10,14 +10,16 @@ import HomeScreen from './components/homeScreen/HomeScreen';
 import CreateRoute from './App';
 import configureStore from "./store";
 import LoginContainer from './components/LoginContainer';
+import Map from './components/Map';
 
 const RootStack = createStackNavigator(
   {
     LoginContainer,
-    CreateRoute, 
+    CreateRoute,
     RobotInstuctionsContainer,
     RobotBuildContainer,
-    HomeScreen
+    HomeScreen,
+    Map
   },
   {
     initialRouteName: 'LoginContainer',

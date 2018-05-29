@@ -15,7 +15,7 @@ import {merge} from 'lodash';
 import MapView from 'react-native-maps';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { connect } from 'react-redux';
-import {saveDescription} from '../actions/Description'
+import {createPath, updatePath, endPath} from '../actions/pathActions';
 
 
 var {height, width} = Dimensions.get('window')
@@ -41,8 +41,8 @@ class Map extends Component<{}> {
         longitudeDelta: 0.0421
       },
       currentPos: {
-        latitude: null,
-        longitude: null
+        latitude: 0,
+        longitude: 0
       },
       description: "please describe the path",
       landmarkPos: [
@@ -52,13 +52,12 @@ class Map extends Component<{}> {
       {pos: {latitude: 37.78925, longitude: -122.4524}, name: 4},
       {pos: {latitude: 37.79025, longitude: -122.4624}, name: 5},
     ],
-      path:null,
-      currentStep: {}
-      steps:[],
-      nextLocation:null,
-      pathID: null,
+      steps: this.props.path.steps || [],
+      pathId: this.props.path.id,
+      nextLocation: this.props.path.nextLocation,
+      startPoint: this.props.path.start_point,
     }
-    this.handleDescription = this.handleDescription.bind(this);
+
   }
 
   watchID: number = null;
@@ -124,6 +123,16 @@ class Map extends Component<{}> {
 
   }
 
+  componentWillReceiveProps(nextProps){
+    if(this.props !== nextProps){
+      this.setState({
+        steps: nextProps.path.steps || [],
+        pathId: nextProps.path.id,
+        nextLocation: nextProps.path.nextLocation,
+        startPoint: nextProps.path.start_point,
+      })
+    }
+  }
 
   componentWillUnmount(){
     navigator.geolocation.clearWatch(this.watchId)
@@ -134,34 +143,59 @@ class Map extends Component<{}> {
     this.setState({description: field});
   }
 
-  handleDescription(e) {
-    e.preventDefault();
-    this.props.saveDescription(this.state.description);
-  }
-
-  handleSubmit = () => {
-    if(this.state.pathID){
-
-    } else {
-      
-    }
-  }
 
   chooseLocation = (location) => {
-    if(this.state.path) {
-      this.setState({nextLocation: location})
+    console.log('chooseLocation', location)
+    if(this.state.pathId) {
+      // this.createPath(this.props.sessionToken, this.compilePath())
     } else {
-      this.setState({path:{
-        'start_point':location.pos}
-      },
-      {currentStep:{
-        'start_point': location.pos
-      }})
+      console.log('sessionToken', this.props.sessionToken)
+      this.props.createPath(this.props.sessionToken,
+        {path:{
+        'start_point': {
+          latitude: location.pos.latitude,
+          longitude:location.pos.longitude
+        }
+        }
+      })
     }
   }
+
+  compilePath = () =>( {
+    steps: this.state.steps,
+    nextLocation: this.state.nextLocation,
+    start_point: this.state.startPoint,
+    id: this.state.pathId,
+  })
+
+  handleSubmit = () => {
+    if(this.state.pathId){
+      this.props.updatePath(this.props.sessionToken,this.state.pathId, this.compilePath());
+    } else {
+      this.props.createPath(this.props.sessionToken, this.compilePath());
+    }
+  }
+
+  nextLocation = (steps) => {
+    console.log(steps)
+    if(!steps) return null;
+
+    let step = steps[steps.length - 1];
+    if(step.end_point) {
+       return {latitude: step.end_point.latitude, longitude: step.end_point.longitude}
+    } else {
+      return {latitude: step.start_point.latitude, longitude: step.start_point.longitude}
+    }
+  }
+
+  endPath = () => {
+    this.props.endPath(this.props.sessionToken);
+  }
+
 
   render() {
     console.log("render", this.state)
+    console.log('props', this.props)
     let alertMessage = this.state.path ? "please choose next step" : 'please choose starting location'
     return (
       <KeyboardAvoidingView
@@ -216,7 +250,7 @@ class Map extends Component<{}> {
           <View style = {styles.iconContainer}>
           <TouchableOpacity
             style = {styles.button}
-            onPress={this.handleDescription}>
+            onPress={this.handleSubmit}>
             <Text style={styles.text}>
               <Icon name="paper-plane" size={30} color="#EBBF92" />
             </Text>
@@ -227,24 +261,22 @@ class Map extends Component<{}> {
               <Icon name="camera" size={30} color="#EBBF92" />
             </Text>
           </TouchableOpacity>
+
+          <TouchableOpacity style={styles.button}>
+            <Text style={styles.text}
+              onPress = {this.endPath}>
+              <Icon name="times" size={32 } color="#EBBF92" />
+            </Text>
+          </TouchableOpacity>
+
           </View>
           <View style={styles.textContainer}>
             <Text style={styles.text}> Submit</Text>
             <Text style={styles.text}> Add Photo</Text>
+            <Text style={styles.text}> End </Text>
           </View>
         </View>
 
-        {  this.state.currentStep ? '' :
-          Alert.alert(
-          'Next Location',
-          alertMessage,
-
-          [
-            {text: 'OK', onPress: () => {}},
-          ],
-          { onDismiss: () => {} }
-        )}>
-        }
 
       </KeyboardAvoidingView>
     );
@@ -317,7 +349,7 @@ const styles = StyleSheet.create({
     width: '18%',
     borderRadius: 50,
     backgroundColor:'#0D417A',
-    padding: 16
+    padding: 17
   },
   textContainer:{
     flexDirection:'row',
@@ -337,9 +369,14 @@ const styles = StyleSheet.create({
 
 
 
-
+const mapStateToProps = (state) => ({
+  sessionToken: state.session.sessionToken,
+  path: state.path
+})
 const mapDispatchToProps = (dispatch) => ({
-  saveDescription: (description) => dispatch(saveDescription(description))
+  createPath: (token, path) => createPath(token, path, dispatch),
+  updatePath: (token, pathId, path) => updatePath(token, pathId, path, dispatch),
+  endPath: (token) => dispatch(endPath(token)),
 });
 
-export default connect(null, mapDispatchToProps)(Map);
+export default connect(mapStateToProps, mapDispatchToProps)(Map);
