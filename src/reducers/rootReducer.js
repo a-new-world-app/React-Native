@@ -2,11 +2,13 @@ import { combineReducers } from "redux";
 
 import session from "./sessionReducer";
 import robots from "./robotReducer";
+import path from "./pathReducer";
 import { LOG_OUT } from "../actions/sessionActions";
 
 const rootReducer = combineReducers({
   session,
-  robots
+  robots,
+  path
 });
 
 export default (state, action) => {

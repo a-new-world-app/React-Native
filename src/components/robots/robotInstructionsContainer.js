@@ -3,7 +3,7 @@ import RobotInstructions from "./RobotInstructions";
 import { retrieveRobots } from "../../actions/robotActions";
 
 const mapStateToProps = state => ({
-  
+
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -11,4 +11,3 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RobotInstructions);
-
