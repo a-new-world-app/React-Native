@@ -9,12 +9,10 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView
 } from 'react-native';
-// import {merge} from 'lodash'
 
 import RobotJob from './RobotJob.js';
 
 export default class RobotInstuctions extends Component<Props> {
-
   constructor(props){
     super(props);
     console.log(props)
