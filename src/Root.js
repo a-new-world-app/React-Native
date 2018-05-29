@@ -20,7 +20,7 @@ const RootStack = createStackNavigator(
     Map
   },
   {
-    initialRouteName: 'HomeScreen',
+    initialRouteName: 'LoginContainer',
     headerMode: 'none'
   }
 );

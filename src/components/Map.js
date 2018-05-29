@@ -16,6 +16,7 @@ import MapView from 'react-native-maps';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { connect } from 'react-redux';
 import {createPath, updatePath, endPath, currentPath} from '../actions/pathActions';
+import * as Submition from '../util/submition';
 
 
 var {height, width} = Dimensions.get('window')
@@ -44,7 +45,7 @@ class Map extends Component<{}> {
         latitude: 0,
         longitude: 0
       },
-      description: "please describe the path",
+      description: "",
       landmarkPos: [
       {pos: {latitude: 37.78825, longitude: -122.4224}, name: 1},
       {pos: {latitude: 37.78725, longitude: -122.4124}, name: 2},
@@ -181,6 +182,32 @@ class Map extends Component<{}> {
   }
 
   handleSubmit = () => {
+    let curLat = this.state.currentPos.latitude;
+    let curLng = this.state.currentPos.longitude;
+    let landMarkLat = this.state.landmarkPos[0].pos.latitude;
+    let landMarkLng = this.state.landmarkPos[0].pos.longitude;
+
+    if(!Submition.isDescriptionValid(this.state.description) ){
+      Alert.alert(
+        'Alert',
+        'Please write the description of your path.',
+        [
+          {text: 'OK', onPress: () => {}},
+        ],
+        { onDismiss: () => {} }
+      )
+    } else if (!Submition.isCloseToLandmark(curLat,curLng,landMarkLat,landMarkLng)){
+
+      Alert.alert(
+        'Alert',
+        'Go closer to the Landmark!',
+        [
+          {text: 'OK', onPress: () => {}},
+        ],
+        { onDismiss: () => {} }
+      )
+    }
+    else {
     console.log("handleSubmit")
     let endPosition = this.state.nextLocation;
     let nextStep = {end_point: endPosition, description: this.state.description}
@@ -190,6 +217,7 @@ class Map extends Component<{}> {
       nextStep.start_point = this.state.steps[this.state.steps.length - 1].end_point
     }
     this.props.updatePath(this.props.sessionToken, this.state.pathId, this.compilePath(null ,nextStep))
+    }
   }
 
   nextLocation = (steps) => {
@@ -274,6 +302,7 @@ class Map extends Component<{}> {
           maxLength = {500}
           style ={styles.input}
           value = {this.state.description}
+          placeholder = 'Please describe your path'
           onChangeText = { (field) => this.updateDescription(field)}>
         </TextInput>
 
