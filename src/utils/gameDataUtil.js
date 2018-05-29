@@ -8,32 +8,31 @@ export const calculateProgress = (gameData) => {
     'gold',
     'titanium',
   ];
-  const taskArr = gameData.tasks;
+  const gatherArr = gameData.gather;
   const now = Date.now();
   const robotWorkStrength = robotWork(gameData.robots);
+  const build = gameData.build;
+  const robots = gameData.robots;
+  console.log('rws', robotWorkStrength);
+
   let addedRes = handleExplore(gameData.explore, robotWorkStrength.explore, now);
-  for (let task in taskArr) {
-    if (task.type === 'BUILD') {
-      task.progress += //TODO build
-      task.lastUpdated = now;
-      if (task.progress > task.required){
-        gameData.robots[task.building] += 1;
-        task = 'COMPLETE';
-      }
-    } else if (task.type === 'GATHER') {
-      if (now > task.end){
-        addedRes[task.resource] += task.amount;
-        gameData.robots[task.robot] += 1;
-        task = 'COMPLETE';
-      }
+  for (let task in gatherArr) {
+    if (now > task.end){
+      addedRes[task.resource] += task.amount;
+      gameData.robots[task.robot] += 1;
+      task = 'COMPLETE';
     }
   }
-  for (let resource in resourceTypes){
-    gameData.resources[resource] += addedRes[resource];
-  }
 
-  const ongoingTasks = taskArr.map((task)=> Array.isArray(task));
+  gameData.build = handleBuild(build, robotWorkStrength.build, robots,  now);
+
+  resourceTypes.forEach ((resource) => {
+    gameData.resources[resource] += addedRes[resource];
+  });
+
+  const ongoingTasks = gatherArr.map((task)=> Array.isArray(task));
   gameData.tasks = ongoingTasks;
+  console.log('gameData', gameData);
   return gameData;
 };
 
@@ -45,10 +44,9 @@ function robotWork(robots) {
   };
   Object.keys(robots).forEach((robotKey) =>{ 
     let robot = robots[robotKey];
-    work.build += robot.build * robotTypes.build;
-    work.explore += robot.explore * robotTypes.explore;
+    work.build += robot.build * robotTypes[robotKey].build;
+    work.explore += robot.explore * robotTypes[robotKey].explore;
   });
-
   return work;
 }
 
@@ -61,13 +59,26 @@ function handleExplore(exploring, exploringStrength, now) {
     titanium: 0
   };
   if (exploring.lastCheck + 1000 * 60 * 10 < now){
-    resources.iron += Math.ceil((exploringStrength * 10 * Math.random())/(60000(now - exploring.lastCheck)));
-    resources.iron += Math.ceil((exploringStrength * 5 * Math.random())/(60000(now - exploring.lastCheck)));
-    resources.iron += Math.ceil((exploringStrength * 3 * Math.random())/(60000(now - exploring.lastCheck)));
-    resources.iron += Math.ceil((exploringStrength * 2 * Math.random())/(60000(now - exploring.lastCheck)));
-    resources.iron += Math.ceil((exploringStrength * 0.1 * Math.random())/(60000(now - exploring.lastCheck)));
+    const diff = now - exploring.lastCheck;
+    resources.iron += Math.ceil((exploringStrength * 10 * Math.random() * diff)/(60000));
+    resources.copper += Math.ceil((exploringStrength * 5 * Math.random() * diff)/(60000));
+    resources.aluminum += Math.ceil((exploringStrength * 3 * Math.random() * diff)/(60000));
+    resources.gold += Math.ceil((exploringStrength * 2 * Math.random() * diff)/(60000));
+    resources.titanium += Math.ceil((exploringStrength * 0.1 * Math.random() * diff)/(60000));
     exploring.lastCheck = now;
   }
-
   return resources;
+}
+
+function handleBuild(building, str, robots, now){
+  if (!building.robot) return; 
+  const timeDif = now - building.lastCheck;
+  building.lastCheck = now;
+  building.progress += str * timeDif / 1000;
+  if (building.progress > building.needed){
+    robots[building.robot].waiting += 1;
+    return {};
+  }
+  console.log('building', building);
+  return building;
 }
