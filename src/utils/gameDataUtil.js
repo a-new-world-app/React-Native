@@ -1,6 +1,8 @@
 import robotTypes from '../../assets/robots/robotTypes.js';
 
 export const calculateProgress = (gameData) => {
+  const now = Date.now();
+  if (gameData.lastCheck + 60 * 1000 > now) return gameData;
   const resourceTypes = [
     'iron',
     'copper',
@@ -9,30 +11,27 @@ export const calculateProgress = (gameData) => {
     'titanium',
   ];
   const gatherArr = gameData.gather;
-  const now = Date.now();
   const robotWorkStrength = robotWork(gameData.robots);
   const build = gameData.build;
   const robots = gameData.robots;
-  console.log('rws', robotWorkStrength);
-
   let addedRes = handleExplore(gameData.explore, robotWorkStrength.explore, now);
-  for (let task in gatherArr) {
+  gatherArr.forEach((task) => {
     if (now > task.end){
+      gameData.robots[task.robot].waiting += 1;
+      gameData.robots[task.robot].gathering -= 1;
       addedRes[task.resource] += task.amount;
-      gameData.robots[task.robot] += 1;
-      task = 'COMPLETE';
+      task.complete = true;
     }
-  }
-
+  });
   gameData.build = handleBuild(build, robotWorkStrength.build, robots,  now);
 
   resourceTypes.forEach ((resource) => {
     gameData.resources[resource] += addedRes[resource];
   });
 
-  const ongoingTasks = gatherArr.map((task)=> Array.isArray(task));
-  gameData.tasks = ongoingTasks;
-  console.log('gameData', gameData);
+  const ongoingTasks = gatherArr.filter((task)=> !task.complete);
+  gameData.gather = ongoingTasks;
+  gameData.lastCheck = now;
   return gameData;
 };
 
@@ -71,6 +70,7 @@ function handleExplore(exploring, exploringStrength, now) {
 }
 
 function handleBuild(building, str, robots, now){
+  console.log('handlebuild', building);
   if (!building.robot) return; 
   const timeDif = now - building.lastCheck;
   building.lastCheck = now;
@@ -79,6 +79,6 @@ function handleBuild(building, str, robots, now){
     robots[building.robot].waiting += 1;
     return {};
   }
-  console.log('building', building);
+  console.log('handlebuild', building);
   return building;
 }

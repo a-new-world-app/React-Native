@@ -1,50 +1,18 @@
 import React from 'react';
 import {View, Image, TouchableOpacity, Text, Alert} from 'react-native';
+
 import {secondsToHms} from '../../util/timeConversion'
+import robotTypes from '../../../assets/robots/robotTypes'
 
 export default class RobotBuild extends React.Component < Props > {
   constructor(props) {
     super(props)
     this.state = {
-      currentlyBuilding: 2,
+      currentlyBuilding: gameData.build.robot,
       lookingAt: 1,
-      buildingProgress: 10,
-      buildRate: 5,
-      resources: {
-        steel: 10000,
-        gold: 1000,
-        titanium: 50,
-        aluminum: 5000,
-        copper: 50
-      },
-      robots: {
-        1: {
-          pic: require("../../../assets/robots/robo1.png"),
-          time: 100000,
-          name: 'Bob',
-          resources: {
-            steel: 50,
-            gold: 0,
-            titanium: 20,
-            aluminum: 20,
-            copper: 5
-          }
-        },
-        2: {
-          pic: require("../../../assets/robots/robo2.png"),
-          time: 1000000,
-          name: "Shirley",
-          resources: {
-            steel: 20,
-            gold: 30,
-            titanium: 20,
-            aluminum: 20000,
-            copper: 2
-          }
-        }
-      }
+      resources: gameData.resources,
+      robots: Object.keys(gameData.robots)
     }
-
   }
 
   buildNext = () => this.setState({

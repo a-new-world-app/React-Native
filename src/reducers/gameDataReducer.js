@@ -4,11 +4,13 @@ import { RECEIVE_GAME_DATA } from "../actions/gameDataActions";
 import { calculateProgress } from '../utils/gameDataUtil';
 
 const defaultState = {
+  lastCheck: 1527621031493,
   robots: {
     1: {
       waiting: 0,
       build: 1,
       explore: 1,
+      gathering: 1,
     }
   },
   build: {
@@ -17,7 +19,12 @@ const defaultState = {
     needed: 100,
     lastCheck: 1527621031493,
   },
-  gather: [],
+  gather: [{
+    end: 1527621031493,
+    resource: 'iron',
+    amount: 100000,
+    robot: 1,
+  }],
   resources: {
     iron: 0,
     copper: 0,
