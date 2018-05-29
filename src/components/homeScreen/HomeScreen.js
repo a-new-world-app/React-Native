@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet,TouchableOpacity,
 ImageBackground} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome'
 
 
 export default class HomeScreen extends React.Component<Props> {
@@ -20,17 +21,26 @@ export default class HomeScreen extends React.Component<Props> {
       <View style={styles.main}>
         <Image source={robotPic} style={styles.Bob} />
         <Text style={styles.welcome}>Hello, what do you want to do? </Text>
-        <TouchableOpacity style={styles.button}
+        <TouchableOpacity style={[styles.explore, styles.button]}
                           onPress={this.goCreateRoute}>
-          <Text>Explore</Text>
+          <View style = {styles.buttonLabel}>
+            <Icon name="map" size={28} color="white" />
+            <Text style = {styles.label}> Explore </Text>
+          </View>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button}
+        <TouchableOpacity style={[styles.manage, styles.button]}
                           onPress={this.goRobotInstructions}>
-          <Text>Manage Robots</Text>
+          <View style = {styles.buttonLabel}>
+            <Icon name="edit" size={30} color="white" />
+            <Text style = {styles.label}>Manage Robots</Text>
+          </View>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button}
+        <TouchableOpacity style={[styles.build, styles.button]}
                           onPress={this.goRobotBuild}>
-          <Text>Build Robots</Text>
+          <View style = {styles.buttonLabel}>
+              <Icon name="wrench" size={30} color="white" />
+              <Text style = {styles.label}> Build Robots</Text>
+          </View>
         </TouchableOpacity>
 
       </View>
@@ -44,7 +54,7 @@ const styles = StyleSheet.create({
 
   backgroundImage: {
        flex: 1,
-       resizeMode: 'center'
+       // resizeMode: 'center'
    },
    main: {
      justifyContent: 'space-around',
@@ -54,23 +64,47 @@ const styles = StyleSheet.create({
    Bob: {
      top: '10%',
      width: '40%',
-     height: '43%'
+     height: '43%',
+     marginBottom:'10%',
    },
    welcome: {
      top: '3%',
      fontSize: 25,
      color:'white',
      fontWeight:'700',
+     marginBottom:'10%',
    },
    button: {
-     backgroundColor: 'lightgreen',
-     height: 40,
+     height: 50,
      width: '50%',
-     justifyContent: 'center',
-     alignItems: 'center',
-     borderRadius: 5
+     borderRadius: 10,
+     marginBottom: 20,
+
    },
+   explore: {
+     backgroundColor: '#D3687A',
+   },
+   manage: {
+     backgroundColor: '#55B3DD'
+   },
+   build: {
+      backgroundColor: '#EEA440'
+   },
+   label:{
+    // position:'absolute',
+    color: 'white',
+    textAlignVertical: 'center',
+    // right: 0,
+    fontSize: 20,
+    color:'white',
+    fontWeight: '700',
+   },
+
    buttonLabel: {
-     fontSize: 20
-   }
+     width: '100%',
+     justifyContent: 'space-between',
+     flexDirection: 'row',
+     padding: 10
+   },
+
 })
