@@ -16,6 +16,10 @@ export const updatePath = (token, pathId, path) =>
     method: "PATCH"
   });
 
+  export const currentPath = (token) =>
+  request("https://a-new-world.herokuapp.com/api/current_path", token, {
+    method: "Get"
+  });
 
 export const endPath = (token) =>
   request("https://a-new-world.herokuapp.com/api/paths", token, {

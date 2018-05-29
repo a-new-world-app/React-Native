@@ -15,7 +15,7 @@ import {merge} from 'lodash';
 import MapView from 'react-native-maps';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { connect } from 'react-redux';
-import {createPath, updatePath, endPath} from '../actions/pathActions';
+import {createPath, updatePath, endPath, currentPath} from '../actions/pathActions';
 
 
 var {height, width} = Dimensions.get('window')
@@ -83,6 +83,7 @@ class Map extends Component<{}> {
   }
 }
   async componentDidMount(){
+    this.props.currentPath(this.props.sessionToken)
     await navigator.geolocation.getCurrentPosition((pos) => {
       let lat = parseFloat(pos.coords.latitude)
       let lng = parseFloat(pos.coords.longitude)
@@ -124,6 +125,7 @@ class Map extends Component<{}> {
   }
 
   componentWillReceiveProps(nextProps){
+    console.log('nextProps', nextProps)
     if(this.props !== nextProps){
       this.setState({
         steps: nextProps.path.steps || [],
@@ -146,34 +148,48 @@ class Map extends Component<{}> {
 
   chooseLocation = (location) => {
     console.log('chooseLocation', location)
+    const nextLocation = {latitude: location.pos.latitude, longitude: location.pos.longitude}
+    console.log(this.compilePath(nextLocation))
     if(this.state.pathId) {
-      // this.createPath(this.props.sessionToken, this.compilePath())
+      this.props.updatePath(this.props.sessionToken,
+                            this.state.pathId,
+                            this.compilePath(nextLocation))
     } else {
-      console.log('sessionToken', this.props.sessionToken)
       this.props.createPath(this.props.sessionToken,
         {path:{
         'start_point': {
           latitude: location.pos.latitude,
           longitude:location.pos.longitude
-        }
+          }
         }
       })
     }
   }
 
-  compilePath = () =>( {
-    steps: this.state.steps,
-    nextLocation: this.state.nextLocation,
+  compilePath = (nextLocation = this.state.nextLocation, step) =>{
+    let steps = this.state.steps;
+    if(step){
+      steps.push(step)
+    };
+
+    return {
+    steps: steps,
+    nextLocation,
     start_point: this.state.startPoint,
     id: this.state.pathId,
-  })
+    }
+  }
 
   handleSubmit = () => {
-    if(this.state.pathId){
-      this.props.updatePath(this.props.sessionToken,this.state.pathId, this.compilePath());
+    console.log("handleSubmit")
+    let endPosition = this.state.nextLocation;
+    let nextStep = {end_point: endPosition, description: this.state.description}
+    if(this.state.steps.length === 0){
+      nextStep.start_point = this.state.startPoint;
     } else {
-      this.props.createPath(this.props.sessionToken, this.compilePath());
+      nextStep.start_point = this.state.steps[this.state.steps.length - 1].end_point
     }
+    this.props.updatePath(this.props.sessionToken, this.state.pathId, this.compilePath(null ,nextStep))
   }
 
   nextLocation = (steps) => {
@@ -197,6 +213,41 @@ class Map extends Component<{}> {
     console.log("render", this.state)
     console.log('props', this.props)
     let alertMessage = this.state.path ? "please choose next step" : 'please choose starting location'
+    let markers = null;
+    if (this.state.nextLocation) {
+      console.log("nextLocatoin", this.state.nextLocation)
+      markers = [this.state.nextLocation].map((landmark) => {
+        return(
+          <MapView.Marker
+           coordinate = {{latitude: landmark.latitude, longitude: landmark.longitude}}>
+
+        </MapView.Marker>
+        )
+      }
+      )
+
+    } else {
+      markers = this.state.landmarkPos.map((landmark) => {
+        return(
+          <MapView.Marker
+          key={Math.random()}
+           coordinate = {landmark.pos}
+           onPress = {() =>
+              Alert.alert(
+                'Alert',
+                'Go to this location?',
+                [
+                  {text: 'No', onPress: () => {}},
+                  {text: 'OK', onPress: () => this.chooseLocation(landmark)},
+                ],
+                { onDismiss: () => {} }
+              )}>
+
+        </MapView.Marker>
+        )
+      }
+      )
+    }
     return (
       <KeyboardAvoidingView
       enabled
@@ -213,26 +264,7 @@ class Map extends Component<{}> {
              </View>
           </MapView.Marker>
 
-          {this.state.landmarkPos.map((landmark) => {
-            return(
-              <MapView.Marker
-              key={Math.random()}
-               coordinate = {landmark.pos}
-               onPress = {() =>
-                  Alert.alert(
-                    'Alert',
-                    'Go to this location?',
-                    [
-                      {text: 'No', onPress: () => {}},
-                      {text: 'OK', onPress: () => this.chooseLocation(landmark)},
-                    ],
-                    { onDismiss: () => {} }
-                  )}>
-
-            </MapView.Marker>
-            )
-          }
-          )}
+          {markers}
         </MapView>
 
         <TextInput
@@ -376,6 +408,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   createPath: (token, path) => createPath(token, path, dispatch),
   updatePath: (token, pathId, path) => updatePath(token, pathId, path, dispatch),
+  currentPath: (token) => currentPath(token, dispatch),
   endPath: (token) => dispatch(endPath(token)),
 });
 
