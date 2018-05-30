@@ -31,7 +31,7 @@ class TakePicture extends Component {
             onPress={this.takePicture.bind(this)}
             style={styles.capture}
           >
-            <Text style={{ fontSize: 14 }}> SNAP </Text>
+            <Text style={{ fontSize: 14 }}>Take Picture</Text>
           </TouchableOpacity>
         </View>
       </View>
