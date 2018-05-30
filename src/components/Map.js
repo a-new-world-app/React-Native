@@ -195,17 +195,16 @@ class Map extends Component<{}> {
     let landMarkLng = this.state.landmarkPos[0].pos.longitude;
 
     if (!this.state.startPoint) {
-      // if (!Submition.isCloseToLandmark(curLat, curLng, landMarkLat, landMarkLng)) {
-      //   Alert.alert(
-      //     'Alert',
-      //     'Go closer to the Landmark!',
-      //     [
-      //       { text: 'OK', onPress: () => { } },
-      //     ],
-      //     { onDismiss: () => { } }
-      //   );
-      // } else
-      if (!this.state.endImageURL) {
+      if (!Submition.isCloseToLandmark(curLat, curLng, landMarkLat, landMarkLng)) {
+        Alert.alert(
+          'Alert',
+          'Go closer to the Landmark!',
+          [
+            { text: 'OK', onPress: () => { } },
+          ],
+          { onDismiss: () => { } }
+        );
+      } else if (!this.state.endImageURL) {
         Alert.alert(
           'Alert',
           'Please take a picture of the landmark first.',
@@ -245,19 +244,17 @@ class Map extends Component<{}> {
         ],
         { onDismiss: () => { } }
       );
-    }
-    // if (!Submition.isCloseToLandmark(curLat,curLng,landMarkLat,landMarkLng)){
+    } else if (!Submition.isCloseToLandmark(curLat,curLng,landMarkLat,landMarkLng)){
 
-    //   Alert.alert(
-    //     'Alert',
-    //     'Go closer to the Landmark!',
-    //     [
-    //       {text: 'OK', onPress: () => {}},
-    //     ],
-    //     { onDismiss: () => {} }
-    //   );
-
-    else {
+      Alert.alert(
+        'Alert',
+        'Go closer to the Landmark!',
+        [
+          {text: 'OK', onPress: () => {}},
+        ],
+        { onDismiss: () => {} }
+      );
+    } else {
       console.log("handleSubmit")
       let endPosition = this.state.nextLocation;
       endPosition.images = [this.state.endImageURL];
