@@ -22,7 +22,7 @@ const RootStack = createStackNavigator(
     CameraTest
   },
   {
-    initialRouteName: 'RobotInstuctionsContainer',
+    initialRouteName: 'LoginContainer',
     headerMode: 'none'
   }
 );

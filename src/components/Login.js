@@ -56,6 +56,8 @@ export default class Test extends React.Component {
       this.props.navigation.navigate('HomeScreen')
     }
     return (
+      <ImageBackground source={require('../../../assets/background/homeScreen.jpeg')}
+                style={styles.backgroundImage}>
       <View>
         <Text>{this.props.user.sessionToken}</Text>
         <TextInput
@@ -67,6 +69,15 @@ export default class Test extends React.Component {
         <Button onPress={this.handleLogin} title="Log In With Google" />
         <Button onPress={this.props.logOut} title="Log Out" />
       </View>
+      </ImageBackground>
     );
   }
 }
+
+const styles = StyleSheet.create({
+
+  backgroundImage: {
+       flex: 1,
+       // resizeMode: 'center'
+   },
+})
