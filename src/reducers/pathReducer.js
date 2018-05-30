@@ -13,7 +13,7 @@ const pathReducer = (oldState = {}, action) => {
       return path;
     case RECEIVE_PATH_UPDATE:
       path = action.payload.pathData;
-      return path;
+      return path
     case CLEAR_PATH:
       return {};
     default:
