@@ -7,13 +7,13 @@ const defaultState = {
   lastCheck: 1527621031493,
   robots: {
     1: {
-      waiting: 0,
+      waiting: 1,
       build: 1,
       explore: 1,
       gathering: 1,
     },
     2: {
-      waiting: 0,
+      waiting: 1,
       build: 1,
       explore: 1,
       gathering: 1,
@@ -26,11 +26,21 @@ const defaultState = {
     lastCheck: 1527621031493,
   },
   gather: [{
-    end: 1527621031493,
-    resource: 'iron',
-    amount: 100000,
-    robot: 1,
-  }],
+      end: 1528631031493,
+      start: 1527621031493,
+      resource: 'iron',
+      amount: 100000,
+      robot: 1,
+    },
+    {
+      resource: 'iron',
+      amount: 100000,
+    },
+    {
+      resource: 'iron',
+      amount: 100000,
+    }
+],
   resources: {
     iron: 10000000,
     copper: 10000000,
@@ -49,7 +59,11 @@ const gameDataReducer = (oldState = defaultState, action) => {
   console.log('gdr', oldState, newState);
   switch (action.type) {
     case RECEIVE_GAME_DATA:
-      newState = merge(newState, action.payload.gameData);
+      if (!action.gameData){
+        console.log('no game data');
+        return oldState;
+      }
+      newState = merge(newState, action.gameData);
       break;
     default:
   }
