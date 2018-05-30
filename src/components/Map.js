@@ -252,6 +252,7 @@ class Map extends Component<{}> {
     } else {
       markers = this.state.landmarkPos.map((landmark) => {
         console.log('landmarkpos', landmark.pos.latitude)
+        let name = landmark.name
         return(
           <MapView.Marker
           key={Math.random()}
@@ -259,7 +260,7 @@ class Map extends Component<{}> {
            onPress = {() =>
               Alert.alert(
                 'Alert',
-                'Go to this location?',
+                `Go to ${name}?`,
                 [
                   {text: 'No', onPress: () => {}},
                   {text: 'OK', onPress: () => this.chooseLocation(landmark)},
