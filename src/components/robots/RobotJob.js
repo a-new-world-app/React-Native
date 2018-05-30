@@ -46,15 +46,17 @@ export default class RobotInstuctions extends Component < Props > {
       numberCont: {
         flexDirection: 'row'
       },
+
       job: {
-          color: '#262626',
+          color: '#3D8390',
           fontSize: 30,
           fontWeight:'700',
         },
       buttonStyle: {
         width: 40,
         height: 40,
-        backgroundColor: '#3487C4'
+        backgroundColor:'#2DCDA7',
+        // backgroundColor: '#3487C4'
       },
 
       buttonLabel: {
@@ -67,10 +69,12 @@ export default class RobotInstuctions extends Component < Props > {
       },
 
       input: {
-        backgroundColor: '#F5CD1D',
+        // backgroundColor: '#F5CD1D',
+        backgroundColor:'#EAEEDF',
         width: 80,
         height:40,
-        color:'#A71A05',
+        // color:'#A71A05',
+        color: '#D296A0',
         fontSize: 17,
         fontWeight:'700',
         textAlign: 'center',

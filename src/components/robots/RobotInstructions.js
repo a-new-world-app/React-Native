@@ -82,38 +82,40 @@ export default class RobotInstuctions extends Component<Props> {
       <ImageBackground
         source={require('../../../assets/background/instruction.png')}
                   style={styles.backgroundImage}>
-      <KeyboardAvoidingView
-        enabled
-        behavior='padding'
-        style={styles.container}>
-        {this.state.alert}
-        {prevRobot}
-        <Image  source={robotTypes[this.state.lookingAt].pic}
-          style = {styles.mainRobot} />
-        {nextRobot}
+        <KeyboardAvoidingView
+          enabled
+          behavior='padding'
+          style={styles.container}>
+          {this.state.alert}
+          {prevRobot}
+          <Image  source={robotTypes[this.state.lookingAt].pic}
+            style = {styles.mainRobot} />
+          {nextRobot}
 
-        <View style= {styles.jobContainer}>
-        <Text style={styles.welcome}>
-          {robotTypes[this.state.lookingAt].description}
-        </Text>
-        <Text style={styles.welcome}>
-          Waiting: {currentRobot.waiting}
-        </Text>
-        <Text style={styles.welcome}>
-          Gathering: {currentRobot.gathering}
-        </Text>
+          <View style= {styles.jobContainer}>
+            <Text style={styles.welcome}>
+              {robotTypes[this.state.lookingAt].description}
+            </Text>
 
-        {
-          ['Build', 'Explore']
-            .map((job) => <RobotJob key={job + currentRobot[job]}
-                                    job={job}
-                                    count={currentRobot[job.toLowerCase()]}
-                                    update={this.updateWorkers}
-                                    />
-                    )
-        }
-        </View>
-      </KeyboardAvoidingView>
+            <View style = {styles.robotStatus}>
+              <Text style={styles.welcome}>
+                Waiting: {currentRobot.waiting}
+              </Text>
+              <Text style={styles.welcome}>
+                Gathering: {currentRobot.gathering}
+              </Text>
+            </View>
+            {
+              ['Build', 'Explore']
+                .map((job) => <RobotJob key={job + currentRobot[job]}
+                                        job={job}
+                                        count={currentRobot[job.toLowerCase()]}
+                                        update={this.updateWorkers}
+                                        />
+                        )
+            }
+          </View>
+        </KeyboardAvoidingView>
       </ImageBackground>
     );
   }
@@ -123,12 +125,6 @@ const styles = StyleSheet.create({
   backgroundImage: {
   flex: 1,
   },
-  // container: {
-  //   flex: 1,
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   backgroundColor: '#F5FCFF',
-  // },
 
   jobContainer:{
     backgroundColor: 'white',
@@ -140,42 +136,53 @@ const styles = StyleSheet.create({
 
   },
   welcome: {
-    fontSize: 20,
+    fontSize: 25,
     textAlign: 'center',
     margin: 10,
+    color:'#7B8A87'
+  },
+  robotStatus:{
+    top: '30%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: '10%',
+    borderBottomWidth: 5,
+    borderBottomColor:'#7EE6BA',
+
   },
   mainRobot:{
     position: 'absolute',
-    top: '10%',
+    top: '5%',
     height: '40%',
-    width: '38%',
+    width: '45%',
     elevation: 3,
-    left: '30%'
+    left: '30%',
+
   },
   nextOpac: {
-    height: 50,
-    width: 50,
+    height: 60,
+    width: 60,
     position: 'absolute',
     right: '8%',
     top: '35%',
-    backgroundColor: 'white',
+    backgroundColor: '#D296A0',
     borderWidth: 1,
     borderRadius: 5,
-    borderColor: '#cdcdcd',
+    borderColor: '#A1DBD7',
     elevation: 3,
   },
   nextRobot: {
-    width: 50,
-    height: 50,
+    width: 60,
+    height: 60,
   },
 
   prevOpac: {
-    height: 50,
-    width: 50,
+    height: 60,
+    width: 60,
     position: 'absolute',
     left: '8%',
     top: '35%',
-    backgroundColor: 'white',
+    backgroundColor: '#D296A0',
     borderWidth: 1,
     borderRadius: 5,
     borderColor: '#cdcdcd',
