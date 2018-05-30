@@ -26,8 +26,12 @@ export default class RobotBuild extends React.Component < Props > {
     console.log(props)
   }
 
-  componentDidMount() {
+  componentDidMount(){
     this.props.getGameData(this.props.sessionToken)
+  }
+
+  componentWillUnmount(){
+    this.props.updateGameData(this.props.sessionToken, this.state.gameData, )
   }
 
   buildNext = () => this.setState({
@@ -39,7 +43,7 @@ export default class RobotBuild extends React.Component < Props > {
   })
 
   changeBuildCheck = () => {
-    if (this.state.currentlyBuilding === null) 
+    if (this.state.currentlyBuilding === null)
       this.checkResources()
     else if (this.state.currentlyBuilding !== this.state.lookingAt) {
       Alert.alert("Change Build", "This will reset your progress, are you sure?", [
@@ -141,26 +145,43 @@ export default class RobotBuild extends React.Component < Props > {
         color: 'green'
       },
       buttonBar: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        justifyConten:'space-between',
+        paddingTop: '5%'
       },
       build: {
         height: 40,
-        width: '50%',
-        borderRadius: 5,
-        backgroundColor: 'green',
+        width: '30%',
+        borderRadius: 10,
+        backgroundColor: '#E7BD16',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        padding:2,
+        marginLeft: '10%',
+        marginRight: '20%',
+
       },
       cancel: {
         height: 40,
-        width: '50%',
-        borderRadius: 5,
-        backgroundColor: 'red',
+        width: '30%',
+        borderRadius: 10,
+        color: '#E7BD16',
+        fontWeight:'700',
+        backgroundColor: '#2775C3',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        padding:2,
+        marginRight: '10%',
       },
-      buttonText: {
-        fontSize: 30
+      buttonBuildText: {
+        fontSize: 20,
+        color:'#2775C3',
+        fontWeight:'700',
+      },
+      buttonCancelText:{
+        fontSize: 20,
+        color:'#E7BD16',
+        fontWeight:'700',
       }
     }
     let previous = this.state.gameData.robots[this.state.lookingAt - 1];
@@ -170,12 +191,12 @@ export default class RobotBuild extends React.Component < Props > {
     const percentProgress = Math.floor(100 * (this.state.gameData.build.progress / this.state.gameData.build.needed))
     console.log('progress', percentProgress)
     const progressElement = (this.state.lookingAt === this.state.currentlyBuilding) ?
-      <Text style={styles.progress}>{`${percentProgress}% Completed`}</Text> : 
+      <Text style={styles.progress}>{`${percentProgress}% Completed`}</Text> :
       <Text style={styles.progress}></Text>
     const left = '<';
     const right = '>';
 
-    
+
     return (
       <View>
         <View style={styles.mainPicAndArrows}>
@@ -221,10 +242,10 @@ export default class RobotBuild extends React.Component < Props > {
           })}
         <View style={styles.buttonBar}>
           <TouchableOpacity style={styles.build} onPress={() => this.changeBuildCheck()}>
-            <Text style={styles.buttonText}>Build</Text>
+            <Text style={styles.buttonBuildText}>Build</Text>
           </ TouchableOpacity>
           <TouchableOpacity style={styles.cancel}>
-            <Text style={styles.buttonText}>Cancel</Text>
+            <Text style={styles.buttonCancelText}>Cancel</Text>
           </ TouchableOpacity>
         </ View>
       </View>

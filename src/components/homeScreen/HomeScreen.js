@@ -79,7 +79,6 @@ const styles = StyleSheet.create({
      width: '50%',
      borderRadius: 10,
      marginBottom: 20,
-
    },
    explore: {
      backgroundColor: '#D3687A',
@@ -92,7 +91,7 @@ const styles = StyleSheet.create({
    },
    label:{
     // position:'absolute',
-    color: 'white',
+
     textAlignVertical: 'center',
     // right: 0,
     fontSize: 20,

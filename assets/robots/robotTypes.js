@@ -2,6 +2,7 @@ const robotTypes = {
   1: {
     pic: require('./bob.png'),
     name: "Bob",
+    description: "Not great at anything but REALLY enthusiastic",
     build: 1,
     explore: 1,
     carry: 1,
@@ -9,7 +10,7 @@ const robotTypes = {
       work: 100000,
       iron: 10000,
       copper: 5000,
-      aluminum: 1000, 
+      aluminum: 1000,
       gold: 0,
       titanium: 0,
     }
@@ -18,6 +19,7 @@ const robotTypes = {
   2: {
     pic: require('./drew.png'),
     name: "Drew",
+    description: "Good with his hands but slightly agoraphobic",
     build: 5,
     explore: 0,
     carry: 0,
@@ -25,7 +27,7 @@ const robotTypes = {
       work: 200000,
       iron: 10000,
       copper: 5000,
-      aluminum: 1000, 
+      aluminum: 1000,
       gold: 50,
       titanium: 5,
     }
@@ -41,7 +43,7 @@ const robotTypes = {
       work: 200000,
       iron: 10000,
       copper: 5000,
-      aluminum: 1000, 
+      aluminum: 1000,
       gold: 100,
       titanium: 10,
     }
@@ -57,7 +59,7 @@ const robotTypes = {
       work: 500000,
       iron: 10000,
       copper: 5000,
-      aluminum: 1000, 
+      aluminum: 1000,
       gold: 150,
       titanium: 15,
     }
@@ -73,7 +75,7 @@ const robotTypes = {
       work: 200000,
       iron: 10000,
       copper: 5000,
-      aluminum: 1000, 
+      aluminum: 1000,
       gold: 1,
       titanium: 1,
     }

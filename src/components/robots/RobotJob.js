@@ -36,44 +36,54 @@ export default class RobotInstuctions extends Component < Props > {
   render() {
     const styles = {
       container: {
+        top: '50%',
         flexDirection: 'row',
         alignSelf: 'stretch',
         alignItems: 'center',
-        padding: 10,
+        paddingHorizontal: 20,
+        paddingVertical: 10,
         justifyContent: "space-between",
-        borderBottomColor: 'grey',
-        borderBottomWidth: 1
       },
       numberCont: {
         flexDirection: 'row'
       },
 
       job: {
-        fontSize: 20
-      },
-
+          color: '#3D8390',
+          fontSize: 30,
+          fontWeight:'700',
+        },
       buttonStyle: {
         width: 40,
         height: 40,
-        backgroundColor: '#a1c3e6'
+        backgroundColor:'#2DCDA7',
+        // backgroundColor: '#3487C4'
       },
 
       buttonLabel: {
         height: 40,
         fontSize: 30,
         color: 'white',
+        fontWeight:'700',
         textAlign: 'center',
         textAlignVertical: 'center'
       },
 
       input: {
-        backgroundColor: 'white',
-        lineHeight: 25,
-        fontSize: 25,
-        textAlign: 'center'
+        // backgroundColor: '#F5CD1D',
+        backgroundColor:'#EAEEDF',
+        width: 80,
+        height:40,
+        // color:'#A71A05',
+        color: '#D296A0',
+        fontSize: 17,
+        fontWeight:'700',
+        textAlign: 'center',
+        textAlignVertical:'center'
       }
     }
     return (
+
       <View style={styles.container}>
         <Text style={styles.job}>
           {this.props.job}
@@ -102,6 +112,7 @@ export default class RobotInstuctions extends Component < Props > {
           </TouchableOpacity>
         </View>
       </View>
+
     )
   }
 }
