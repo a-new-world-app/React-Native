@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 
-import RobotBuild from "./RobotBuild";
+import RobotGather from "./RobotGather";
 import {getGameData, updateGameData} from '../../actions/gameDataActions';
 
 const mapStateToProps = state => ({
@@ -13,4 +13,4 @@ const mapDispatchToProps = dispatch => ({
   updateGameData: (token, gameData) => updateGameData(token, gameData, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RobotBuild);
+export default connect(mapStateToProps, mapDispatchToProps)(RobotGather);
