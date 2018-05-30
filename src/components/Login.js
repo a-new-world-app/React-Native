@@ -28,6 +28,12 @@ export default class Test extends React.Component {
     });
   }
 
+  componentDidUpdate() {
+    if (this.props.user.sessionToken) {
+      this.props.navigation.navigate("HomeScreen");
+    }
+  }
+
   componentWillUnmount() {
     Linking.removeEventListener("url", this.handleOpenURL);
   }
@@ -51,10 +57,6 @@ export default class Test extends React.Component {
   }
 
   render() {
-    console.log(this.props);
-    if (this.props.user.sessionToken) {
-      this.props.navigation.navigate('HomeScreen')
-    }
     return (
       <View>
         <Text>{this.props.user.sessionToken}</Text>

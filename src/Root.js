@@ -19,10 +19,10 @@ const RootStack = createStackNavigator(
     RobotBuildContainer,
     HomeScreen,
     Map,
-    CameraTest
+    Camera
   },
   {
-    initialRouteName: 'RobotInstuctionsContainer',
+    initialRouteName: 'LoginContainer',
     headerMode: 'none'
   }
 );
