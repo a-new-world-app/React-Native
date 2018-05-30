@@ -20,12 +20,17 @@ export default class RobotInstuctions extends Component<Props> {
     console.log(props)
     this.state = {
       lookingAt: 1,
-      gameData: props.gameData
+      gameData: props.gameData,
+      robots: Object.keys(props.gameData.robots)
     }
     
     this.updateWorkers = this.updateWorkers.bind(this)
 
   };
+
+  // componentWillUnmount(){
+  //   this.props.updateGameData(this.props.sessionToken, this.state.gameData, )
+  // }
 
   updateWorkers(string, input){
     const number = Number(input)
@@ -49,21 +54,38 @@ export default class RobotInstuctions extends Component<Props> {
     }
   }
 
+  doThing = (num) => {
+    this.setState({lookingAt: this.state.lookingAt + num})
+  }
+
   render() {
     const currentRobot = this.state.gameData.robots[this.state.lookingAt]
     this.state.alert ? <AssignmentAlert messsage={this.state.alert} /> : '';
+    const previous = this.state.robots.includes((this.state.lookingAt - 1).toString())
+    const next = this.state.robots.includes((this.state.lookingAt + 1).toString())
+    console.log("around", previous, next, this.state.robots, this.state.lookingAt)
+    const prevRobot = previous ? 
+      (<TouchableOpacity onPress={() => this.doThing(-1)}
+                         style= {styles.prevOpac} >
+        <Image  source={robotTypes[this.state.lookingAt - 1].pic}
+                style={styles.nextRobot}/>
+      </ TouchableOpacity>) : (<View />)
+
+    const nextRobot = next ? 
+      (<TouchableOpacity onPress={() => this.doThing(1)}
+                         style= {styles.nextOpac} >
+        <Image  source={robotTypes[this.state.lookingAt + 1].pic}
+                style={styles.nextRobot}/>
+      </ TouchableOpacity>) : (<View />)
     return (
       <KeyboardAvoidingView 
         enabled
         behavior='padding'
         style={styles.container}>
         {this.state.alert}
+        {prevRobot}
         <Image  source={robotTypes[this.state.lookingAt].pic} />
-        {/* <TouchableOpacity onPress={() => this.doThing()}
-                          style= {styles.nextOpac} >
-          <Image  source={this.state.next}
-                  style={styles.nextRobot}/>
-        </ TouchableOpacity> */}
+        {nextRobot}
         <Text style={styles.welcome}>
           {robotTypes[this.state.lookingAt].description}
         </Text>
@@ -113,5 +135,17 @@ const styles = StyleSheet.create({
   nextRobot: {
     width: 70,
     height: 70
+  },
+
+  prevOpac: {
+    height: 70,
+    width: 70,
+    position: 'absolute',
+    left: '5%',
+    top: '30%',
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderRadius: 5, 
+    borderColor: '#cdcdcd'
   }
 });
