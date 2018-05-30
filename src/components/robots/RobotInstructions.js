@@ -7,7 +7,8 @@ import {
   Image,
   Alert,
   TouchableOpacity,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  ImageBackground
 } from 'react-native';
 import { merge } from 'lodash'
 
@@ -78,14 +79,20 @@ export default class RobotInstuctions extends Component<Props> {
                 style={styles.nextRobot}/>
       </ TouchableOpacity>) : (<View />)
     return (
+      <ImageBackground
+        source={require('../../../assets/background/instruction.png')}
+                  style={styles.backgroundImage}>
       <KeyboardAvoidingView
         enabled
         behavior='padding'
         style={styles.container}>
         {this.state.alert}
         {prevRobot}
-        <Image  source={robotTypes[this.state.lookingAt].pic} />
+        <Image  source={robotTypes[this.state.lookingAt].pic}
+          style = {styles.mainRobot} />
         {nextRobot}
+
+        <View style= {styles.jobContainer}>
         <Text style={styles.welcome}>
           {robotTypes[this.state.lookingAt].description}
         </Text>
@@ -95,57 +102,83 @@ export default class RobotInstuctions extends Component<Props> {
         <Text style={styles.welcome}>
           Gathering: {currentRobot.gathering}
         </Text>
+
         {
-          ['build', 'explore']
+          ['Build', 'Explore']
             .map((job) => <RobotJob key={job + currentRobot[job]}
                                     job={job}
-                                    count={currentRobot[job]}
+                                    count={currentRobot[job.toLowerCase()]}
                                     update={this.updateWorkers}
                                     />
                     )
         }
+        </View>
       </KeyboardAvoidingView>
+      </ImageBackground>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+  backgroundImage: {
+  flex: 1,
+  },
+  // container: {
+  //   flex: 1,
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  //   backgroundColor: '#F5FCFF',
+  // },
+
+  jobContainer:{
+    backgroundColor: 'white',
+    borderRadius:10,
+    top: '30%',
+    left:'5%',
+    width:'90%',
+    height: '95%',
+
   },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
   },
-  nextOpac: {
-    height: 70,
-    width: 70,
+  mainRobot:{
     position: 'absolute',
-    right: '5%',
-    top: '30%',
+    top: '10%',
+    height: '40%',
+    width: '38%',
+    elevation: 3,
+    left: '30%'
+  },
+  nextOpac: {
+    height: 50,
+    width: 50,
+    position: 'absolute',
+    right: '8%',
+    top: '35%',
     backgroundColor: 'white',
     borderWidth: 1,
     borderRadius: 5,
-    borderColor: '#cdcdcd'
+    borderColor: '#cdcdcd',
+    elevation: 3,
   },
   nextRobot: {
-    width: 70,
-    height: 70
+    width: 50,
+    height: 50,
   },
 
   prevOpac: {
-    height: 70,
-    width: 70,
+    height: 50,
+    width: 50,
     position: 'absolute',
-    left: '5%',
-    top: '30%',
+    left: '8%',
+    top: '35%',
     backgroundColor: 'white',
     borderWidth: 1,
     borderRadius: 5,
-    borderColor: '#cdcdcd'
+    borderColor: '#cdcdcd',
+    elevation: 3,
   }
 });
