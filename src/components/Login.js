@@ -31,6 +31,12 @@ export default class Test extends React.Component {
     });
   }
 
+  componentDidUpdate() {
+    if (this.props.user.sessionToken) {
+      this.props.navigation.navigate("HomeScreen");
+    }
+  }
+
   componentWillUnmount() {
     Linking.removeEventListener("url", this.handleOpenURL);
   }
@@ -54,11 +60,14 @@ export default class Test extends React.Component {
   }
 
   render() {
+<<<<<<< HEAD
+=======
     console.log(this.props);
     if (this.props.user.sessionToken) {
       this.props.navigation.navigate('HomeScreen')
     }
 
+>>>>>>> 860339bce2b6385e87ac3a1368556dd1723e86f8
     return (
       <ImageBackground source={require('../../assets/background/login.png')}
                 style={styles.backgroundImage}>

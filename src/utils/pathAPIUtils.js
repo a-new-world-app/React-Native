@@ -22,6 +22,6 @@ export const updatePath = (token, pathId, path) =>
   });
 
 export const endPath = (token) =>
-  request("https://a-new-world.herokuapp.com/api/paths", token, {
-    method: "DELETE"
+  request("https://a-new-world.herokuapp.com/api/paths/complete", token, {
+    method: "POST"
   });

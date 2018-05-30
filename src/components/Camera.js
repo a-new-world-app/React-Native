@@ -57,7 +57,7 @@ class TakePicture extends Component {
 
       xhr.open('POST', "https://a-new-world.herokuapp.com/api/paths/images");
       xhr.send(body);
-      xhr.onload = () => console.log(xhr.response);
+      xhr.onload = () => this.props.handlePicture(xhr.response);
     }
   };
 }
@@ -66,7 +66,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: 'black'
+    backgroundColor: 'black',
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0
   },
   preview: {
     flex: 1,

@@ -10,7 +10,6 @@ import HomeScreen from "./components/homeScreen/HomeScreen";
 import configureStore from "./store";
 import LoginContainer from "./components/LoginContainer";
 import Map from "./components/Map";
-import CameraTest from "./components/CameraTest";
 
 const RootStack = createStackNavigator(
   {
@@ -19,7 +18,6 @@ const RootStack = createStackNavigator(
     RobotBuildContainer,
     HomeScreen,
     Map,
-    CameraTest,
     RobotGatherContainer
   },
   {

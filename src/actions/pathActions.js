@@ -18,12 +18,12 @@ export const clearPath = () => ({
   type: CLEAR_PATH
 });
 
-// export const endPath = (token) => dispatch =>
-//   pathAPIUtil
-//     .endPath(token)
-//     .then((payload) =>
-//     dispatch(clearPath(payload))
-//   );
+export const endPath = (token, dispatch) =>
+  pathAPIUtil
+    .endPath(token)
+    .then((payload) =>
+    dispatch(clearPath(payload))
+  );
 
 export const createPath = (token, path, dispatch) =>
   pathAPIUtil
