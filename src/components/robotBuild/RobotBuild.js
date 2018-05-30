@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Image, TouchableOpacity, Text, Alert} from 'react-native';
+import { merge } from 'lodash';
 
 import {secondsToHms} from '../../util/timeConversion'
 import robotTypes from '../../../assets/robots/robotTypes'
@@ -8,11 +9,25 @@ export default class RobotBuild extends React.Component < Props > {
   constructor(props) {
     super(props)
     this.state = {
-      currentlyBuilding: gameData.build.robot,
+      gameData: props.gameData,
+      currentlyBuilding: props.gameData.build.robot,
       lookingAt: 1,
-      resources: gameData.resources,
-      robots: Object.keys(gameData.robots)
+      resources: props.gameData.resources,
+      robots: Object.keys(props.gameData.robots)
     }
+    this.resourceTypes = [
+      'iron',
+      'copper',
+      'aluminum',
+      'gold',
+      'titanium',
+    ];
+
+    console.log(props)
+  }
+
+  componentDidMount() {
+    this.props.getGameData(this.props.sessionToken)
   }
 
   buildNext = () => this.setState({
@@ -39,7 +54,7 @@ export default class RobotBuild extends React.Component < Props > {
   }
 
   checkResources = () => {
-    const robot = this.state.robots[this.state.lookingAt]
+    const robot = robotTypes[this.state.lookingAt]
     const neededRes = robot.resources
     const myRes = this.state.resources
     for (resource in neededRes) {
@@ -52,21 +67,21 @@ export default class RobotBuild extends React.Component < Props > {
   }
 
   changeBuild = () => {
-    this.setState({currentlyBuilding: this.state.lookingAt, buildingProgress: 0});
+    newGameData = merge({}, this.state.gameData),
+    this.resourceTypes.forEach((resource) => {
+      newGameData.resources[resource] -= robotTypes[this.state.lookingAt].buildReq[resource]
+    })
+    newBuild = {
+      progress: 0,
+      needed: robotTypes[this.state.lookingAt].buildReq.work,
+      lastCheck: Date.now(),
+      robot: this.state.lookingAt
+    }
+    newGameData.build = newBuild
+    this.props.updateGameData(this.props.sessionToken, newGameData)
   }
 
   render() {
-    let previous = this.state.robots[this.state.lookingAt - 1];
-    let next = this.state.robots[this.state.lookingAt + 1];
-    const currentRobot = this.state.robots[this.state.lookingAt]
-    let timeRemaining = this.state.currentlyBuilding === this.state.lookingAt
-      ? currentRobot.time - this.state.buildingProgress
-      : currentRobot.time
-    timeRemaining /= this.state.buildRate
-    timeRemaining = Math.floor(timeRemaining)
-    const left = '<';
-    const right = '>';
-
     const styles = {
       mainPicAndArrows: {
         justifyContent: 'space-between',
@@ -100,8 +115,9 @@ export default class RobotBuild extends React.Component < Props > {
       name: {
         fontSize: 40
       },
-      time: {
-        fontSize: 30
+      progress: {
+        height: 30,
+        fontSize: 20
       },
       resource: {
         flexDirection: 'row',
@@ -147,6 +163,19 @@ export default class RobotBuild extends React.Component < Props > {
         fontSize: 30
       }
     }
+    let previous = this.state.gameData.robots[this.state.lookingAt - 1];
+    let next = this.state.gameData.robots[this.state.lookingAt + 1];
+    const currentRobot = robotTypes[this.state.lookingAt]
+    console.log('currentRob', currentRobot, this.resourceTypes)
+    const percentProgress = Math.floor(100 * (this.state.gameData.build.progress / this.state.gameData.build.needed))
+    console.log('progress', percentProgress)
+    const progressElement = (this.state.lookingAt === this.state.currentlyBuilding) ?
+      <Text style={styles.progress}>{`${percentProgress}% Completed`}</Text> : 
+      <Text style={styles.progress}></Text>
+    const left = '<';
+    const right = '>';
+
+    
     return (
       <View>
         <View style={styles.mainPicAndArrows}>
@@ -170,14 +199,12 @@ export default class RobotBuild extends React.Component < Props > {
           </TouchableOpacity>
         </View>
         <View style={styles.nameAndTime}>
-          <Text style={styles.name}>{currentRobot.name}:
-            <Text style={styles.time}>{secondsToHms(timeRemaining)}</Text>
-          </Text>
+          <Text style={styles.name}>{currentRobot.name}</Text>
+          {progressElement}
         </View>
-        {Object
-          .keys(currentRobot.resources)
+        {this.resourceTypes
           .map((resource) => {
-            let required = currentRobot.resources[resource]
+            let required = currentRobot.buildReq[resource]
             let owned = this.state.resources[resource]
             let enough = required <= owned
             return (
@@ -187,7 +214,7 @@ export default class RobotBuild extends React.Component < Props > {
                   style={enough
                   ? styles.resourceAmountGreen
                   : styles.resourceAmountRed}>
-                  {currentRobot.resources[resource]}/{this.state.resources[resource]}
+                  {currentRobot.buildReq[resource]}/{this.state.resources[resource]}
                 </Text>
               </View>
             )

@@ -8,7 +8,7 @@ const robotTypes = {
     buildReq: {
       work: 100000,
       iron: 10000,
-      coppper: 5000,
+      copper: 5000,
       aluminum: 1000, 
       gold: 0,
       titanium: 0,
@@ -24,7 +24,7 @@ const robotTypes = {
     buildReq: {
       work: 200000,
       iron: 10000,
-      coppper: 5000,
+      copper: 5000,
       aluminum: 1000, 
       gold: 50,
       titanium: 5,
@@ -40,7 +40,7 @@ const robotTypes = {
     buildReq: {
       work: 200000,
       iron: 10000,
-      coppper: 5000,
+      copper: 5000,
       aluminum: 1000, 
       gold: 100,
       titanium: 10,
@@ -56,7 +56,7 @@ const robotTypes = {
     buildReq: {
       work: 500000,
       iron: 10000,
-      coppper: 5000,
+      copper: 5000,
       aluminum: 1000, 
       gold: 150,
       titanium: 15,
@@ -72,7 +72,7 @@ const robotTypes = {
     buildReq: {
       work: 200000,
       iron: 10000,
-      coppper: 5000,
+      copper: 5000,
       aluminum: 1000, 
       gold: 1,
       titanium: 1,

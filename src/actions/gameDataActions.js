@@ -10,7 +10,7 @@ export const receiveGameData = payload => ({
 
 export const updateGameData = (token, gameData, dispatch) =>
   gameDataAPIUtil
-    .updatePath(token, gameData)
+    .updateGameData(token, gameData)
     .then(res => {
       return res.json();
     })
@@ -19,5 +19,7 @@ export const updateGameData = (token, gameData, dispatch) =>
 export const getGameData = (token, dispatch) =>
   gameDataAPIUtil
   .getGameData(token)
-  .then(res => res.json())
-  .then(payload => dispatch(receiveGameData(payload)));
+  // .then(res => res.json())
+  // .then(payload => dispatch(receiveGameData(payload)), \
+      .then(res => console.log(res),
+        errors => console.error(errors));

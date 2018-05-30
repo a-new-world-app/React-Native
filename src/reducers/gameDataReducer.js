@@ -11,12 +11,18 @@ const defaultState = {
       build: 1,
       explore: 1,
       gathering: 1,
+    },
+    2: {
+      waiting: 0,
+      build: 1,
+      explore: 1,
+      gathering: 1,
     }
   },
   build: {
     robot: 1,
     progress: 99,
-    needed: 100,
+    needed: 100000,
     lastCheck: 1527621031493,
   },
   gather: [{
@@ -26,11 +32,11 @@ const defaultState = {
     robot: 1,
   }],
   resources: {
-    iron: 0,
-    copper: 0,
-    aluminum: 0,
-    gold: 0,
-    titanium: 0,
+    iron: 10000000,
+    copper: 10000000,
+    aluminum: 10000000,
+    gold: 10000000,
+    titanium: 10000000,
   },
   explore: {
     lastCheck: 1527621031493
