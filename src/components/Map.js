@@ -16,6 +16,8 @@ import MapView from 'react-native-maps';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { connect } from 'react-redux';
 import {createPath, updatePath, endPath, currentPath} from '../actions/pathActions';
+import * as Submition from '../util/submition';
+import {selectedLandmarks} from '../util/landmarks';
 
 
 var {height, width} = Dimensions.get('window')
@@ -44,14 +46,8 @@ class Map extends Component<{}> {
         latitude: 0,
         longitude: 0
       },
-      description: "please describe the path",
-      landmarkPos: [
-      {pos: {latitude: 37.78825, longitude: -122.4224}, name: 1},
-      {pos: {latitude: 37.78725, longitude: -122.4124}, name: 2},
-      {pos: {latitude: 37.78625, longitude: -122.4424}, name: 3},
-      {pos: {latitude: 37.78925, longitude: -122.4524}, name: 4},
-      {pos: {latitude: 37.79025, longitude: -122.4624}, name: 5},
-    ],
+      description: "",
+      landmarkPos: [],
       steps: this.props.path.steps || [],
       pathId: this.props.path.id,
       nextLocation: this.props.path.nextLocation,
@@ -59,7 +55,6 @@ class Map extends Component<{}> {
     }
 
   }
-
   watchID: number = null;
 
   async  requestMapPermission() {
@@ -116,7 +111,8 @@ class Map extends Component<{}> {
         }
 
         this.setState({initialPos: currentRegion,
-        currentPos: currentRegion})
+        currentPos: currentRegion,
+        landmarkPos: selectedLandmarks(currentRegion.latitude, currentRegion.longitude)})
 
 
       }
@@ -181,6 +177,32 @@ class Map extends Component<{}> {
   }
 
   handleSubmit = () => {
+    let curLat = this.state.currentPos.latitude;
+    let curLng = this.state.currentPos.longitude;
+    let landMarkLat = this.state.landmarkPos[0].pos.latitude;
+    let landMarkLng = this.state.landmarkPos[0].pos.longitude;
+
+    if(!Submition.isDescriptionValid(this.state.description) ){
+      Alert.alert(
+        'Alert',
+        'Please write the description of your path.',
+        [
+          {text: 'OK', onPress: () => {}},
+        ],
+        { onDismiss: () => {} }
+      )
+    } else if (!Submition.isCloseToLandmark(curLat,curLng,landMarkLat,landMarkLng)){
+
+      Alert.alert(
+        'Alert',
+        'Go closer to the Landmark!',
+        [
+          {text: 'OK', onPress: () => {}},
+        ],
+        { onDismiss: () => {} }
+      )
+    }
+    else {
     console.log("handleSubmit")
     let endPosition = this.state.nextLocation;
     let nextStep = {end_point: endPosition, description: this.state.description}
@@ -190,6 +212,7 @@ class Map extends Component<{}> {
       nextStep.start_point = this.state.steps[this.state.steps.length - 1].end_point
     }
     this.props.updatePath(this.props.sessionToken, this.state.pathId, this.compilePath(null ,nextStep))
+    }
   }
 
   nextLocation = (steps) => {
@@ -228,6 +251,8 @@ class Map extends Component<{}> {
 
     } else {
       markers = this.state.landmarkPos.map((landmark) => {
+        console.log('landmarkpos', landmark.pos.latitude)
+        let name = landmark.name
         return(
           <MapView.Marker
           key={Math.random()}
@@ -235,7 +260,7 @@ class Map extends Component<{}> {
            onPress = {() =>
               Alert.alert(
                 'Alert',
-                'Go to this location?',
+                `Go to ${name}?`,
                 [
                   {text: 'No', onPress: () => {}},
                   {text: 'OK', onPress: () => this.chooseLocation(landmark)},
@@ -274,6 +299,7 @@ class Map extends Component<{}> {
           maxLength = {500}
           style ={styles.input}
           value = {this.state.description}
+          placeholder = 'Please describe your path'
           onChangeText = { (field) => this.updateDescription(field)}>
         </TextInput>
 
