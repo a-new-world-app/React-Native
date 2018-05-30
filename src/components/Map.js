@@ -212,7 +212,7 @@ class Map extends Component<{}> {
   render() {
     console.log("render", this.state)
     console.log('props', this.props)
-    let alertMessage = this.state.path ? "please choose next step" : 'please choose starting location'
+    let alertMessage = this.state.startPoint ? "Please choose start location" : 'Please choose next location'
     let markers = null;
     if (this.state.nextLocation) {
       console.log("nextLocatoin", this.state.nextLocation)

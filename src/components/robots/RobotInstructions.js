@@ -9,36 +9,33 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView
 } from 'react-native';
-// import {merge} from 'lodash'
+import { merge } from 'lodash'
 
+import robotTypes from '../../../assets/robots/robotTypes'
 import RobotJob from './RobotJob.js';
 
 export default class RobotInstuctions extends Component<Props> {
-
   constructor(props){
     super(props);
     console.log(props)
     this.state = {
-      id: 1,
-      pic: require("../../../assets/robots/robo1.png"),
-      next: require("../../../assets/robots/robo2.png"),
-      jobs: {
-        Waiting: 100,
-        Exploring: 1,
-        Carrying: 1,
-        Building: 1,
-      },
-      alert: false,
+      lookingAt: 1,
+      gameData: props.gameData,
+      robots: Object.keys(props.gameData.robots)
     }
     
     this.updateWorkers = this.updateWorkers.bind(this)
 
   };
 
+  // componentWillUnmount(){
+  //   this.props.updateGameData(this.props.sessionToken, this.state.gameData, )
+  // }
+
   updateWorkers(string, input){
     const number = Number(input)
-    const unemployed = this.state.jobs.Waiting 
-    let nextUnemployed = unemployed - (input - this.state.jobs[string])
+    const unemployed = this.state.gameData.robots[this.state.lookingAt].waiting 
+    let nextUnemployed = unemployed - (input - this.state.gameData.robots[this.state.lookingAt][string])
     if (number % 1 !== 0) {
       Alert.alert("You can't have partial robots")
       // this.setState({jobs: {[string]: this.state.jobs[string]}})
@@ -48,49 +45,63 @@ export default class RobotInstuctions extends Component<Props> {
       Alert.alert("You don't have that many robots")
     }else{
       // let newJobs = this.state.jobs.dup
-      jobs = Object.assign({},this.state.jobs, {[string]: Number(input), Waiting: nextUnemployed} )
-      this.setState({jobs: jobs})
+      let nextData = merge({}, this.state.gameData, {robots:
+        {[this.state.lookingAt]:
+          {[string]: number,
+          waiting: nextUnemployed}}})
+      console.log(nextData)
+      this.setState({gameData: nextData})
     }
   }
 
-  doThing = () => {
-    this.props.navigation.navigate('RobotBuild')
-  }
-
-  componentDidMount(){
-    
+  doThing = (num) => {
+    this.setState({lookingAt: this.state.lookingAt + num})
   }
 
   render() {
-    // const picLoc =require(`./assets/robots/${this.state.pic}`)
-    // const picLoc =`./assets/robots/robo1.png`
+    const currentRobot = this.state.gameData.robots[this.state.lookingAt]
     this.state.alert ? <AssignmentAlert messsage={this.state.alert} /> : '';
+    const previous = this.state.robots.includes((this.state.lookingAt - 1).toString())
+    const next = this.state.robots.includes((this.state.lookingAt + 1).toString())
+    console.log("around", previous, next, this.state.robots, this.state.lookingAt)
+    const prevRobot = previous ? 
+      (<TouchableOpacity onPress={() => this.doThing(-1)}
+                         style= {styles.prevOpac} >
+        <Image  source={robotTypes[this.state.lookingAt - 1].pic}
+                style={styles.nextRobot}/>
+      </ TouchableOpacity>) : (<View />)
+
+    const nextRobot = next ? 
+      (<TouchableOpacity onPress={() => this.doThing(1)}
+                         style= {styles.nextOpac} >
+        <Image  source={robotTypes[this.state.lookingAt + 1].pic}
+                style={styles.nextRobot}/>
+      </ TouchableOpacity>) : (<View />)
     return (
       <KeyboardAvoidingView 
         enabled
         behavior='padding'
         style={styles.container}>
         {this.state.alert}
-        <Image  source={this.state.pic} />
-        <TouchableOpacity onPress={() => this.doThing()}
-                          style= {styles.nextOpac} >
-          <Image  source={this.state.next}
-                  style={styles.nextRobot}/>
-        </ TouchableOpacity>
+        {prevRobot}
+        <Image  source={robotTypes[this.state.lookingAt].pic} />
+        {nextRobot}
         <Text style={styles.welcome}>
-          Good at ... well nothing but tries REALLY hard.
+          {robotTypes[this.state.lookingAt].description}
         </Text>
         <Text style={styles.welcome}>
-          Waiting: {this.state.jobs.Waiting}
+          Waiting: {currentRobot.waiting}
+        </Text>
+        <Text style={styles.welcome}>
+          Gathering: {currentRobot.gathering}
         </Text>
         {
-          Object.keys(this.state.jobs)
-                .slice(1)
-                .map((job) => <RobotJob key={job + this.state.jobs[job]} 
-                                        job={job} 
-                                        count={this.state.jobs[job]}
-                                        update={this.updateWorkers}
-                                        />
+          ['build', 'explore']
+            .map((job) => <RobotJob key={job + currentRobot[job]} 
+                                    job={job} 
+                                    count={currentRobot[job]}
+                                    update={this.updateWorkers}
+                                    />
                     )
         }
       </KeyboardAvoidingView>
@@ -124,5 +135,17 @@ const styles = StyleSheet.create({
   nextRobot: {
     width: 70,
     height: 70
+  },
+
+  prevOpac: {
+    height: 70,
+    width: 70,
+    position: 'absolute',
+    left: '5%',
+    top: '30%',
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderRadius: 5, 
+    borderColor: '#cdcdcd'
   }
 });
