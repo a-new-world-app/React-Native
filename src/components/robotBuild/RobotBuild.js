@@ -26,8 +26,12 @@ export default class RobotBuild extends React.Component < Props > {
     console.log(props)
   }
 
-  componentDidMount() {
+  componentDidMount(){
     this.props.getGameData(this.props.sessionToken)
+  }
+
+  componentWillUnmount(){
+    this.props.updateGameData(this.props.sessionToken, this.state.gameData, )
   }
 
   buildNext = () => this.setState({
