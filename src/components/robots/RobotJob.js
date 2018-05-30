@@ -40,7 +40,8 @@ export default class RobotInstuctions extends Component < Props > {
         flexDirection: 'row',
         alignSelf: 'stretch',
         alignItems: 'center',
-        padding: 10,
+        paddingHorizontal: 20,
+        paddingVertical: 10,
         justifyContent: "space-between",
       },
       numberCont: {

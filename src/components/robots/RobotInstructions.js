@@ -99,7 +99,7 @@ export default class RobotInstuctions extends Component<Props> {
           {nextRobot}
 
           <View style= {styles.jobContainer}>
-            <Text style={styles.welcome}>
+            <Text style={styles.description}>
               {robotTypes[this.state.lookingAt].description}
             </Text>
 
@@ -107,7 +107,7 @@ export default class RobotInstuctions extends Component<Props> {
               <Text style={styles.welcome}>
                 Waiting: {currentRobot.waiting}
               </Text>
-              <Text style={styles.welcome}>
+              <Text style={[styles.welcome, styles.border]}>
                 Gathering: {currentRobot.gathering}
               </Text>
             </View>
@@ -141,19 +141,34 @@ const styles = StyleSheet.create({
     height: '95%',
 
   },
-  welcome: {
-    fontSize: 25,
+  description:{
+    top: '20%',
+    fontSize: 22,
     textAlign: 'center',
     margin: 10,
-    color:'#7B8A87'
+    color: '#3D8390',
+    paddingBottom: 10,
+    borderBottomWidth: 5,
+    borderBottomColor:'#7EE6BA',
+  },
+  welcome: {
+    fontSize: 18,
+    textAlign: 'center',
+    color:'#7B8A87',
+    // borderLeftWidth: 2,
+    // borderLeftColor:'#7B8A87',
+
+  },
+  border: {
+     paddingLeft: '10%',
+    borderLeftWidth: 2,
+    borderLeftColor:'#7B8A87'
   },
   robotStatus:{
-    top: '30%',
+    top: '35%',
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: '10%',
-    borderBottomWidth: 5,
-    borderBottomColor:'#7EE6BA',
 
   },
   mainRobot:{
