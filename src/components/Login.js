@@ -1,10 +1,13 @@
 import React from "react";
 import {
-  Stylesheet,
+  StyleSheet,
   TextInput,
   View,
   Button,
   Linking,
+  ImageBackground,
+  TouchableOpacity,
+  Image,
   Text
 } from "react-native";
 
@@ -55,29 +58,65 @@ export default class Test extends React.Component {
     if (this.props.user.sessionToken) {
       this.props.navigation.navigate('HomeScreen')
     }
+
     return (
-      <ImageBackground source={require('../../../assets/background/homeScreen.jpeg')}
+      <ImageBackground source={require('../../assets/background/login.png')}
                 style={styles.backgroundImage}>
-      <View>
-        <Text>{this.props.user.sessionToken}</Text>
-        <TextInput
-          multiline
-          value={this.state.description}
-          onChangeText={description => this.setState({ description })}
-        />
-        <Button onPress={this.handleSubmit} title="Submit" />
-        <Button onPress={this.handleLogin} title="Log In With Google" />
-        <Button onPress={this.props.logOut} title="Log Out" />
+      <Image source={require('../../assets/background/landing.png')}
+        style = {styles.robots}>
+      </Image>
+      <Image source={require('../../assets/background/logo.png')}
+        style = {styles.logo}>
+      </Image>
+      <View style={{marginTop: '30%', alignItems: 'center'}} >
+        <TouchableOpacity style = {styles.button} onPress={this.handleLogin} >
+          <Text style = {styles.label}>Log In With Google </Text>
+        </TouchableOpacity>
+        <TouchableOpacity style = {styles.button} onPress={this.props.logOut} >
+          <Text style = {styles.label}>Log Out </Text>
+        </TouchableOpacity>
       </View>
       </ImageBackground>
     );
   }
 }
 
+
+// <Text>{this.props.user.sessionToken}</Text>
+// <TextInput
+//   multiline
+//   value={this.state.description}
+//   onChangeText={description => this.setState({ description })}
+// />
+// <Button onPress={this.handleSubmit} title="Submit" />
 const styles = StyleSheet.create({
 
   backgroundImage: {
        flex: 1,
-       // resizeMode: 'center'
    },
-})
+   robots:{
+     top:'5%',
+     height: '20%',
+     width: '100%',
+   },
+   logo:{
+     top:'15%',
+     left:'12%',
+     width:'80%',
+     height: '30%',
+   },
+   button:{
+     paddingTop:'2%',
+     height: 50,
+     width: '50%',
+     borderRadius: 10,
+     marginBottom: 20,
+     backgroundColor: '#dd4b39',
+   },
+   label:{
+    textAlign:'center',
+    fontSize: 20,
+    color:'white',
+    fontWeight: '700',
+   },
+});
