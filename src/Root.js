@@ -20,7 +20,7 @@ const RootStack = createStackNavigator(
     Map
   },
   {
-    initialRouteName: 'RobotInstuctionsContainer',
+    initialRouteName: 'LoginContainer',
     headerMode: 'none'
   }
 );
