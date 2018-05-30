@@ -17,7 +17,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import { connect } from 'react-redux';
 import {createPath, updatePath, endPath, currentPath} from '../actions/pathActions';
 import * as Submition from '../util/submition';
-import {SFLandmarks} from '../util/landmarks';
+import {selectedLandmarks} from '../util/landmarks';
 
 
 var {height, width} = Dimensions.get('window')
@@ -47,7 +47,7 @@ class Map extends Component<{}> {
         longitude: 0
       },
       description: "",
-      landmarkPos: SFLandmarks,
+      landmarkPos: [],
       steps: this.props.path.steps || [],
       pathId: this.props.path.id,
       nextLocation: this.props.path.nextLocation,
@@ -55,7 +55,6 @@ class Map extends Component<{}> {
     }
 
   }
-
   watchID: number = null;
 
   async  requestMapPermission() {
@@ -112,7 +111,8 @@ class Map extends Component<{}> {
         }
 
         this.setState({initialPos: currentRegion,
-        currentPos: currentRegion})
+        currentPos: currentRegion,
+        landmarkPos: selectedLandmarks(currentRegion.latitude, currentRegion.longitude)})
 
 
       }
@@ -235,7 +235,6 @@ class Map extends Component<{}> {
   render() {
     console.log("render", this.state)
     console.log('props', this.props)
-    console.log(SFLandmarks);
     let alertMessage = this.state.path ? "please choose next step" : 'please choose starting location'
     let markers = null;
     if (this.state.nextLocation) {

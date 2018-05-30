@@ -1,4 +1,4 @@
-
+import {getDistanceFromLatLonInKm} from './submition'
 var landmarks = [
   {
     "Name": "Mission Dolores",
@@ -856,3 +856,17 @@ var landmarks = [
     hash['name'] = maphash['Name'];
     return hash;
   });
+// getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2)
+  export function selectedLandmarks(curlat, curlng) {
+    let sortedLandmarks =  SFLandmarks.sort(function(a, b){
+      let landmarklatA = a.pos.latitude;
+      let landmarklngA = a.pos.longitude;
+      let landmarklatB = b.pos.latitude;
+      let landmarklngB = b.pos.longitude;
+      let distanceA = getDistanceFromLatLonInKm(landmarklatA,landmarklngA,curlat,curlng);
+      let distanceB = getDistanceFromLatLonInKm(landmarklatB,landmarklngB,curlat,curlng);
+      return distanceA - distanceB;
+    });
+    console.log('sortedLandmark', sortedLandmarks.slice(0,5));
+    return sortedLandmarks.slice(0,5);
+  }
