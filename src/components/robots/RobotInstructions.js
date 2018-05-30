@@ -9,7 +9,9 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView
 } from 'react-native';
+import { merge } from 'lodash'
 
+import robotTypes from '../../../assets/robots/robotTypes'
 import RobotJob from './RobotJob.js';
 
 export default class RobotInstuctions extends Component<Props> {
@@ -17,16 +19,8 @@ export default class RobotInstuctions extends Component<Props> {
     super(props);
     console.log(props)
     this.state = {
-      id: 1,
-      pic: require("../../../assets/robots/robo1.png"),
-      next: require("../../../assets/robots/robo2.png"),
-      jobs: {
-        Waiting: 100,
-        Exploring: 1,
-        Carrying: 1,
-        Building: 1,
-      },
-      alert: false,
+      lookingAt: 1,
+      gameData: props.gameData
     }
     
     this.updateWorkers = this.updateWorkers.bind(this)
@@ -35,8 +29,8 @@ export default class RobotInstuctions extends Component<Props> {
 
   updateWorkers(string, input){
     const number = Number(input)
-    const unemployed = this.state.jobs.Waiting 
-    let nextUnemployed = unemployed - (input - this.state.jobs[string])
+    const unemployed = this.state.gameData.robots[this.state.lookingAt].waiting 
+    let nextUnemployed = unemployed - (input - this.state.gameData.robots[this.state.lookingAt][string])
     if (number % 1 !== 0) {
       Alert.alert("You can't have partial robots")
       // this.setState({jobs: {[string]: this.state.jobs[string]}})
@@ -46,22 +40,17 @@ export default class RobotInstuctions extends Component<Props> {
       Alert.alert("You don't have that many robots")
     }else{
       // let newJobs = this.state.jobs.dup
-      jobs = Object.assign({},this.state.jobs, {[string]: Number(input), Waiting: nextUnemployed} )
-      this.setState({jobs: jobs})
+      let nextData = merge({}, this.state.gameData, {robots:
+        {[this.state.lookingAt]:
+          {[string]: number,
+          waiting: nextUnemployed}}})
+      console.log(nextData)
+      this.setState({gameData: nextData})
     }
   }
 
-  doThing = () => {
-    this.props.navigation.navigate('RobotBuild')
-  }
-
-  componentDidMount(){
-    
-  }
-
   render() {
-    // const picLoc =require(`./assets/robots/${this.state.pic}`)
-    // const picLoc =`./assets/robots/robo1.png`
+    const currentRobot = this.state.gameData.robots[this.state.lookingAt]
     this.state.alert ? <AssignmentAlert messsage={this.state.alert} /> : '';
     return (
       <KeyboardAvoidingView 
@@ -69,26 +58,28 @@ export default class RobotInstuctions extends Component<Props> {
         behavior='padding'
         style={styles.container}>
         {this.state.alert}
-        <Image  source={this.state.pic} />
-        <TouchableOpacity onPress={() => this.doThing()}
+        <Image  source={robotTypes[this.state.lookingAt].pic} />
+        {/* <TouchableOpacity onPress={() => this.doThing()}
                           style= {styles.nextOpac} >
           <Image  source={this.state.next}
                   style={styles.nextRobot}/>
-        </ TouchableOpacity>
+        </ TouchableOpacity> */}
         <Text style={styles.welcome}>
-          Good at ... well nothing but tries REALLY hard.
+          {robotTypes[this.state.lookingAt].description}
         </Text>
         <Text style={styles.welcome}>
-          Waiting: {this.state.jobs.Waiting}
+          Waiting: {currentRobot.waiting}
+        </Text>
+        <Text style={styles.welcome}>
+          Gathering: {currentRobot.gathering}
         </Text>
         {
-          Object.keys(this.state.jobs)
-                .slice(1)
-                .map((job) => <RobotJob key={job + this.state.jobs[job]} 
-                                        job={job} 
-                                        count={this.state.jobs[job]}
-                                        update={this.updateWorkers}
-                                        />
+          ['build', 'explore']
+            .map((job) => <RobotJob key={job + currentRobot[job]} 
+                                    job={job} 
+                                    count={currentRobot[job]}
+                                    update={this.updateWorkers}
+                                    />
                     )
         }
       </KeyboardAvoidingView>
