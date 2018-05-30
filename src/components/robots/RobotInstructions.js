@@ -23,7 +23,7 @@ export default class RobotInstuctions extends Component<Props> {
       gameData: props.gameData,
       robots: Object.keys(props.gameData.robots)
     }
-    
+
     this.updateWorkers = this.updateWorkers.bind(this)
 
   };
@@ -34,7 +34,7 @@ export default class RobotInstuctions extends Component<Props> {
 
   updateWorkers(string, input){
     const number = Number(input)
-    const unemployed = this.state.gameData.robots[this.state.lookingAt].waiting 
+    const unemployed = this.state.gameData.robots[this.state.lookingAt].waiting
     let nextUnemployed = unemployed - (input - this.state.gameData.robots[this.state.lookingAt][string])
     if (number % 1 !== 0) {
       Alert.alert("You can't have partial robots")
@@ -64,21 +64,21 @@ export default class RobotInstuctions extends Component<Props> {
     const previous = this.state.robots.includes((this.state.lookingAt - 1).toString())
     const next = this.state.robots.includes((this.state.lookingAt + 1).toString())
     console.log("around", previous, next, this.state.robots, this.state.lookingAt)
-    const prevRobot = previous ? 
+    const prevRobot = previous ?
       (<TouchableOpacity onPress={() => this.doThing(-1)}
                          style= {styles.prevOpac} >
         <Image  source={robotTypes[this.state.lookingAt - 1].pic}
                 style={styles.nextRobot}/>
       </ TouchableOpacity>) : (<View />)
 
-    const nextRobot = next ? 
+    const nextRobot = next ?
       (<TouchableOpacity onPress={() => this.doThing(1)}
                          style= {styles.nextOpac} >
         <Image  source={robotTypes[this.state.lookingAt + 1].pic}
                 style={styles.nextRobot}/>
       </ TouchableOpacity>) : (<View />)
     return (
-      <KeyboardAvoidingView 
+      <KeyboardAvoidingView
         enabled
         behavior='padding'
         style={styles.container}>
@@ -97,8 +97,8 @@ export default class RobotInstuctions extends Component<Props> {
         </Text>
         {
           ['build', 'explore']
-            .map((job) => <RobotJob key={job + currentRobot[job]} 
-                                    job={job} 
+            .map((job) => <RobotJob key={job + currentRobot[job]}
+                                    job={job}
                                     count={currentRobot[job]}
                                     update={this.updateWorkers}
                                     />
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     top: '30%',
     backgroundColor: 'white',
     borderWidth: 1,
-    borderRadius: 5, 
+    borderRadius: 5,
     borderColor: '#cdcdcd'
   },
   nextRobot: {
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     top: '30%',
     backgroundColor: 'white',
     borderWidth: 1,
-    borderRadius: 5, 
+    borderRadius: 5,
     borderColor: '#cdcdcd'
   }
 });

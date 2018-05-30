@@ -55,22 +55,28 @@ export default class RobotInstuctions extends Component < Props > {
       buttonStyle: {
         width: 40,
         height: 40,
-        backgroundColor: '#a1c3e6'
+        backgroundColor: '#3487C4'
       },
 
       buttonLabel: {
         height: 40,
         fontSize: 30,
         color: 'white',
+        fontWeight:'700',
         textAlign: 'center',
         textAlignVertical: 'center'
       },
 
       input: {
-        backgroundColor: 'white',
-        lineHeight: 25,
-        fontSize: 25,
-        textAlign: 'center'
+        backgroundColor: '#F5CD1D',
+        width: 80,
+        height:40,
+        color:'#A71A05',
+        // lineHeight: 40,
+        fontSize: 17,
+        fontWeight:'700',
+        textAlign: 'center',
+        textAlignVertical:'center'
       }
     }
     return (
