@@ -299,7 +299,8 @@ class Map extends Component<{}> {
       markers = [this.state.nextLocation].map((landmark) => {
         return(
           <MapView.Marker
-           coordinate = {{latitude: landmark.latitude, longitude: landmark.longitude}}>
+            key={landmark.latitude.toString() + landmark.longitude.toString()}
+            coordinate = {{latitude: landmark.latitude, longitude: landmark.longitude}}>
 
         </MapView.Marker>
         )
