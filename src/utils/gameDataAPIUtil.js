@@ -1,14 +1,16 @@
 import { request } from "./APIUtils";
 
-export const getGameData = (token) =>
-  request("https://a-new-world.herokuapp.com/api/gamedata", token, {
-    method: "Get"
-  });
+export const getGameData = (token) =>{
+  console.log('token', token);
+  return (request("https://a-new-world.herokuapp.com/api/gamedata", token, {
+    method: "GET"
+  }));};
 
-export const updateGameData = (token, gameData) =>
-  request(`https://a-new-world.herokuapp.com/api/gameData`, token, {
+export const updateGameData = (token, gameData) =>{
+  console.log("updateAPI", token, gameData);
+  return (request(`https://a-new-world.herokuapp.com/api/gamedata`, token, {
     body: JSON.stringify({
-      path: gameData
+      gameData: gameData
     }),
     method: "PATCH"
-  });
+  }));};

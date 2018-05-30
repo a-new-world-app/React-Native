@@ -23,14 +23,20 @@ export default class RobotInstuctions extends Component<Props> {
       gameData: props.gameData,
       robots: Object.keys(props.gameData.robots)
     }
+
+    console.log('RI Props', props)
     
     this.updateWorkers = this.updateWorkers.bind(this)
 
   };
 
-  // componentWillUnmount(){
-  //   this.props.updateGameData(this.props.sessionToken, this.state.gameData, )
-  // }
+  componentDidMount(){
+    this.props.getGameData(this.props.sessionToken)
+  }
+
+  componentWillUnmount(){
+    this.props.updateGameData(this.props.sessionToken, this.state.gameData, )
+  }
 
   updateWorkers(string, input){
     const number = Number(input)
