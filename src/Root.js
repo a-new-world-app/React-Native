@@ -10,7 +10,7 @@ import HomeScreen from './components/homeScreen/HomeScreen';
 import configureStore from "./store";
 import LoginContainer from './components/LoginContainer';
 import Map from './components/Map';
-import CameraTest from './components/CameraTest';
+import Camera from './components/Camera';
 
 const RootStack = createStackNavigator(
   {
