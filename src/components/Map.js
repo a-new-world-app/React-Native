@@ -278,6 +278,8 @@ class Map extends Component < {} > {
         .gather
         .push({
           resource: endPosition.resource,
+          latitude: endPosition.latitude,
+          longitude: endPosition.longitude,
           amount: Math.floor(this.state.steps.length * 10 * Math.random())
         })
       console.log('HEEEEEEEERRRRRRRREEEEEEEEEEE', duppedData, this.props)
