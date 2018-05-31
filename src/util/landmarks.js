@@ -784,8 +784,9 @@ export const SFLandmarks = landmarks.map((maphash) => {
 });
 // getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2)
 export function selectedLandmarks(curlat, curlng, previousArr) {
-  console.log('prev arr', previousArr);
-  let sortedLandmarks = SFLandmarks.sort(function (a, b) {
+  console.log('prev arr', previousArr, curlat, curlng);
+  const filteredLandmarks = SFLandmarks.filter((landmark) => !(previousArr.includes(landmark.latitude)));
+  let sortedLandmarks = filteredLandmarks.sort(function (a, b) {
 
     let landmarklatA = a.pos.latitude;
     let landmarklngA = a.pos.longitude;
@@ -794,11 +795,9 @@ export function selectedLandmarks(curlat, curlng, previousArr) {
     let distanceA = getDistanceFromLatLonInKm(landmarklatA, landmarklngA, curlat, curlng);
     let distanceB = getDistanceFromLatLonInKm(landmarklatB, landmarklngB, curlat, curlng);
     const distanceBetween = distanceA - distanceB;
-    return (distanceBetween > 0.05)
-      ? distanceBetween
-      : 1000;
+    return distanceBetween;
   });
-  sortedLandmarks = sortedLandmarks.filter((landmark) => !(previousArr.includes(landmark.latitude)));
+  sortedLandmarks.filter(landmark => getDistanceFromLatLonInKm(curlat, curlng, landmark.pos.latitude, landmark.pos.longitude) > 0.05);
   console.log('sortedLandmark', sortedLandmarks.slice(0, 5));
   return sortedLandmarks.slice(0, 5);
 }
