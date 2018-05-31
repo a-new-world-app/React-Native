@@ -7,48 +7,56 @@ const defaultState = {
   lastCheck: 1527621031493,
   robots: {
     1: {
-      waiting: 1,
-      build: 1,
-      explore: 1,
-      gathering: 1
+      waiting: 2,
+      build: 0,
+      explore: 0,
+      gathering: 0
     },
     2: {
-      waiting: 1,
-      build: 1,
-      explore: 1,
-      gathering: 1
+      waiting: 2,
+      build: 0,
+      explore: 0,
+      gathering: 0
+    },
+    3: {
+      waiting: 2,
+      build: 0,
+      explore: 0,
+      gathering: 0
+    },
+    4: {
+      waiting: 2,
+      build: 0,
+      explore: 0,
+      gathering: 0
+    },
+    5: {
+      waiting: 2,
+      build: 0,
+      explore: 0,
+      gathering: 0
     }
   },
   build: {
-    robot: 1,
-    progress: 99,
-    needed: 100000000,
-    lastCheck: 1527621031493
+    // robot: 1, progress: 99, needed: 100000000, lastCheck: 1527621031493
   },
   gather: [
-    {
-      end: 1528631031493,
-      start: 1527621031493,
-      resource: 'iron',
-      amount: 100000,
-      robot: 1
-    }, {
-      resource: 'iron',
-      amount: 100000
-    }, {
-      resource: 'iron',
-      amount: 100000
-    }
+    // {   end: 1527773625378,   start: 1527763624377,   resource: 'iron',   amount:
+    // 100000,   robot: 1,   latitude: 37.76416667,   longitude: -122.4266667 }, {
+    // end: 1527773625379,   start: 1527763624377,   resource: 'copper',   amount:
+    // 100000,   robot: 4,   latitude: 37.79527778,   longitude: -122.3936111 }, {
+    // end: 1527773625377,   start: 1527763624377,   resource: 'gold',   amount:
+    // 100000,   robot: 5,   latitude: 37.75638889,   longitude: -122.4188889 }
   ],
   resources: {
-    iron: 10000000,
-    copper: 10000000,
-    aluminum: 10000000,
-    gold: 10000000,
-    titanium: 10000000
+    iron: 0,
+    copper: 0,
+    aluminum: 0,
+    gold: 0,
+    titanium: 0
   },
   explore: {
-    lastCheck: 1527621031493
+    lastCheck: Date.now()
   }
 };
 

@@ -20,6 +20,7 @@ import * as Submition from "../util/submition";
 import {selectedLandmarks} from "../util/landmarks";
 import Camera from "./Camera";
 import {updateGameData} from "../actions/gameDataActions";
+import robotTypes from '../../assets/robots/robotTypes'
 
 var {height, width} = Dimensions.get("window");
 
@@ -354,9 +355,45 @@ class Map extends Component < {} > {
     return (this.enableTakePicture() && !this.needDescription() && !this.needPicture());
   };
 
+  addGatherMarkers = (markerArr) => {
+    let gatherArr = this.props.gameData.gather
+    console.log('gatherArr', gatherArr)
+    gatherArr = gatherArr.filter((gather) => gather.start)
+    gatherArr.forEach((gather) => {
+      markerArr.push(<MapView.Marker
+        key={gather.end}
+        image={robotTypes[gather.robot].mark}
+        coordinate={this.generateLatLng(gather)}/>)
+    })
+    return markerArr
+  }
+
+  generateLatLng = (gather) => {
+    const now = Date.now()
+    const end = gather.end
+    const start = gather.start
+    const latitude = gather.latitude
+    const longitude = gather.longitude
+    progress = (now - start) / (end - start)
+    const latDif = latitude - 37.7934;
+    const lngDif = longitude + 122.3942;
+    let latProg;
+    let lngProg;
+    if (progress <= 0.5) {
+      latProg = 37.7934 + (latDif * progress * 2)
+      lngProg = -122.3942 + (lngDif * progress * 2)
+    } else {
+      latProg = latitude - (latDif * progress * 2)
+      lngProg = longitude - (lngDif * progress * 2)
+    }
+    console.log('generate', latProg, lngProg, latDif, progress, gather)
+    console.log(start, now, end, (now - start), (end - start))
+    return ({latitude: latProg, longitude: lngProg})
+  }
+
   render() {
     console.log(this.enableTakePicture());
-    let markers;
+    let markers = [];
     if (this.state.nextLocation) {
       markers = [this.state.nextLocation].map(landmark => {
         return (<MapView.Marker
@@ -380,7 +417,7 @@ class Map extends Component < {} > {
           return (<MapView.Marker
             key={Math.random()}
             coordinate={landmark.pos}
-            onPress={() => Alert.alert("Alert", `Go to ${name}?`, [
+            onPress={() => Alert.alert("Go Here?", `Go to ${name}?`, [
             {
               text: "No",
               onPress: () => {}
@@ -393,6 +430,16 @@ class Map extends Component < {} > {
           })}/>);
         });
     }
+    markers = this.addGatherMarkers(markers);
+    markers.push((<MapView.Marker
+      key={'home'}
+      image={require('../../assets/robots/mark.home4.png')}
+      coordinate={{
+      latitude: 37.785,
+      longitude: -122.394
+    }}/>))
+    console.log('markers', markers)
+
     return (
       <KeyboardAvoidingView enabled behavior="position" style={styles.container}>
         <View style={styles.wrapper}>
