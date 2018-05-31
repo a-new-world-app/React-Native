@@ -1,4 +1,4 @@
-import {getDistanceFromLatLonInKm} from './submition'
+import {getDistanceFromLatLonInKm} from './submition';
 var landmarks = [
   {
     "Name": "Mission Dolores",
@@ -10,8 +10,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4266667,
     "latD": 37.76416667
-  },
-  {
+  }, {
     "Name": "Old Saint Mary's Cathedral",
     "Image": "NULL",
     "Address": "660 California St.",
@@ -21,8 +20,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4058333,
     "latD": 37.79277778
-  },
-  {
+  }, {
     "Name": "Bank of California Building",
     "Image": "NULL",
     "Address": "400 California St.",
@@ -32,8 +30,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4016667,
     "latD": 37.79333333
-  },
-  {
+  }, {
     "Name": "Saint Patrick's Church",
     "Image": "NULL",
     "Address": "756 Mission St.",
@@ -43,8 +40,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4036111,
     "latD": 37.78555556
-  },
-  {
+  }, {
     "Name": "Saint Francis of Assisi Church",
     "Image": "NULL",
     "Address": "610 Vallejo St.",
@@ -54,8 +50,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4077778,
     "latD": 37.79888889
-  },
-  {
+  }, {
     "Name": "Audiffred Building",
     "Image": "NULL",
     "Address": "1-21 Mission St.",
@@ -65,8 +60,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.3925,
     "latD": 37.79333333
-  },
-  {
+  }, {
     "Name": "South San Francisco Opera House",
     "Image": "NULL",
     "Address": "1601 Newcomb Ave.",
@@ -76,8 +70,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.39,
     "latD": 37.73527778
-  },
-  {
+  }, {
     "Name": "Belli Building (Langerman's Building)",
     "Image": "NULL",
     "Address": "722 Montgomery St.",
@@ -87,8 +80,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4033333,
     "latD": 37.79611111
-  },
-  {
+  }, {
     "Name": "Genella Building",
     "Image": "NULL",
     "Address": "728 Montgomery St.",
@@ -98,8 +90,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4033333,
     "latD": 37.79611111
-  },
-  {
+  }, {
     "Name": "Hotaling Building",
     "Image": "NULL",
     "Address": "451 Jackson St.",
@@ -109,8 +100,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4027778,
     "latD": 37.79638889
-  },
-  {
+  }, {
     "Name": "Colonial Dames Octagon House",
     "Image": "NULL",
     "Address": "2645 Gough St.",
@@ -120,8 +110,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4275,
     "latD": 37.79777778
-  },
-  {
+  }, {
     "Name": "Palace Hotel and Garden Court Room",
     "Image": "NULL",
     "Address": "2 New Montgomery St. and 633 Market St.",
@@ -131,8 +120,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4019444,
     "latD": 37.78833333
-  },
-  {
+  }, {
     "Name": "San Francisco City Hall",
     "Image": "NULL",
     "Address": "1 Dr. Carlton B. Goodlett Place",
@@ -142,8 +130,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4191667,
     "latD": 37.77916667
-  },
-  {
+  }, {
     "Name": "Solari Building (Old French Consulate)",
     "Image": "NULL",
     "Address": "472 Jackson St.",
@@ -153,8 +140,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4030556,
     "latD": 37.79638889
-  },
-  {
+  }, {
     "Name": "Old Holy Virgin Russian Orthodox Cathedral",
     "Image": "NULL",
     "Address": "858-864 Fulton St.",
@@ -164,8 +150,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4308333,
     "latD": 37.77805556
-  },
-  {
+  }, {
     "Name": "Ghirardelli Square",
     "Image": "NULL",
     "Address": "Block bounded by North Point, Larkin, Beach and Polk Streets",
@@ -175,8 +160,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4216667,
     "latD": 37.80583333
-  },
-  {
+  }, {
     "Name": "Abner Phelps House",
     "Image": "NULL",
     "Address": "1111 Oak St.",
@@ -186,8 +170,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4380556,
     "latD": 37.77277778
-  },
-  {
+  }, {
     "Name": "Columbus Tower (Sentinel Building)",
     "Image": "NULL",
     "Address": "916-920 Kearny St.",
@@ -197,8 +180,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.405,
     "latD": 37.79638889
-  },
-  {
+  }, {
     "Name": "Original United States Mint and Subtreasury",
     "Image": "NULL",
     "Address": "608 Commercial St.",
@@ -208,8 +190,7 @@ var landmarks = [
     "": ".0″N",
     "lngD": 122.4069444,
     "latD": 37.78277778
-  },
-  {
+  }, {
     "Name": "Feusier Octagon House",
     "Image": "NULL",
     "Address": "1067 Green St.",
@@ -219,8 +200,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4166667,
     "latD": 37.79833333
-  },
-  {
+  }, {
     "Name": "Hallidie Building",
     "Image": "NULL",
     "Address": "130 Sutter St.",
@@ -230,8 +210,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4030556,
     "latD": 37.79
-  },
-  {
+  }, {
     "Name": "Cable Car Barn and Power House",
     "Image": "NULL",
     "Address": "Washington and Mason Streets, northwest corner",
@@ -241,8 +220,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4113889,
     "latD": 37.79472222
-  },
-  {
+  }, {
     "Name": "Nightingale House",
     "Image": "NULL",
     "Address": "201 Buchanan St.",
@@ -252,8 +230,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4272222,
     "latD": 37.77166667
-  },
-  {
+  }, {
     "Name": "Conservatory of Flowers",
     "Image": "NULL",
     "Address": "Golden Gate Park, John F. Kennedy Memorial Dr.",
@@ -263,8 +240,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4602778,
     "latD": 37.7725
-  },
-  {
+  }, {
     "Name": "Haslett Warehouse",
     "Image": "NULL",
     "Address": "680 Beach St.",
@@ -274,8 +250,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.42,
     "latD": 37.80694444
-  },
-  {
+  }, {
     "Name": "Mish House",
     "Image": "NULL",
     "Address": "1153 Oak St.",
@@ -285,8 +260,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4383333,
     "latD": 37.77277778
-  },
-  {
+  }, {
     "Name": "Flood Mansion (Pacific Union Club)",
     "Image": "NULL",
     "Address": "1000 California St.",
@@ -296,8 +270,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4113889,
     "latD": 37.79194444
-  },
-  {
+  }, {
     "Name": "Haas-Lilienthal House",
     "Image": "NULL",
     "Address": "2007 Franklin St.",
@@ -307,8 +280,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4247222,
     "latD": 37.79333333
-  },
-  {
+  }, {
     "Name": "Goodman Building",
     "Image": "NULL",
     "Address": "1117 Geary Blvd.",
@@ -318,8 +290,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4222222,
     "latD": 37.78555556
-  },
-  {
+  }, {
     "Name": "Lotta's Fountain",
     "Image": "NULL",
     "Address": "Pedestrian Island, at Intersection of Market, Geary and Kearny Streets",
@@ -329,8 +300,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4033333,
     "latD": 37.78777778
-  },
-  {
+  }, {
     "Name": "California Historical Society (Whittier Mansion)",
     "Image": "NULL",
     "Address": "2090 Jackson St.",
@@ -340,8 +310,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4294444,
     "latD": 37.79333333
-  },
-  {
+  }, {
     "Name": "Mills Building and Tower",
     "Image": "NULL",
     "Address": "220 Montgomery St. and 220 Bush St.",
@@ -351,8 +320,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4016667,
     "latD": 37.79111111
-  },
-  {
+  }, {
     "Name": "Alfred E. Clarke Mansion",
     "Image": "NULL",
     "Address": "250 Douglas St.",
@@ -362,8 +330,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4394444,
     "latD": 37.75972222
-  },
-  {
+  }, {
     "Name": "Geary Theater",
     "Image": "NULL",
     "Address": "415 Geary St.",
@@ -373,8 +340,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4102778,
     "latD": 37.78694444
-  },
-  {
+  }, {
     "Name": "St. John's Presbyterian Church",
     "Image": "NULL",
     "Address": "25 Lake St.",
@@ -384,8 +350,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4586111,
     "latD": 37.78666667
-  },
-  {
+  }, {
     "Name": "San Francisco Art Institute",
     "Image": "NULL",
     "Address": "800 Chestnut St.",
@@ -395,8 +360,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4172222,
     "latD": 37.80333333
-  },
-  {
+  }, {
     "Name": "Jessie Street Substation",
     "Image": "NULL",
     "Address": "220 Jessie St.",
@@ -406,8 +370,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4036111,
     "latD": 37.78611111
-  },
-  {
+  }, {
     "Name": "Palace of Fine Arts",
     "Image": "NULL",
     "Address": "3301 Lyon St.",
@@ -417,8 +380,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4483333,
     "latD": 37.80277778
-  },
-  {
+  }, {
     "Name": "Old Firehouse, Engine Company No. 2 and Truck No. 6",
     "Image": "NULL",
     "Address": "1152 Oak St.",
@@ -428,8 +390,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.405,
     "latD": 37.79083333
-  },
-  {
+  }, {
     "Name": "Ferry Building",
     "Image": "NULL",
     "Address": "The Embarcadero, foot of Market St.",
@@ -439,8 +400,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.3936111,
     "latD": 37.79527778
-  },
-  {
+  }, {
     "Name": "Gibb-Sanborn Warehouse (Trinidad Bean and Elevator Company)",
     "Image": "NULL",
     "Address": "855 Front St., and 101 Vallejo St.",
@@ -450,8 +410,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4002778,
     "latD": 37.79944444
-  },
-  {
+  }, {
     "Name": "Orpheum Theatre",
     "Image": "NULL",
     "Address": "1192 Market St.",
@@ -461,8 +420,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4147222,
     "latD": 37.77916667
-  },
-  {
+  }, {
     "Name": "Koshland House",
     "Image": "NULL",
     "Address": "3800 Washington St.",
@@ -472,8 +430,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4558333,
     "latD": 37.78888889
-  },
-  {
+  }, {
     "Name": "Francis Scott Key Monument",
     "Image": "NULL",
     "Address": "Golden Gate Park, East End of Music Concourse",
@@ -483,8 +440,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4675,
     "latD": 37.77055556
-  },
-  {
+  }, {
     "Name": "Castro Theatre",
     "Image": "NULL",
     "Address": "429 Castro St.",
@@ -494,8 +450,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.435,
     "latD": 37.76194444
-  },
-  {
+  }, {
     "Name": "Calvary Presbyterian Church (Sanctuary)",
     "Image": "NULL",
     "Address": "2501 Fillmore St.",
@@ -505,8 +460,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4347222,
     "latD": 37.79277778
-  },
-  {
+  }, {
     "Name": "Market Street Railway Substation",
     "Image": "NULL",
     "Address": "1190 Fillmore Street, at Turk Street",
@@ -516,8 +470,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4319444,
     "latD": 37.78027778
-  },
-  {
+  }, {
     "Name": "Chambord Apartments",
     "Image": "NULL",
     "Address": "1298 Sacramento St.",
@@ -527,8 +480,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4141667,
     "latD": 37.7925
-  },
-  {
+  }, {
     "Name": "Rincon Annex",
     "Image": "NULL",
     "Address": "101-199 Mission St.",
@@ -538,8 +490,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.3933333,
     "latD": 37.79277778
-  },
-  {
+  }, {
     "Name": "State Armory and Arsenal",
     "Image": "NULL",
     "Address": "14th and Mission",
@@ -549,8 +500,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4205556,
     "latD": 37.76777778
-  },
-  {
+  }, {
     "Name": "John McMullen House",
     "Image": "NULL",
     "Address": "827 Guerrero St.",
@@ -560,8 +510,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4233333,
     "latD": 37.75777778
-  },
-  {
+  }, {
     "Name": "Mechanics' Institute",
     "Image": "NULL",
     "Address": "57-65 Post Street",
@@ -571,8 +520,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4030556,
     "latD": 37.78888889
-  },
-  {
+  }, {
     "Name": "Westerfeld House",
     "Image": "NULL",
     "Address": "1198 Fulton St.",
@@ -582,8 +530,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4363889,
     "latD": 37.77722222
-  },
-  {
+  }, {
     "Name": "Notre Dame School (San Francisco)",
     "Image": "NULL",
     "Address": "351 Dolores Street",
@@ -593,8 +540,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4063889,
     "latD": 37.79083333
-  },
-  {
+  }, {
     "Name": "Dutch Windmill",
     "Image": "NULL",
     "Address": "Golden Gate Park",
@@ -604,8 +550,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.5094444,
     "latD": 37.77055556
-  },
-  {
+  }, {
     "Name": "Flood Building",
     "Image": "NULL",
     "Address": "870-898 Market Street",
@@ -615,8 +560,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4075,
     "latD": 37.785
-  },
-  {
+  }, {
     "Name": "Federal Reserve Bank Building (San Francisco)",
     "Image": "NULL",
     "Address": "400 Sansome St.",
@@ -626,8 +570,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4011111,
     "latD": 37.79416667
-  },
-  {
+  }, {
     "Name": "Lillie Hitchcock Coit Tower",
     "Image": "NULL",
     "Address": "1 Telegraph Hill Blvd.",
@@ -637,8 +580,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4058333,
     "latD": 37.8025
-  },
-  {
+  }, {
     "Name": "Crown Zellerbach Building",
     "Image": "NULL",
     "Address": "1 Bush St./523 Market St.",
@@ -648,8 +590,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4,
     "latD": 37.79083333
-  },
-  {
+  }, {
     "Name": "Mark Hopkins Hotel",
     "Image": "NULL",
     "Address": "850 Mason St./1 Nob Hill",
@@ -659,8 +600,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4102778,
     "latD": 37.79166667
-  },
-  {
+  }, {
     "Name": "Fairmont Hotel",
     "Image": "NULL",
     "Address": "950 Mason St.",
@@ -670,8 +610,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4105556,
     "latD": 37.7925
-  },
-  {
+  }, {
     "Name": "Frank G. Edwards House",
     "Image": "NULL",
     "Address": "1366 Guerrero St.",
@@ -681,8 +620,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4227778,
     "latD": 37.74916667
-  },
-  {
+  }, {
     "Name": "Islam Temple (Alcazar Theater)",
     "Image": "NULL",
     "Address": "650 Geary Street",
@@ -692,8 +630,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4138889,
     "latD": 37.78666667
-  },
-  {
+  }, {
     "Name": "Balboa High School",
     "Image": "NULL",
     "Address": "1000 Cayuga Avenue at Onondaga Street",
@@ -703,8 +640,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4411111,
     "latD": 37.72194444
-  },
-  {
+  }, {
     "Name": "Odd Fellows Columbarium",
     "Image": "NULL",
     "Address": "1 Loraine Court",
@@ -714,8 +650,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4569444,
     "latD": 37.78055556
-  },
-  {
+  }, {
     "Name": "Alhambra Theater",
     "Image": "NULL",
     "Address": "2320-2336 Polk Street",
@@ -725,8 +660,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4222222,
     "latD": 37.79833333
-  },
-  {
+  }, {
     "Name": "Former Engine House No. 31",
     "Image": "NULL",
     "Address": "1088 Green St.",
@@ -736,8 +670,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4169444,
     "latD": 37.79861111
-  },
-  {
+  }, {
     "Name": "Golden Gate Bridge",
     "Image": "NULL",
     "Address": "At the Presidio, U.S. Highway 101 and California Highway 1",
@@ -747,8 +680,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4786111,
     "latD": 37.81972222
-  },
-  {
+  }, {
     "Name": "Carmel Fallon Building",
     "Image": "NULL",
     "Address": "1800 Market Street",
@@ -758,8 +690,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4241667,
     "latD": 37.77166667
-  },
-  {
+  }, {
     "Name": "City Lights Bookstore",
     "Image": "NULL",
     "Address": "261-271 Columbus Avenue",
@@ -769,8 +700,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4066667,
     "latD": 37.7975
-  },
-  {
+  }, {
     "Name": "Old U.S. Mint",
     "Image": "NULL",
     "Address": "88 Fifth St.",
@@ -780,8 +710,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4072222,
     "latD": 37.78277778
-  },
-  {
+  }, {
     "Name": "Drexler-Colombo Building",
     "Image": "NULL",
     "Address": "1-21 Columbus Ave.",
@@ -791,8 +720,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4036111,
     "latD": 37.79555556
-  },
-  {
+  }, {
     "Name": "New Mission Theater",
     "Image": "NULL",
     "Address": "2550 Mission",
@@ -802,8 +730,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4188889,
     "latD": 37.75638889
-  },
-  {
+  }, {
     "Name": "Golden Gate Park Music Concourse",
     "Image": "NULL",
     "Address": "Tea Garden Drive",
@@ -813,8 +740,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4675,
     "latD": 37.77055556
-  },
-  {
+  }, {
     "Name": "Doggie Diner sign",
     "Image": "NULL",
     "Address": "Sloat and 45th Avenue",
@@ -824,8 +750,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.5030556,
     "latD": 37.73555556
-  },
-  {
+  }, {
     "Name": "Mission High School",
     "Image": "NULL",
     "Address": "3750 18th Street",
@@ -835,8 +760,7 @@ var landmarks = [
     "": "″N",
     "lngD": 122.4272222,
     "latD": 37.76166667
-  },
-  {
+  }, {
     "Name": "Metro Theater",
     "Image": "NULL",
     "Address": "2055 Union Street",
@@ -849,24 +773,32 @@ var landmarks = [
   }
 ];
 
-
-  export const SFLandmarks = landmarks.map((maphash) => {
-    let hash = {};
-    hash['pos'] = {latitude:parseFloat(maphash['latD']), longitude: parseFloat(-maphash['lngD'])};
-    hash['name'] = maphash['Name'];
-    return hash;
-  });
+export const SFLandmarks = landmarks.map((maphash) => {
+  let hash = {};
+  hash['pos'] = {
+    latitude: parseFloat(maphash['latD']),
+    longitude: parseFloat(-maphash['lngD'])
+  };
+  hash['name'] = maphash['Name'];
+  return hash;
+});
 // getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2)
-  export function selectedLandmarks(curlat, curlng) {
-    let sortedLandmarks =  SFLandmarks.sort(function(a, b){
-      let landmarklatA = a.pos.latitude;
-      let landmarklngA = a.pos.longitude;
-      let landmarklatB = b.pos.latitude;
-      let landmarklngB = b.pos.longitude;
-      let distanceA = getDistanceFromLatLonInKm(landmarklatA,landmarklngA,curlat,curlng);
-      let distanceB = getDistanceFromLatLonInKm(landmarklatB,landmarklngB,curlat,curlng);
-      return distanceA - distanceB;
-    });
-    console.log('sortedLandmark', sortedLandmarks.slice(0,5));
-    return sortedLandmarks.slice(0,5);
-  }
+export function selectedLandmarks(curlat, curlng, previousArr) {
+  console.log('prev arr', previousArr);
+  let sortedLandmarks = SFLandmarks.sort(function (a, b) {
+
+    let landmarklatA = a.pos.latitude;
+    let landmarklngA = a.pos.longitude;
+    let landmarklatB = b.pos.latitude;
+    let landmarklngB = b.pos.longitude;
+    let distanceA = getDistanceFromLatLonInKm(landmarklatA, landmarklngA, curlat, curlng);
+    let distanceB = getDistanceFromLatLonInKm(landmarklatB, landmarklngB, curlat, curlng);
+    const distanceBetween = distanceA - distanceB;
+    return (distanceBetween > 0.05)
+      ? distanceBetween
+      : 1000;
+  });
+  sortedLandmarks = sortedLandmarks.filter((landmark) => !(previousArr.includes(landmark.latitude)));
+  console.log('sortedLandmark', sortedLandmarks.slice(0, 5));
+  return sortedLandmarks.slice(0, 5);
+}
