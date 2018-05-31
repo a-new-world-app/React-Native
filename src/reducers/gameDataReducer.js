@@ -22,7 +22,7 @@ const defaultState = {
   build: {
     robot: 1,
     progress: 99,
-    needed: 100000,
+    needed: 100000000,
     lastCheck: 1527621031493,
   },
   gather: [{
