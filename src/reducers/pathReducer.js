@@ -1,6 +1,6 @@
-import { merge } from 'lodash';
+import {merge} from 'lodash';
 
-import { RECEIVE_PATH, CLEAR_PATH, RECEIVE_PATH_UPDATE } from "../actions/pathActions";
+import {RECEIVE_PATH, CLEAR_PATH, RECEIVE_PATH_UPDATE} from "../actions/pathActions";
 
 const pathReducer = (oldState = {}, action) => {
   Object.freeze(oldState);
@@ -13,7 +13,7 @@ const pathReducer = (oldState = {}, action) => {
       return path;
     case RECEIVE_PATH_UPDATE:
       path = action.payload.pathData;
-      return path
+      return path;
     case CLEAR_PATH:
       return {};
     default:
