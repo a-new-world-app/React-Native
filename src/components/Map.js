@@ -262,8 +262,8 @@ class Map extends Component < {} > {
       ], {
         onDismiss: () => {}
       });
-    }
-    if (!Submition.isCloseToLandmark(curLat, curLng, landMarkLat, landMarkLng)) {
+    } else if (!Submition.isCloseToLandmark(curLat, curLng, landMarkLat, landMarkLng)) {
+
       Alert.alert('Alert', 'Go closer to the Landmark!', [
         {
           text: 'OK',
@@ -271,8 +271,9 @@ class Map extends Component < {} > {
         }
       ], {
         onDismiss: () => {}
-      })
+      });
     } else {
+      console.log("handleSubmit")
       let endPosition = this.state.nextLocation;
       endPosition.images = [this.state.endImageURL];
       let nextStep = {
@@ -371,6 +372,11 @@ class Map extends Component < {} > {
       markers = [this.state.nextLocation].map((landmark) => {
         return (
           <MapView.Marker
+            key={landmark
+            .latitude
+            .toString() + landmark
+            .longitude
+            .toString()}
             coordinate={{
             latitude: landmark.latitude,
             longitude: landmark.longitude
