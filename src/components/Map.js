@@ -213,11 +213,16 @@ class Map extends Component < {} > {
     let landMarkLng = this.state.landmarkPos[0].pos.longitude;
 
     if (!this.state.startPoint) {
-      // if (!Submition.isCloseToLandmark(curLat, curLng, landMarkLat, landMarkLng)) {
-      //   Alert.alert('Alert', 'Go closer to the Landmark!', [     {       text:
-      // 'OK',       onPress: () => {}     }   ], {     onDismiss: () => {}   }); }
-      // else
-      if (!this.state.endImageURL) {
+      if (!Submition.isCloseToLandmark(curLat, curLng, landMarkLat, landMarkLng)) {
+        Alert.alert('Alert', 'Go closer to the Landmark!', [
+          {
+            text: 'OK',
+            onPress: () => {}
+          }
+        ], {
+          onDismiss: () => {}
+        });
+      } else if (!this.state.endImageURL) {
         Alert.alert('Alert', 'Please take a picture of the landmark first.', [
           {
             text: 'OK',
@@ -258,46 +263,46 @@ class Map extends Component < {} > {
         onDismiss: () => {}
       });
     }
-    // if (!Submition.isCloseToLandmark(curLat, curLng, landMarkLat, landMarkLng)) {
-    //   Alert.alert('Alert', 'Go closer to the Landmark!', [     {       text:
-    // 'OK',       onPress: () => {}     }   ], {     onDismiss: () => {}   }) }
-    // else {
-    let endPosition = this.state.nextLocation;
-    endPosition.images = [this.state.endImageURL];
-    let nextStep = {
-      end_point: endPosition,
-      description: this.state.description
-    }
-    if (this.state.steps.length === 0) {
-      nextStep.start_point = this.state.startPoint;
+    if (!Submition.isCloseToLandmark(curLat, curLng, landMarkLat, landMarkLng)) {
+      Alert.alert('Alert', 'Go closer to the Landmark!', [
+        {
+          text: 'OK',
+          onPress: () => {}
+        }
+      ], {
+        onDismiss: () => {}
+      })
     } else {
-      nextStep.start_point = this.state.steps[this.state.steps.length - 1].end_point
-    }
-    this
-      .props
-      .updatePath(this.props.sessionToken, this.state.pathId, this.compilePath(null, nextStep));
-    this.resetFields();
-    let previous = []
-    if (this.state.pathId) {
-      previous.push(start_point.latitude)
+      let endPosition = this.state.nextLocation;
+      endPosition.images = [this.state.endImageURL];
+      let nextStep = {
+        end_point: endPosition,
+        description: this.state.description
+      }
+      if (this.state.steps.length === 0) {
+        nextStep.start_point = this.state.startPoint;
+      } else {
+        nextStep.start_point = this.state.steps[this.state.steps.length - 1].end_point
+      }
       this
-        .state
-        .steps
-        .forEach(step => {
-          previous.push(step.start_point.latitude)
-        })
+        .props
+        .updatePath(this.props.sessionToken, this.state.pathId, this.compilePath(null, nextStep));
+      this.resetFields();
+      let previous = []
+      if (this.state.pathId) {
+        previous.push(start_point.latitude)
+        this
+          .state
+          .steps
+          .forEach(step => {
+            previous.push(step.start_point.latitude)
+          })
+      }
+      this.setState({
+        landmarkPos: selectedLandmarks(curLat, curLng, previous)
+      });
     }
-    this.setState({
-      landmarkPos: selectedLandmarks(curLat, curLng, previous)
-    });
-    // }
   }
-
-  // nextLocation = (steps) => {   if (!steps)     return   null;   let step =
-  // steps[steps.length - 1];   if (step.end_point) {     return ({latitude:
-  // step.end_point.latitude, longitude: step.end_point.longitude})   } else {
-  // return {latitude: step.start_point.latitude, longitude:
-  // step.start_point.longitude}   } }
 
   endPath = () => {
     this
@@ -351,7 +356,16 @@ class Map extends Component < {} > {
     }
   }
 
+  enableTakePicture = () => {
+    return this.state.nextLocation && this.closeToNextLocation()
+  }
+
+  enableSubmit = () => {
+    return (this.enableTakePicture() && !this.needDescription()) && !this.needPicture()
+  }
+
   render() {
+    console.log(this.enableTakePicture())
     let markers;
     if (this.state.nextLocation) {
       markers = [this.state.nextLocation].map((landmark) => {
@@ -382,62 +396,74 @@ class Map extends Component < {} > {
     }
     return (
       <KeyboardAvoidingView enabled behavior="position" style={styles.container}>
-        <Text style={styles.prompt}>{this.generatePrompt()}</Text>
+        <View style={styles.wrapper}>
+          <Text style={styles.prompt}>{this.generatePrompt()}</Text>
 
-        <MapView
-          ref={ref => (this.mapRef = ref)}
-          style={styles.map}
-          initialRegion={this.state.initialPos}>
-          <MapView.Marker coordinate={this.state.currentPos}>
-            <View style={styles.radius}>
-              <View style={styles.marker}/>
+          <MapView
+            ref={ref => (this.mapRef = ref)}
+            style={styles.map}
+            initialRegion={this.state.initialPos}>
+            <MapView.Marker coordinate={this.state.currentPos}>
+              <View style={styles.radius}>
+                <View style={styles.marker}/>
+              </View>
+            </MapView.Marker>
+
+            {markers}
+          </MapView>
+
+          {this.needNextLocation()
+            ? <View></View>
+            : (<TextInput
+              multiline={true}
+              numberOfLines={8}
+              editable={true}
+              maxLength={500}
+              style={styles.input}
+              value={this.state.description}
+              placeholder="Please describe your path"
+              onChangeText={field => this.updateDescription(field)}/>)}
+
+          <View style={styles.buttons}>
+            <View style={styles.iconContainer}>
+              <TouchableOpacity
+                style={this.enableSubmit()
+                ? styles.button
+                : styles.buttonDisable}
+                onPress={this.handleSubmit}>
+                <Text style={styles.text}>
+                  <Icon name="paper-plane" size={30} color="#EBBF92"/>
+                </Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={this.enableTakePicture()
+                ? styles.button
+                : styles.buttonDisable}
+                onPress={this.showCamera}>
+                <Text style={styles.text}>
+                  <Icon name="camera" size={30} color="#EBBF92"/>
+                </Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity style={styles.button}>
+                <Text style={styles.text} onPress={this.endPath}>
+                  <Icon name="times" size={32} color="#EBBF92"/>
+                </Text>
+              </TouchableOpacity>
             </View>
-          </MapView.Marker>
-
-          {markers}
-        </MapView>
-
-        <TextInput
-          multiline={true}
-          numberOfLines={8}
-          editable={true}
-          maxLength={500}
-          style={styles.input}
-          value={this.state.description}
-          placeholder="Please describe your path"
-          onChangeText={field => this.updateDescription(field)}/>
-
-        <View style={styles.buttons}>
-          <View style={styles.iconContainer}>
-            <TouchableOpacity style={styles.button} onPress={this.handleSubmit}>
+            <View style={styles.textContainer}>
               <Text style={styles.text}>
-                <Icon name="paper-plane" size={30} color="#EBBF92"/>
-              </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.button} onPress={this.showCamera}>
+                Submit</Text>
               <Text style={styles.text}>
-                <Icon name="camera" size={30} color="#EBBF92"/>
+                Add Photo</Text>
+              <Text style={styles.text}>
+                End
               </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.text} onPress={this.endPath}>
-                <Icon name="times" size={32} color="#EBBF92"/>
-              </Text>
-            </TouchableOpacity>
+            </View>
           </View>
-          <View style={styles.textContainer}>
-            <Text style={styles.text}>
-              Submit</Text>
-            <Text style={styles.text}>
-              Add Photo</Text>
-            <Text style={styles.text}>
-              End
-            </Text>
-          </View>
+          {this.state.showCamera && <Camera handlePicture={this.handlePicture}/>}
         </View>
-        {this.state.showCamera && <Camera handlePicture={this.handlePicture}/>}
       </KeyboardAvoidingView>
     );
   }
@@ -447,14 +473,22 @@ class Map extends Component < {} > {
 const styles = StyleSheet.create({
 
   container: {
-    // backgroundColor:'#FFF033'
+    // height: height
+  },
+
+  wrapper: {
+    height: height
   },
 
   prompt: {
+    height: 50,
+    textAlignVertical: 'center',
+    textAlign: 'center',
     position: 'relative'
   },
   map: {
-    height: height / 1.7,
+    // height: height / 1.8,
+    flex: 10,
     width: width
   },
   radius: {
@@ -512,6 +546,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#0D417A',
     padding: 17
   },
+
+  buttonDisable: {
+    width: '18%',
+    borderRadius: 50,
+    backgroundColor: 'grey',
+    padding: 17
+  },
+
   textContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
