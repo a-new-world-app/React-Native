@@ -785,7 +785,7 @@ export const SFLandmarks = landmarks.map((maphash) => {
 // getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2)
 export function selectedLandmarks(curlat, curlng, previousArr) {
   console.log('prev arr', previousArr, curlat, curlng);
-  const filteredLandmarks = SFLandmarks.filter((landmark) => !(previousArr.includes(landmark.latitude)));
+  const filteredLandmarks = SFLandmarks.filter((landmark) => !(previousArr.includes(landmark.name)));
   let sortedLandmarks = filteredLandmarks.sort(function (a, b) {
 
     let landmarklatA = a.pos.latitude;
@@ -798,6 +798,15 @@ export function selectedLandmarks(curlat, curlng, previousArr) {
     return distanceBetween;
   });
   sortedLandmarks.filter(landmark => getDistanceFromLatLonInKm(curlat, curlng, landmark.pos.latitude, landmark.pos.longitude) > 0.05);
-  console.log('sortedLandmark', sortedLandmarks.slice(0, 5));
-  return sortedLandmarks.slice(0, 5);
+  let slicedLandmarks = sortedLandmarks.slice(0, 5);
+  appendType(slicedLandmarks);
+  console.log('sliced', slicedLandmarks);
+  return slicedLandmarks;
+}
+
+function appendType(landArr) {
+  const resources = ['iron', 'copper', 'aluminum', 'gold', 'titanium'];
+  landArr.forEach(landmark => {
+    landmark.resource = resources[Math.floor(Math.random() * resources.length)];
+  });
 }
