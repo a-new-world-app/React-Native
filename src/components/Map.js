@@ -493,8 +493,8 @@ class Map extends Component < {} > {
 
               <TouchableOpacity
                 style={this.enableSubmit()
-                ? styles.button
-                : styles.buttonDisable}
+                ? [styles.button,styles.submitButton]
+                : [styles.buttonDisable,styles.submitButton]}
                 disabled={this.enableSubmit()
                 ? false
                 : true}
@@ -508,7 +508,7 @@ class Map extends Component < {} > {
 
               <TouchableOpacity style={styles.button}>
                 <Text style={styles.text} onPress={this.endPath}>
-                  <Icon name="times" size={32} color='white'/>
+                  <Icon name="times" size={37} color='white'/>
                 </Text>
               </TouchableOpacity>
             </View>
@@ -582,7 +582,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "space-between",
     height: "17%",
-    // marginTop:'3%',
     paddingTop: "-2%",
     backgroundColor: "#8AC8DD"
   },
@@ -596,18 +595,25 @@ const styles = StyleSheet.create({
   },
   button: {
     width: "18%",
-    borderRadius: 50,
+    height: '90%',
+    borderRadius: 20,
     backgroundColor: "#115767",
-    padding: 17
+    // padding: 17,
+    alignItems:'center',
+    justifyContent:'center'
   },
 
   buttonDisable: {
     width: "18%",
-    borderRadius: 50,
+    height: '90%',
+    borderRadius: 20,
     backgroundColor: "#378788",
     padding: 17
   },
-
+  submitButton:{
+    width: '36%',
+    alignItems:'center'
+  },
   textContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
