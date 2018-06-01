@@ -314,9 +314,8 @@ class Map extends Component < {} > {
 
   needPicture = () => !this.state.endImageURL;
 
-  needDescription = () => {
-    !this.state.description;
-  }
+  needDescription = () => !this.state.description;
+
 
   closeToNextLocation = () => {
     if (this.needNextLocation)
@@ -513,8 +512,8 @@ class Map extends Component < {} > {
               </TouchableOpacity>
             </View>
             <View style={styles.textContainer}>
-              <Text style={styles.text}>Submit</Text>
               <Text style={styles.text}>Add Photo</Text>
+              <Text style={styles.text}>Submit</Text>
               <Text style={styles.text}>End</Text>
             </View>
           </View>
@@ -535,15 +534,21 @@ const styles = StyleSheet.create({
   },
 
   prompt: {
-    height: 50,
+    height: "12%",
     textAlignVertical: "center",
     textAlign: "center",
-    position: "relative"
+    position: "relative",
+    color: '#CCD279',
+    fontSize: 25,
+    fontWeight:'700',
+    backgroundColor:'#60BCA7',
   },
   map: {
-    // height: height / 1.8,
+    height: '71%',
     flex: 10,
-    width: width
+
+    width: width,
+    borderWidth:10
   },
   radius: {
     width: 50,
@@ -583,7 +588,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     height: "17%",
     paddingTop: "-2%",
-    backgroundColor: "#8AC8DD"
+    backgroundColor: "#60BCA7"
   },
   iconContainer: {
     flexDirection: "row",
@@ -617,9 +622,9 @@ const styles = StyleSheet.create({
   textContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    top: "-4%",
+    top: "-6%",
     paddingLeft: "5%",
-    paddingRight: "3%"
+    paddingRight: "8%"
   },
   text: {
     color: "white",
