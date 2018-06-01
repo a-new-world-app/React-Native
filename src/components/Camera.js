@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import {
   AppRegistry,
   Dimensions,
@@ -8,9 +8,9 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
-import { RNCamera } from 'react-native-camera';
+import {RNCamera} from 'react-native-camera';
 
-import { request } from '../utils/APIUtils';
+import {request} from '../utils/APIUtils';
 
 class TakePicture extends Component {
   render() {
@@ -18,20 +18,27 @@ class TakePicture extends Component {
       <View style={styles.container}>
         <RNCamera
           ref={ref => {
-            this.camera = ref;
-          }}
+          this.camera = ref;
+        }}
           style={styles.preview}
           type={RNCamera.Constants.Type.back}
           flashMode={RNCamera.Constants.FlashMode.on}
           permissionDialogTitle={'Permission to use camera'}
-          permissionDialogMessage={'We need your permission to use your camera phone'}
-        />
-        <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center', }}>
+          permissionDialogMessage={'We need your permission to use your camera phone'}/>
+        <View
+          style={{
+          flex: 0,
+          flexDirection: 'row',
+          justifyContent: 'center'
+        }}>
           <TouchableOpacity
-            onPress={this.takePicture.bind(this)}
-            style={styles.capture}
-          >
-            <Text style={{ fontSize: 14 }}> SNAP </Text>
+            onPress={this
+            .takePicture
+            .bind(this)}
+            style={styles.capture}>
+            <Text style={{
+              fontSize: 14
+            }}>Take Picture</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -41,15 +48,20 @@ class TakePicture extends Component {
   takePicture = async function () {
     if (this.camera) {
       console.log('taking picture');
-      const options = { quality: 0.5, base64: true };
-      const data = await this.camera.takePictureAsync(options);
+      const options = {
+        quality: 0.5,
+        base64: true
+      };
+      const data = await this
+        .camera
+        .takePictureAsync(options);
       console.log(data);
 
       var xhr = new XMLHttpRequest();
       var picture = {
         uri: data.uri,
         type: 'image/jpeg',
-        name: 'picture.jpg',
+        name: 'picture.jpg'
       };
 
       var body = new FormData();
@@ -57,7 +69,9 @@ class TakePicture extends Component {
 
       xhr.open('POST', "https://a-new-world.herokuapp.com/api/paths/images");
       xhr.send(body);
-      xhr.onload = () => this.props.handlePicture(xhr.response);
+      xhr.onload = () => this
+        .props
+        .handlePicture(xhr.response);
     }
   };
 }
@@ -89,8 +103,6 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = state => ({
-  user: state.session
-});
+const mapStateToProps = state => ({user: state.session});
 
 export default connect(mapStateToProps)(TakePicture);
