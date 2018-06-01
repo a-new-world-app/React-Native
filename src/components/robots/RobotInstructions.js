@@ -20,7 +20,7 @@ export default class RobotInstuctions extends Component < Props > {
     super(props);
     console.log(props)
     this.state = {
-      lookingAt: 2,
+      lookingAt: 1,
       gameData: props.gameData,
       robots: Object.keys(props.gameData.robots)
     }
