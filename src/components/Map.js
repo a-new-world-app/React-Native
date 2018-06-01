@@ -624,7 +624,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     top: "-6%",
     paddingLeft: "5%",
-    paddingRight: "8%"
+    paddingRight: "10%"
   },
   text: {
     color: "white",
