@@ -475,18 +475,6 @@ class Map extends Component < {} > {
 
           <View style={styles.buttons}>
             <View style={styles.iconContainer}>
-              <TouchableOpacity
-                style={this.enableSubmit()
-                ? styles.button
-                : styles.buttonDisable}
-                disabled={this.enableSubmit()
-                ? false
-                : true}
-                onPress={this.handleSubmit}>
-                <Text style={styles.text}>
-                  <Icon name="paper-plane" size={30} color="#EBBF92"/>
-                </Text>
-              </TouchableOpacity>
 
               <TouchableOpacity
                 style={this.enableTakePicture()
@@ -497,13 +485,30 @@ class Map extends Component < {} > {
                 : true}
                 onPress={this.showCamera}>
                 <Text style={styles.text}>
-                  <Icon name="camera" size={30} color="#EBBF92"/>
+                  <Icon name="camera" size={30} color= {this.enableTakePicture()
+                  ? 'white'
+                  : '#74B4B3'}/>
+                </Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={this.enableSubmit()
+                ? styles.button
+                : styles.buttonDisable}
+                disabled={this.enableSubmit()
+                ? false
+                : true}
+                onPress={this.handleSubmit}>
+                <Text style={styles.text}>
+                  <Icon name="paper-plane" size={30} color={this.enableSubmit()
+                  ? 'white'
+                  : '#74B4B3'}/>
                 </Text>
               </TouchableOpacity>
 
               <TouchableOpacity style={styles.button}>
                 <Text style={styles.text} onPress={this.endPath}>
-                  <Icon name="times" size={32} color="#EBBF92"/>
+                  <Icon name="times" size={32} color='white'/>
                 </Text>
               </TouchableOpacity>
             </View>
@@ -592,14 +597,14 @@ const styles = StyleSheet.create({
   button: {
     width: "18%",
     borderRadius: 50,
-    backgroundColor: "#0D417A",
+    backgroundColor: "#115767",
     padding: 17
   },
 
   buttonDisable: {
     width: "18%",
     borderRadius: 50,
-    backgroundColor: "grey",
+    backgroundColor: "#378788",
     padding: 17
   },
 
