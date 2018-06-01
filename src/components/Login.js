@@ -6,17 +6,24 @@ import {
   Button,
   Linking,
   ImageBackground,
+  TouchableHighlight,
   TouchableOpacity,
   Image,
-  Text
+  Text,
+  Modal,
+  Alert,
 } from "react-native";
 
 import { submitPath } from "../utils/pathAPIUtils";
+import { submitAgreement } from "../utils/sessionAPIUtils";
 
 export default class Test extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { description: "" };
+    this.state = {
+       description: "",
+       openModal: false,
+       hasUserAgreed: this.props.term};
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleOpenURL = this.handleOpenURL.bind(this);
   }
@@ -48,7 +55,7 @@ export default class Test extends React.Component {
   }
 
   handleSubmit() {
-    submitPath(this.props.user.sessionToken, this.state.description);
+    this.props.submitAgreement(this.props.user.sessionToken, this.state.hasUserAgreed);
   }
 
   handleChange(description) {
@@ -59,7 +66,11 @@ export default class Test extends React.Component {
     Linking.openURL("https://a-new-world.herokuapp.com/auth/google");
   }
 
+
+
   render() {
+    console.log('modal',this.state);
+    console.log('userInfo', this.props.user);
     return (
       <ImageBackground source={require('../../assets/background/login.png')}
                 style={styles.backgroundImage}>
@@ -70,11 +81,47 @@ export default class Test extends React.Component {
         style = {styles.logo}>
       </Image>
       <View style={{marginTop: '30%', alignItems: 'center'}} >
-        <TouchableOpacity style = {styles.button} onPress={this.handleLogin} >
+
+        <TouchableOpacity style = {styles.button}
+          onPress={this.handleLogin}
+
+          >
           <Text style = {styles.label}>Log In With Google </Text>
         </TouchableOpacity>
         <TouchableOpacity style = {styles.button} onPress={this.props.logOut} >
           <Text style = {styles.label}>Log Out </Text>
+        </TouchableOpacity>
+
+        <Modal
+         animationType="slide"
+         transparent={false}
+         visible={this.state.openModal}
+         onRequestClose={() => {
+            this.setState({openModal:false});
+         }}>
+         <View style={{marginTop: 22}}>
+           <View>
+             <Text>Hello World!</Text>
+
+             <TouchableOpacity
+               onPress={() => {
+                 Alert.alert('', 'By clicking agreed, you agreed to our terms',
+                 [ { text: 'OK',
+                   onPress: () => {
+                     this.handleSubmit();
+                     this.setState({openModal:false});} },
+                   { text: 'Cancel', onPress: () => {} }],
+                 { onDismiss: () => {} })
+                 }
+               } >
+               <Text>Agreed</Text>
+             </TouchableOpacity>
+           </View>
+         </View>
+       </Modal>
+
+        <TouchableOpacity style = {styles.button} onPress={() => this.setState({openModal:true})} >
+          <Text style = {styles.label}> Agreement </Text>
         </TouchableOpacity>
       </View>
       </ImageBackground>
