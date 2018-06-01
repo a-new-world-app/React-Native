@@ -11,29 +11,40 @@ import {
   Text
 } from "react-native";
 
-import { submitPath } from "../utils/pathAPIUtils";
+import {submitPath} from "../utils/pathAPIUtils";
 
 export default class Test extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { description: "" };
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleOpenURL = this.handleOpenURL.bind(this);
+    this.state = {
+      description: ""
+    };
+    this.handleSubmit = this
+      .handleSubmit
+      .bind(this);
+    this.handleOpenURL = this
+      .handleOpenURL
+      .bind(this);
   }
 
   componentDidMount() {
     Linking.addEventListener("url", this.handleOpenURL);
 
-    Linking.getInitialURL().then(url => {
-      if (url) {
-        this.handleOpenURL({ url });
-      }
-    });
+    Linking
+      .getInitialURL()
+      .then(url => {
+        if (url) {
+          this.handleOpenURL({url});
+        }
+      });
   }
 
   componentDidUpdate() {
     if (this.props.user.sessionToken) {
-      this.props.navigation.navigate("HomeScreen");
+      this
+        .props
+        .navigation
+        .navigate("HomeScreen");
     }
   }
 
@@ -41,10 +52,13 @@ export default class Test extends React.Component {
     Linking.removeEventListener("url", this.handleOpenURL);
   }
 
-  handleOpenURL({ url }) {
-    const [, token] = url.match(/token=([^#]+)/);
-    this.setState({ token });
-    this.props.logIn(token);
+  handleOpenURL({url}) {
+    const [,
+      token] = url.match(/token=([^#]+)/);
+    this.setState({token});
+    this
+      .props
+      .logIn(token);
   }
 
   handleSubmit() {
@@ -52,7 +66,7 @@ export default class Test extends React.Component {
   }
 
   handleChange(description) {
-    this.setState({ description });
+    this.setState({description});
   }
 
   handleLogin() {
@@ -61,63 +75,63 @@ export default class Test extends React.Component {
 
   render() {
     return (
-      <ImageBackground source={require('../../assets/background/login.png')}
-                style={styles.backgroundImage}>
-      <Image source={require('../../assets/background/landing.png')}
-        style = {styles.robots}>
-      </Image>
-      <Image source={require('../../assets/background/logo.png')}
-        style = {styles.logo}>
-      </Image>
-      <View style={{marginTop: '30%', alignItems: 'center'}} >
-        <TouchableOpacity style = {styles.button} onPress={this.handleLogin} >
-          <Text style = {styles.label}>Log In With Google </Text>
-        </TouchableOpacity>
-        <TouchableOpacity style = {styles.button} onPress={this.props.logOut} >
-          <Text style = {styles.label}>Log Out </Text>
-        </TouchableOpacity>
-      </View>
+      <ImageBackground
+        source={require('../../assets/background/login.png')}
+        style={styles.backgroundImage}>
+        <Image
+          source={require('../../assets/background/landing.png')}
+          style={styles.robots}></Image>
+        <Image source={require('../../assets/background/logo.png')} style={styles.logo}></Image>
+        <View
+          style={{
+          marginTop: '30%',
+          alignItems: 'center'
+        }}>
+          <TouchableOpacity style={styles.button} onPress={this.handleLogin}>
+            <Text style={styles.label}>Log In With Google
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={this.props.logOut}>
+            <Text style={styles.label}>Log Out
+            </Text>
+          </TouchableOpacity>
+        </View>
       </ImageBackground>
     );
   }
 }
 
-
-// <Text>{this.props.user.sessionToken}</Text>
-// <TextInput
-//   multiline
-//   value={this.state.description}
-//   onChangeText={description => this.setState({ description })}
-// />
-// <Button onPress={this.handleSubmit} title="Submit" />
+// <Text>{this.props.user.sessionToken}</Text> <TextInput   multiline
+// value={this.state.description}   onChangeText={description => this.setState({
+// description })} /> <Button onPress={this.handleSubmit} title="Submit" />
 const styles = StyleSheet.create({
 
   backgroundImage: {
-       flex: 1,
-   },
-   robots:{
-     top:'5%',
-     height: '20%',
-     width: '100%',
-   },
-   logo:{
-     top:'15%',
-     left:'12%',
-     width:'80%',
-     height: '30%',
-   },
-   button:{
-     paddingTop:'2%',
-     height: 50,
-     width: '50%',
-     borderRadius: 10,
-     marginBottom: 20,
-     backgroundColor: '#dd4b39',
-   },
-   label:{
-    textAlign:'center',
+    flex: 1
+  },
+  robots: {
+    top: '5%',
+    height: '20%',
+    width: '100%'
+  },
+  logo: {
+    top: '15%',
+    left: '12%',
+    width: '80%',
+    height: '30%'
+  },
+  button: {
+    paddingTop: '2%',
+    height: 50,
+    width: '50%',
+    borderRadius: 10,
+    marginBottom: 20,
+    backgroundColor: '#dd4b39'
+  },
+  label: {
+    textAlign: 'center',
     fontSize: 20,
-    color:'white',
-    fontWeight: '700',
-   },
+    color: 'white',
+    fontWeight: '700'
+  }
 });

@@ -30,7 +30,7 @@ export default class RobotInstuctions extends Component < Props > {
   updateWorkers(input) {
     this
       .props
-      .update(this.props.job, input)
+      .update(this.props.job.toLowerCase(), input)
   }
 
   render() {
@@ -42,21 +42,21 @@ export default class RobotInstuctions extends Component < Props > {
         alignItems: 'center',
         paddingHorizontal: 20,
         paddingVertical: 10,
-        justifyContent: "space-between",
+        justifyContent: "space-between"
       },
       numberCont: {
         flexDirection: 'row'
       },
 
       job: {
-          color: '#3D8390',
-          fontSize: 30,
-          fontWeight:'700',
-        },
+        color: '#3D8390',
+        fontSize: 30,
+        fontWeight: '700'
+      },
       buttonStyle: {
         width: 40,
         height: 40,
-        backgroundColor:'#2DCDA7',
+        backgroundColor: '#2DCDA7',
         // backgroundColor: '#3487C4'
       },
 
@@ -64,22 +64,22 @@ export default class RobotInstuctions extends Component < Props > {
         height: 40,
         fontSize: 30,
         color: 'white',
-        fontWeight:'700',
+        fontWeight: '700',
         textAlign: 'center',
         textAlignVertical: 'center'
       },
 
       input: {
         // backgroundColor: '#F5CD1D',
-        backgroundColor:'#EAEEDF',
+        backgroundColor: '#EAEEDF',
         width: 80,
-        height:40,
+        height: 40,
         // color:'#A71A05',
         color: '#D296A0',
         fontSize: 17,
-        fontWeight:'700',
+        fontWeight: '700',
         textAlign: 'center',
-        textAlignVertical:'center'
+        textAlignVertical: 'center'
       }
     }
     return (
