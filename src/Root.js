@@ -13,12 +13,12 @@ import Map from "./components/Map";
 
 const RootStack = createStackNavigator(
   {
-    LoginContainer,
+    LoginContainer: RobotGatherContainer,
     RobotInstuctionsContainer,
     RobotBuildContainer,
     HomeScreen,
     Map,
-    RobotGatherContainer
+    // RobotGatherContainer
   },
   {
     initialRouteName: "LoginContainer",

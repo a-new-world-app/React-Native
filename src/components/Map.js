@@ -114,8 +114,6 @@ class Map extends Component<{}> {
         this.setState({initialPos: currentRegion,
         currentPos: currentRegion,
         landmarkPos: selectedLandmarks(currentRegion.latitude, currentRegion.longitude)})
-
-
       }
     )
 
