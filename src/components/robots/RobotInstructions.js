@@ -18,14 +18,11 @@ import RobotJob from './RobotJob.js';
 export default class RobotInstuctions extends Component < Props > {
   constructor(props) {
     super(props);
-    console.log(props)
     this.state = {
       lookingAt: 1,
       gameData: props.gameData,
       robots: Object.keys(props.gameData.robots)
     }
-
-    console.log('RI Props', props)
 
     this.updateWorkers = this
       .updateWorkers
@@ -39,6 +36,13 @@ export default class RobotInstuctions extends Component < Props > {
       .getGameData(this.props.sessionToken)
   }
 
+  componentWillReceiveProps(newProps) {
+
+    if (newProps !== this.props) {
+      this.setState({gameData: newProps.gameData})
+    }
+  }
+
   componentWillUnmount() {
     this
       .props
@@ -46,12 +50,9 @@ export default class RobotInstuctions extends Component < Props > {
   }
 
   updateWorkers(string, input) {
-    console.log('update workers', string, input)
     const number = Number(input)
     const unemployed = this.state.gameData.robots[this.state.lookingAt].waiting
     let nextUnemployed = unemployed - (input - this.state.gameData.robots[this.state.lookingAt][string])
-    console.log('nextUnemployed', nextUnemployed)
-    console.log('number', number)
     if (number % 1 !== 0) {
       Alert.alert("You can't have partial robots")
     } else if (Math.sign(number) === -1) {
@@ -67,13 +68,11 @@ export default class RobotInstuctions extends Component < Props > {
           }
         }
       })
-      console.log(nextData)
       this.setState({gameData: nextData})
     }
   }
 
   doThing = (num) => {
-    console.log('do thing')
     this.setState({
       lookingAt: this.state.lookingAt + num
     })
@@ -81,7 +80,6 @@ export default class RobotInstuctions extends Component < Props > {
 
   render() {
     const currentRobot = this.state.gameData.robots[this.state.lookingAt]
-    console.log('RI', this.state, robotTypes[this.state.lookingAt])
     this.state.alert
       ? <AssignmentAlert messsage={this.state.alert}/>
       : <View/>;
@@ -93,7 +91,6 @@ export default class RobotInstuctions extends Component < Props > {
       .state
       .robots
       .includes((this.state.lookingAt + 1).toString())
-    console.log("around", previous, next, this.state.robots, this.state.lookingAt)
     const prevRobot = previous
       ? (
         <TouchableOpacity onPress={() => this.doThing(-1)} style={styles.prevOpac}>
