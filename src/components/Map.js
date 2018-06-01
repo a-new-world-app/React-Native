@@ -90,9 +90,9 @@ class Map extends Component < {} > {
         };
         this.setState({initialPos: initialRegion, currentPos: initialRegion});
       }, error => console.log(JSON.stringify(error)), {
-        enableHighAccuracy: true,
-        timeout: 20000,
-        maximumAge: 100
+        enableHighAccuracy: false,
+        // timeout: 20000,
+        // maximumAge: 100
       });
 
     this.watchID = navigator
@@ -121,9 +121,9 @@ class Map extends Component < {} > {
       console.log('path')
       previous.push(this.state.startPoint.name);
     }
-    if (this.state.startPoint) {
-      previous.push(this.state.startPoint.name)
-    }
+    // if (this.state.startPoint) {
+    //   previous.push(this.state.startPoint.name)
+    // }
     if (this.state.nextLocation)
       (previous.push(this.state.nextLocation.name))
     this
@@ -314,7 +314,9 @@ class Map extends Component < {} > {
 
   needPicture = () => !this.state.endImageURL;
 
-  needDescription = () => !this.state.description;
+  needDescription = () => {
+    !this.state.description;
+  }
 
   closeToNextLocation = () => {
     if (this.needNextLocation)
@@ -348,7 +350,8 @@ class Map extends Component < {} > {
   };
 
   enableTakePicture = () => {
-    return this.state.nextLocation && this.closeToNextLocation();
+    return this.state.nextLocation
+    // && this.closeToNextLocation();
   };
 
   enableSubmit = () => {
@@ -476,6 +479,9 @@ class Map extends Component < {} > {
                 style={this.enableSubmit()
                 ? styles.button
                 : styles.buttonDisable}
+                disabled={this.enableSubmit()
+                ? false
+                : true}
                 onPress={this.handleSubmit}>
                 <Text style={styles.text}>
                   <Icon name="paper-plane" size={30} color="#EBBF92"/>
@@ -486,6 +492,9 @@ class Map extends Component < {} > {
                 style={this.enableTakePicture()
                 ? styles.button
                 : styles.buttonDisable}
+                disabled={this.enableTakePicture()
+                ? false
+                : true}
                 onPress={this.showCamera}>
                 <Text style={styles.text}>
                   <Icon name="camera" size={30} color="#EBBF92"/>
