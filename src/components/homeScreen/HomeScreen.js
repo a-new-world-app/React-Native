@@ -96,26 +96,26 @@ const styles = StyleSheet.create({
   main: {
     justifyContent: 'space-around',
     alignItems: 'center',
-    height: '80%'
+    height: '100%'
   },
   Bob: {
     top: '10%',
-    width: '40%',
+    width: '48%',
     height: '43%',
-    marginBottom: '10%'
+    marginBottom: '20%'
   },
   welcome: {
     top: '3%',
     fontSize: 25,
     color: 'white',
     fontWeight: '700',
-    marginBottom: '10%'
+    marginBottom: '20%'
   },
   button: {
     height: 50,
     width: '50%',
     borderRadius: 10,
-    marginBottom: 20
+    marginBottom: '10%',
   },
   explore: {
     backgroundColor: '#D3687A'

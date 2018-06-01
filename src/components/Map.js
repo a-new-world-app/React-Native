@@ -90,9 +90,9 @@ class Map extends Component < {} > {
         };
         this.setState({initialPos: initialRegion, currentPos: initialRegion});
       }, error => console.log(JSON.stringify(error)), {
-        enableHighAccuracy: true,
-        timeout: 20000,
-        maximumAge: 100
+        enableHighAccuracy: false,
+        // timeout: 20000,
+        // maximumAge: 100
       });
 
     this.watchID = navigator
@@ -121,10 +121,10 @@ class Map extends Component < {} > {
       console.log('path')
       previous.push(this.state.startPoint.name);
     }
-    if (this.state.startPoint) {
-      previous.push(this.state.startPoint.name)
-    }
-    if (this.state.nextLocation) 
+    // if (this.state.startPoint) {
+    //   previous.push(this.state.startPoint.name)
+    // }
+    if (this.state.nextLocation)
       (previous.push(this.state.nextLocation.name))
     this
       .state
@@ -316,8 +316,9 @@ class Map extends Component < {} > {
 
   needDescription = () => !this.state.description;
 
+
   closeToNextLocation = () => {
-    if (this.needNextLocation) 
+    if (this.needNextLocation)
       return false;
     const currentLat = this.state.currentPos.latitude;
     const currentLng = this.state.currentPos.longitude;
@@ -348,7 +349,8 @@ class Map extends Component < {} > {
   };
 
   enableTakePicture = () => {
-    return this.state.nextLocation && this.closeToNextLocation();
+    return this.state.nextLocation
+    // && this.closeToNextLocation();
   };
 
   enableSubmit = () => {
@@ -472,35 +474,46 @@ class Map extends Component < {} > {
 
           <View style={styles.buttons}>
             <View style={styles.iconContainer}>
-              <TouchableOpacity
-                style={this.enableSubmit()
-                ? styles.button
-                : styles.buttonDisable}
-                onPress={this.handleSubmit}>
-                <Text style={styles.text}>
-                  <Icon name="paper-plane" size={30} color="#EBBF92"/>
-                </Text>
-              </TouchableOpacity>
 
               <TouchableOpacity
                 style={this.enableTakePicture()
                 ? styles.button
                 : styles.buttonDisable}
+                disabled={this.enableTakePicture()
+                ? false
+                : true}
                 onPress={this.showCamera}>
                 <Text style={styles.text}>
-                  <Icon name="camera" size={30} color="#EBBF92"/>
+                  <Icon name="camera" size={30} color= {this.enableTakePicture()
+                  ? 'white'
+                  : '#74B4B3'}/>
+                </Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={this.enableSubmit()
+                ? [styles.button,styles.submitButton]
+                : [styles.buttonDisable,styles.submitButton]}
+                disabled={this.enableSubmit()
+                ? false
+                : true}
+                onPress={this.handleSubmit}>
+                <Text style={styles.text}>
+                  <Icon name="paper-plane" size={30} color={this.enableSubmit()
+                  ? 'white'
+                  : '#74B4B3'}/>
                 </Text>
               </TouchableOpacity>
 
               <TouchableOpacity style={styles.button}>
                 <Text style={styles.text} onPress={this.endPath}>
-                  <Icon name="times" size={32} color="#EBBF92"/>
+                  <Icon name="times" size={37} color='white'/>
                 </Text>
               </TouchableOpacity>
             </View>
             <View style={styles.textContainer}>
-              <Text style={styles.text}>Submit</Text>
               <Text style={styles.text}>Add Photo</Text>
+              <Text style={styles.text}>Submit</Text>
               <Text style={styles.text}>End</Text>
             </View>
           </View>
@@ -521,15 +534,21 @@ const styles = StyleSheet.create({
   },
 
   prompt: {
-    height: 50,
+    height: "12%",
     textAlignVertical: "center",
     textAlign: "center",
-    position: "relative"
+    position: "relative",
+    color: '#CCD279',
+    fontSize: 25,
+    fontWeight:'700',
+    backgroundColor:'#60BCA7',
   },
   map: {
-    // height: height / 1.8,
+    height: '71%',
     flex: 10,
-    width: width
+
+    width: width,
+    borderWidth:10
   },
   radius: {
     width: 50,
@@ -568,9 +587,8 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "space-between",
     height: "17%",
-    // marginTop:'3%',
     paddingTop: "-2%",
-    backgroundColor: "#8AC8DD"
+    backgroundColor: "#60BCA7"
   },
   iconContainer: {
     flexDirection: "row",
@@ -582,24 +600,31 @@ const styles = StyleSheet.create({
   },
   button: {
     width: "18%",
-    borderRadius: 50,
-    backgroundColor: "#0D417A",
-    padding: 17
+    height: '90%',
+    borderRadius: 20,
+    backgroundColor: "#115767",
+    // padding: 17,
+    alignItems:'center',
+    justifyContent:'center'
   },
 
   buttonDisable: {
     width: "18%",
-    borderRadius: 50,
-    backgroundColor: "grey",
+    height: '90%',
+    borderRadius: 20,
+    backgroundColor: "#378788",
     padding: 17
   },
-
+  submitButton:{
+    width: '36%',
+    alignItems:'center'
+  },
   textContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    top: "-4%",
+    top: "-6%",
     paddingLeft: "5%",
-    paddingRight: "3%"
+    paddingRight: "10%"
   },
   text: {
     color: "white",

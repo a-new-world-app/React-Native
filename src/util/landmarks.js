@@ -785,7 +785,9 @@ export const SFLandmarks = landmarks.map((maphash) => {
 // getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2)
 export function selectedLandmarks(curlat, curlng, previousArr) {
   console.log('prev arr', previousArr, curlat, curlng);
+  // make sure user won't visit visted landmark
   const filteredLandmarks = SFLandmarks.filter((landmark) => !(previousArr.includes(landmark.name)));
+
   let sortedLandmarks = filteredLandmarks.sort(function (a, b) {
 
     let landmarklatA = a.pos.latitude;
@@ -797,6 +799,7 @@ export function selectedLandmarks(curlat, curlng, previousArr) {
     const distanceBetween = distanceA - distanceB;
     return distanceBetween;
   });
+
   sortedLandmarks.filter(landmark => getDistanceFromLatLonInKm(curlat, curlng, landmark.pos.latitude, landmark.pos.longitude) > 0.05);
   let slicedLandmarks = sortedLandmarks.slice(0, 5);
   appendType(slicedLandmarks);

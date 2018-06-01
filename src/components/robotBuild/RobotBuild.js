@@ -114,10 +114,13 @@ export default class RobotBuild extends React.Component < Props > {
       nameAndTime: {
         width: '100%',
         alignItems: 'center',
-        borderBottomWidth: 1
+        backgroundColor:'#3C9C8A',
+        // borderBottomWidth: 1
       },
       name: {
-        fontSize: 40
+        fontSize: 40,
+        color:'#D8C549',
+        fontWeight: '700'
       },
       progress: {
         height: 30,
@@ -128,21 +131,29 @@ export default class RobotBuild extends React.Component < Props > {
         justifyContent: 'space-between',
         height: 40,
         width: '100%',
-        borderBottomWidth: 1
+        backgroundColor:'#EBE4D1',
+        paddingHorizontal:'5%',
+        marginHorizontal:'2%',
+        marginBottom:'2%',
+        // borderBottomWidth: 1
       },
       resourceName: {
         fontSize: 20,
-        marginLeft: 10
+        marginLeft: 10,
+        fontWeight:'700',
+        color: 'black',
       },
       resourceAmountRed: {
         fontSize: 20,
         marginRight: 10,
-        color: 'red'
+        fontWeight:'700',
+        color: '#B95A65'
       },
       resourceAmountGreen: {
         fontSize: 20,
         marginRight: 10,
-        color: 'green'
+        color: 'black',
+        fontWeight:'700',
       },
       buttonBar: {
         flexDirection: 'row',
