@@ -37,9 +37,7 @@ const defaultState = {
       gathering: 0
     }
   },
-  build: {
-    // robot: 1, progress: 99, needed: 100000000, lastCheck: 1527621031493
-  },
+  build: {},
   gather: [
     // {   end: 1527773625378,   start: 1527763624377,   resource: 'iron',   amount:
     // 100000,   robot: 1,   latitude: 37.76416667,   longitude: -122.4266667 }, {
@@ -63,15 +61,14 @@ const defaultState = {
 const gameDataReducer = (oldState = defaultState, action) => {
   Object.freeze(oldState);
   let newState = merge({}, oldState);
-  console.log('gdr', oldState, newState);
   switch (action.type) {
     case RECEIVE_GAME_DATA:
       if (!action.gameData) {
-        console.log('no game data');
         return oldState;
       }
       newState = merge(newState, action.gameData);
-      break;
+      newState = calculateProgress(newState);
+      return newState;
     case RECEIVE_GATHER:
       newState
         .gather
@@ -80,7 +77,6 @@ const gameDataReducer = (oldState = defaultState, action) => {
     default:
   }
   newState = calculateProgress(newState);
-  console.log('newState', newState);
   return newState;
 };
 
