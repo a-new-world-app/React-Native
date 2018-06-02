@@ -19,7 +19,7 @@ const RootStack = createStackNavigator({
   Map,
   RobotGatherContainer
 }, {
-  initialRouteName: "RobotBuildContainer",
+  initialRouteName: "RobotGatherContainer",
   headerMode: "none"
 });
 

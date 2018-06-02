@@ -117,42 +117,26 @@ export default class RobotBuild extends React.Component < Props > {
       mainPicAndArrows: {
         position:'absolute',
         top: '15%',
-        // justifyContent: 'space-between',
-        // flexDirection: 'row',
         right: '5%',
         width: '50%',
         height: '50%',
-        // borderWidth: 2
+
       },
       arrow: {
         position: 'relative',
-        // color: "white",
         margin:'5%',
         left: '55%',
         width: '20%',
         height: '20%',
         justifyContent: 'center'
       },
-      // inactiveArrow: {
-      //   position: 'relative',
-      //   margin:'5%',
-      //   left: '55%',
-      //   color: "grey",
-      //   width: '20%',
-      //   height: '20%',
-      //   justifyContent: 'center'
-      // },
-      // arrow: {
-      //   fontSize: 40,
-      //   textAlign: 'center'
-      // },
+
       nameAndTime: {
         top: '5%',
         width: '100%',
         height: '10%',
         alignItems: 'center',
-        // backgroundColor: '#3C9C8A',
-        // borderBottomWidth: 1
+
       },
       name: {
         fontSize: 40,
@@ -164,17 +148,17 @@ export default class RobotBuild extends React.Component < Props > {
         fontSize: 20
       },
       resource: {
-        // position:'absolute',
         top: '10%',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems:'center',
         height: '13%',
-        width: '40%',
+        width: '38%',
         backgroundColor: '#F1FFEE',
         margin: '2%',
+        marginLeft: '4%',
         borderWidth: 5,
-        borderRadius: 5,
+        borderRadius: 10,
         borderColor:'#32C8A6'
       },
       resourceName: {
@@ -217,7 +201,7 @@ export default class RobotBuild extends React.Component < Props > {
       },
 
       buttonText: {
-        fontSize: 20,
+        fontSize: 25,
         color: 'white',
         fontWeight: '700'
       },
