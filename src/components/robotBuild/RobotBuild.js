@@ -1,7 +1,8 @@
 import React from 'react';
-import {View, Image, TouchableOpacity, Text, Alert} from 'react-native';
+import {View, Image, TouchableOpacity, Text, Alert,
+ImageBackground} from 'react-native';
 import {merge} from 'lodash';
-
+import Icon from "react-native-vector-icons/FontAwesome";
 import {secondsToHms} from '../../util/timeConversion'
 import robotTypes from '../../../assets/robots/robotTypes'
 
@@ -55,7 +56,7 @@ export default class RobotBuild extends React.Component < Props > {
   })
 
   changeBuildCheck = () => {
-    if (this.state.currentlyBuilding === null) 
+    if (this.state.currentlyBuilding === null)
       this.checkResources()
     else if ((this.state.currentlyBuilding !== this.state.lookingAt)) {
       Alert.alert("Change Build", "This will reset your progress, are you sure?", [
@@ -83,7 +84,7 @@ export default class RobotBuild extends React.Component < Props > {
           canBuild = false;
         }
       })
-    if (canBuild) 
+    if (canBuild)
       this.changeBuild()
   }
 
@@ -110,35 +111,37 @@ export default class RobotBuild extends React.Component < Props > {
 
   render() {
     const styles = {
+      backgroundImage: {
+        flex: 1
+      },
       mainPicAndArrows: {
-        justifyContent: 'space-between',
-        flexDirection: 'row',
+        position:'absolute',
+        top: '13%',
+        right: '1%',
+        width: '65%',
+        height: '85%',
+        // borderWidth: 10,
+        // borderColor: 'white',
+        overflow: 'hidden',
         alignItems: 'center',
-        width: '100%',
-        height: 300,
-        borderWidth: 1
       },
-      activeArrow: {
-        backgroundColor: "white",
-        width: '10%',
-        height: '100%',
-        justifyContent: 'center'
-      },
-      inactiveArrow: {
-        backgroundColor: "grey",
-        width: '10%',
-        height: '100%',
-        justifyContent: 'center'
+      robotPic: {
+        resizeMode: 'contain'
+
       },
       arrow: {
-        fontSize: 40,
-        textAlign: 'center'
+        position: 'relative',
+        width: '20%',
+        height: '20%',
+        justifyContent: 'center'
       },
+
       nameAndTime: {
+        top: '5%',
         width: '100%',
+        height: '10%',
         alignItems: 'center',
-        backgroundColor: '#3C9C8A',
-        // borderBottomWidth: 1
+
       },
       name: {
         fontSize: 40,
@@ -146,76 +149,68 @@ export default class RobotBuild extends React.Component < Props > {
         fontWeight: '700'
       },
       progress: {
-        height: 30,
+        height: '10%',
         fontSize: 20
       },
       resource: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        height: 35,
-        width: '100%',
-        backgroundColor: '#EBE4D1',
-        paddingHorizontal: '5%',
-        marginHorizontal: '2%',
-        marginBottom: '2%',
-        // borderBottomWidth: 1
+        top: '10%',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems:'center',
+        height: '13%',
+        width: '25%',
+        backgroundColor: '#F1FFEE',
+        margin: '2%',
+        marginLeft: '4%',
+        borderWidth: 5,
+        borderRadius: 10,
+        borderColor:'#32C8A6'
       },
       resourceName: {
-        fontSize: 20,
+        fontSize: 15,
         marginLeft: 10,
         fontWeight: '700',
-        color: 'black'
+        color: '#115767'
       },
       resourceAmountRed: {
-        fontSize: 20,
+        fontSize: 13,
         marginRight: 10,
         fontWeight: '700',
         color: '#B95A65'
       },
       resourceAmountGreen: {
-        fontSize: 20,
+        fontSize: 13,
         marginRight: 10,
-        color: 'black',
+        color: '#115767',
         fontWeight: '700'
       },
       buttonBar: {
+        position:'absolute',
+        height: '17%',
+        width: '100%',
+        bottom: '-20%',
         flexDirection: 'row',
-        justifyConten: 'space-between',
-        flex: 1
+        justifyContent: 'space-between',
+        flex: 1,
+        paddingHorizontal:'5%',
+        // borderWidth: 10
       },
-      build: {
-        height: 40,
+      button: {
+        height: '60%',
         width: '30%',
         borderRadius: 10,
-        backgroundColor: '#E7BD16',
+        backgroundColor: "#115767",
         justifyContent: 'center',
         alignItems: 'center',
         padding: 2,
-        marginLeft: '10%',
-        marginRight: '20%'
       },
-      cancel: {
-        height: 40,
-        width: '30%',
-        borderRadius: 10,
-        color: '#E7BD16',
-        fontWeight: '700',
-        backgroundColor: '#2775C3',
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 2,
-        marginRight: '10%'
-      },
-      buttonBuildText: {
-        fontSize: 20,
-        color: '#2775C3',
+
+      buttonText: {
+        fontSize: 25,
+        color: 'white',
         fontWeight: '700'
       },
-      buttonCancelText: {
-        fontSize: 20,
-        color: '#E7BD16',
-        fontWeight: '700'
-      }
+
     }
     let previous = this.state.gameData.robots[this.state.lookingAt - 1];
     let next = this.state.gameData.robots[this.state.lookingAt + 1];
@@ -228,31 +223,45 @@ export default class RobotBuild extends React.Component < Props > {
     const right = '>';
 
     return (
+      <ImageBackground source={require('../../../assets/background/buildPage.png')}
+      style={styles.backgroundImage}>
       <View>
-        <View style={styles.mainPicAndArrows}>
-          <TouchableOpacity
-            style={previous
-            ? styles.activeArrow
-            : styles.inactiveArrow}
-            onPress=
-            {previous ? () => this.buildPrev() : null }>
-            <Text style={styles.arrow}>{left}</Text>
-          </TouchableOpacity>
-          <Image source={currentRobot.pic}/>
-          <TouchableOpacity
-            style={next
-            ? styles.activeArrow
-            : styles.inactiveArrow}
-            onPress={next
-            ? () => this.buildNext()
-            : null}>
-            <Text style={styles.arrow}>{right}</Text>
-          </TouchableOpacity>
-        </View>
         <View style={styles.nameAndTime}>
           <Text style={styles.name}>{currentRobot.name}</Text>
           {progressElement}
         </View>
+        <View style={styles.mainPicAndArrows}>
+          <TouchableOpacity
+            style={styles.arrow}
+            onPress=
+            {previous ? () => this.buildPrev() : null }>
+            <Text >
+            <Icon
+            name="arrow-circle-up"
+            size={45}
+            color={previous
+              ? '#32C8A6'
+              : 'grey'}
+            />
+          </Text>
+          </TouchableOpacity>
+          <Image style={styles.robotPic} source={currentRobot.pic}/>
+          <TouchableOpacity
+            style={styles.arrow}
+            onPress={next
+            ? () => this.buildNext()
+            : null}>
+            <Text >
+            <Icon
+            name="arrow-circle-down"
+            size={45}
+            color={next
+            ? '#32C8A6'
+            : 'grey'}/>
+          </Text>
+          </TouchableOpacity>
+        </View>
+
         {this
           .resourceTypes
           .map((resource) => {
@@ -261,7 +270,7 @@ export default class RobotBuild extends React.Component < Props > {
             let enough = required <= owned
             return (
               <View style={styles.resource} key={resource + currentRobot}>
-                <Text style={styles.resourceName}>{resource}</Text>
+                <Text style={styles.resourceName}>{resource.toUpperCase()}</Text>
                 <Text
                   style={enough
                   ? styles.resourceAmountGreen
@@ -272,16 +281,17 @@ export default class RobotBuild extends React.Component < Props > {
             )
           })}
         <View style={styles.buttonBar}>
-          <TouchableOpacity style={styles.build} onPress={() => this.changeBuildCheck()}>
-            <Text style={styles.buttonBuildText}>Build</Text>
+          <TouchableOpacity style={styles.button} onPress={() => this.changeBuildCheck()}>
+            <Text style={styles.buttonText}>Build</Text>
           </ TouchableOpacity>
           <TouchableOpacity
-            style={styles.cancel}
+            style={styles.button}
             onPress={() => this.props.navigation.goBack()}>
-            <Text style={styles.buttonCancelText}>Back</Text>
+            <Text style={styles.buttonText}>Back</Text>
           </ TouchableOpacity>
         </ View>
       </View>
+      </ImageBackground>
 
     )
   }
