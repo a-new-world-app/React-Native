@@ -39,7 +39,7 @@ export default class Test extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.props.user.sessionToken) {
+    if (this.props.user.sessionToken && this.props.term) {
       this.props.navigation.navigate("HomeScreen");
     }
   }
