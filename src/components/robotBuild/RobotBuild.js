@@ -55,7 +55,7 @@ export default class RobotBuild extends React.Component < Props > {
   })
 
   changeBuildCheck = () => {
-    if (this.state.currentlyBuilding === null) 
+    if (this.state.currentlyBuilding === null)
       this.checkResources()
     else if ((this.state.currentlyBuilding !== this.state.lookingAt)) {
       Alert.alert("Change Build", "This will reset your progress, are you sure?", [
@@ -83,7 +83,7 @@ export default class RobotBuild extends React.Component < Props > {
           canBuild = false;
         }
       })
-    if (canBuild) 
+    if (canBuild)
       this.changeBuild()
   }
 
@@ -187,7 +187,7 @@ export default class RobotBuild extends React.Component < Props > {
         height: 40,
         width: '30%',
         borderRadius: 10,
-        backgroundColor: '#E7BD16',
+        backgroundColor: "#115767",
         justifyContent: 'center',
         alignItems: 'center',
         padding: 2,
@@ -200,22 +200,18 @@ export default class RobotBuild extends React.Component < Props > {
         borderRadius: 10,
         color: '#E7BD16',
         fontWeight: '700',
-        backgroundColor: '#2775C3',
+        backgroundColor: "#115767",
         justifyContent: 'center',
         alignItems: 'center',
         padding: 2,
         marginRight: '10%'
       },
-      buttonBuildText: {
+      buttonText: {
         fontSize: 20,
-        color: '#2775C3',
+        color: 'white',
         fontWeight: '700'
       },
-      buttonCancelText: {
-        fontSize: 20,
-        color: '#E7BD16',
-        fontWeight: '700'
-      }
+
     }
     let previous = this.state.gameData.robots[this.state.lookingAt - 1];
     let next = this.state.gameData.robots[this.state.lookingAt + 1];
