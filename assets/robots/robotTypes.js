@@ -39,6 +39,7 @@ const robotTypes = {
     pic: require('./leslie.png'),
     mark: require('./mark.robo3.png'),
     name: "Leslie",
+    description: "Can carry things quickly",
     build: 1,
     explore: 1,
     carry: 5,
@@ -56,6 +57,7 @@ const robotTypes = {
     pic: require('./shannon.png'),
     mark: require('./mark.robo4.png'),
     name: "Shannon",
+    description: "Pretty good at most things",
     build: 3,
     explore: 3,
     carry: 3,
@@ -72,6 +74,7 @@ const robotTypes = {
   5: {
     pic: require('./spark.png'),
     mark: require('./mark.robo5.png'),
+    description: "Really good at finding things outside",
     name: "Spark",
     build: 0,
     explore: 5,

@@ -14,8 +14,12 @@ import {
   Alert,
 } from "react-native";
 
+<<<<<<< HEAD
 import { submitPath } from "../utils/pathAPIUtils";
 import { submitAgreement } from "../utils/sessionAPIUtils";
+=======
+import {submitPath} from "../utils/pathAPIUtils";
+>>>>>>> e8c889933a79df478c2df2b8cdfa4dfbb16e95f5
 
 export default class Test extends React.Component {
   constructor(props) {
@@ -26,16 +30,19 @@ export default class Test extends React.Component {
        hasUserAgreed: this.props.term};
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleOpenURL = this.handleOpenURL.bind(this);
+
   }
 
   componentDidMount() {
     Linking.addEventListener("url", this.handleOpenURL);
 
-    Linking.getInitialURL().then(url => {
-      if (url) {
-        this.handleOpenURL({ url });
-      }
-    });
+    Linking
+      .getInitialURL()
+      .then(url => {
+        if (url) {
+          this.handleOpenURL({url});
+        }
+      });
   }
 
   componentDidUpdate() {
@@ -48,10 +55,13 @@ export default class Test extends React.Component {
     Linking.removeEventListener("url", this.handleOpenURL);
   }
 
-  handleOpenURL({ url }) {
-    const [, token] = url.match(/token=([^#]+)/);
-    this.setState({ token });
-    this.props.logIn(token);
+  handleOpenURL({url}) {
+    const [,
+      token] = url.match(/token=([^#]+)/);
+    this.setState({token});
+    this
+      .props
+      .logIn(token);
   }
 
   handleSubmit() {
@@ -59,7 +69,7 @@ export default class Test extends React.Component {
   }
 
   handleChange(description) {
-    this.setState({ description });
+    this.setState({description});
   }
 
   handleLogin() {
@@ -129,42 +139,37 @@ export default class Test extends React.Component {
   }
 }
 
-
-// <Text>{this.props.user.sessionToken}</Text>
-// <TextInput
-//   multiline
-//   value={this.state.description}
-//   onChangeText={description => this.setState({ description })}
-// />
-// <Button onPress={this.handleSubmit} title="Submit" />
+// <Text>{this.props.user.sessionToken}</Text> <TextInput   multiline
+// value={this.state.description}   onChangeText={description => this.setState({
+// description })} /> <Button onPress={this.handleSubmit} title="Submit" />
 const styles = StyleSheet.create({
 
   backgroundImage: {
-       flex: 1,
-   },
-   robots:{
-     top:'5%',
-     height: '20%',
-     width: '100%',
-   },
-   logo:{
-     top:'15%',
-     left:'12%',
-     width:'80%',
-     height: '30%',
-   },
-   button:{
-     paddingTop:'2%',
-     height: 50,
-     width: '50%',
-     borderRadius: 10,
-     marginBottom: 20,
-     backgroundColor: '#dd4b39',
-   },
-   label:{
-    textAlign:'center',
+    flex: 1
+  },
+  robots: {
+    top: '5%',
+    height: '20%',
+    width: '100%'
+  },
+  logo: {
+    top: '15%',
+    left: '12%',
+    width: '80%',
+    height: '30%'
+  },
+  button: {
+    paddingTop: '2%',
+    height: 50,
+    width: '50%',
+    borderRadius: 10,
+    marginBottom: 20,
+    backgroundColor: '#dd4b39'
+  },
+  label: {
+    textAlign: 'center',
     fontSize: 20,
-    color:'white',
-    fontWeight: '700',
-   },
+    color: 'white',
+    fontWeight: '700'
+  }
 });

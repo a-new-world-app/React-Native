@@ -7,6 +7,8 @@ const pathReducer = (oldState = {}, action) => {
   let path;
   switch (action.type) {
     case RECEIVE_PATH:
+      if (!action.pathData) 
+        return {};
       path = action.payload.pathData.path;
       console.log(path);
       path['id'] = action.payload._id;
