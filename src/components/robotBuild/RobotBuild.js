@@ -116,16 +116,21 @@ export default class RobotBuild extends React.Component < Props > {
       },
       mainPicAndArrows: {
         position:'absolute',
-        top: '15%',
-        right: '5%',
-        width: '50%',
-        height: '50%',
+        top: '13%',
+        right: '1%',
+        width: '65%',
+        height: '85%',
+        // borderWidth: 10,
+        // borderColor: 'white',
+        overflow: 'hidden',
+        alignItems: 'center',
+      },
+      robotPic: {
+        resizeMode: 'contain'
 
       },
       arrow: {
         position: 'relative',
-        margin:'5%',
-        left: '55%',
         width: '20%',
         height: '20%',
         justifyContent: 'center'
@@ -153,7 +158,7 @@ export default class RobotBuild extends React.Component < Props > {
         justifyContent: 'center',
         alignItems:'center',
         height: '13%',
-        width: '38%',
+        width: '25%',
         backgroundColor: '#F1FFEE',
         margin: '2%',
         marginLeft: '4%',
@@ -162,19 +167,19 @@ export default class RobotBuild extends React.Component < Props > {
         borderColor:'#32C8A6'
       },
       resourceName: {
-        fontSize: 22,
+        fontSize: 15,
         marginLeft: 10,
         fontWeight: '700',
         color: '#115767'
       },
       resourceAmountRed: {
-        fontSize: 20,
+        fontSize: 13,
         marginRight: 10,
         fontWeight: '700',
         color: '#B95A65'
       },
       resourceAmountGreen: {
-        fontSize: 20,
+        fontSize: 13,
         marginRight: 10,
         color: '#115767',
         fontWeight: '700'
