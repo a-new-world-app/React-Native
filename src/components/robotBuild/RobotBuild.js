@@ -1,7 +1,8 @@
 import React from 'react';
-import {View, Image, TouchableOpacity, Text, Alert} from 'react-native';
+import {View, Image, TouchableOpacity, Text, Alert,
+ImageBackground} from 'react-native';
 import {merge} from 'lodash';
-
+import Icon from "react-native-vector-icons/FontAwesome";
 import {secondsToHms} from '../../util/timeConversion'
 import robotTypes from '../../../assets/robots/robotTypes'
 
@@ -110,34 +111,47 @@ export default class RobotBuild extends React.Component < Props > {
 
   render() {
     const styles = {
+      backgroundImage: {
+        flex: 1
+      },
       mainPicAndArrows: {
-        justifyContent: 'space-between',
-        flexDirection: 'row',
-        alignItems: 'center',
-        width: '100%',
-        height: 300,
-        borderWidth: 1
-      },
-      activeArrow: {
-        backgroundColor: "white",
-        width: '10%',
-        height: '100%',
-        justifyContent: 'center'
-      },
-      inactiveArrow: {
-        backgroundColor: "grey",
-        width: '10%',
-        height: '100%',
-        justifyContent: 'center'
+        position:'absolute',
+        top: '15%',
+        // justifyContent: 'space-between',
+        // flexDirection: 'row',
+        right: '5%',
+        width: '50%',
+        height: '50%',
+        // borderWidth: 2
       },
       arrow: {
-        fontSize: 40,
-        textAlign: 'center'
+        position: 'relative',
+        // color: "white",
+        margin:'5%',
+        left: '55%',
+        width: '20%',
+        height: '20%',
+        justifyContent: 'center'
       },
+      // inactiveArrow: {
+      //   position: 'relative',
+      //   margin:'5%',
+      //   left: '55%',
+      //   color: "grey",
+      //   width: '20%',
+      //   height: '20%',
+      //   justifyContent: 'center'
+      // },
+      // arrow: {
+      //   fontSize: 40,
+      //   textAlign: 'center'
+      // },
       nameAndTime: {
+        top: '5%',
         width: '100%',
+        height: '10%',
         alignItems: 'center',
-        backgroundColor: '#3C9C8A',
+        // backgroundColor: '#3C9C8A',
         // borderBottomWidth: 1
       },
       name: {
@@ -146,22 +160,25 @@ export default class RobotBuild extends React.Component < Props > {
         fontWeight: '700'
       },
       progress: {
-        height: 30,
+        height: '10%',
         fontSize: 20
       },
       resource: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        height: 35,
-        width: '100%',
-        backgroundColor: '#EBE4D1',
-        paddingHorizontal: '5%',
-        marginHorizontal: '2%',
-        marginBottom: '2%',
-        // borderBottomWidth: 1
+        // position:'absolute',
+        top: '10%',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems:'center',
+        height: '13%',
+        width: '40%',
+        backgroundColor: '#F1FFEE',
+        margin: '2%',
+        borderWidth: 5,
+        borderRadius: 5,
+        borderColor:'#32C8A6'
       },
       resourceName: {
-        fontSize: 20,
+        fontSize: 22,
         marginLeft: 10,
         fontWeight: '700',
         color: 'black'
@@ -179,33 +196,26 @@ export default class RobotBuild extends React.Component < Props > {
         fontWeight: '700'
       },
       buttonBar: {
+        position:'absolute',
+        height: '17%',
+        width: '100%',
+        bottom: '-20%',
         flexDirection: 'row',
-        justifyConten: 'space-between',
-        flex: 1
+        justifyContent: 'space-between',
+        flex: 1,
+        paddingHorizontal:'5%',
+        // borderWidth: 10
       },
-      build: {
-        height: 40,
+      button: {
+        height: '60%',
         width: '30%',
         borderRadius: 10,
         backgroundColor: "#115767",
         justifyContent: 'center',
         alignItems: 'center',
         padding: 2,
-        marginLeft: '10%',
-        marginRight: '20%'
       },
-      cancel: {
-        height: 40,
-        width: '30%',
-        borderRadius: 10,
-        color: '#E7BD16',
-        fontWeight: '700',
-        backgroundColor: "#115767",
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 2,
-        marginRight: '10%'
-      },
+
       buttonText: {
         fontSize: 20,
         color: 'white',
@@ -224,31 +234,45 @@ export default class RobotBuild extends React.Component < Props > {
     const right = '>';
 
     return (
+      <ImageBackground source={require('../../../assets/background/buildPage.png')}
+      style={styles.backgroundImage}>
       <View>
-        <View style={styles.mainPicAndArrows}>
-          <TouchableOpacity
-            style={previous
-            ? styles.activeArrow
-            : styles.inactiveArrow}
-            onPress=
-            {previous ? () => this.buildPrev() : null }>
-            <Text style={styles.arrow}>{left}</Text>
-          </TouchableOpacity>
-          <Image source={currentRobot.pic}/>
-          <TouchableOpacity
-            style={next
-            ? styles.activeArrow
-            : styles.inactiveArrow}
-            onPress={next
-            ? () => this.buildNext()
-            : null}>
-            <Text style={styles.arrow}>{right}</Text>
-          </TouchableOpacity>
-        </View>
         <View style={styles.nameAndTime}>
           <Text style={styles.name}>{currentRobot.name}</Text>
           {progressElement}
         </View>
+        <View style={styles.mainPicAndArrows}>
+          <TouchableOpacity
+            style={styles.arrow}
+            onPress=
+            {previous ? () => this.buildPrev() : null }>
+            <Text >
+            <Icon
+            name="arrow-circle-up"
+            size={45}
+            color={previous
+              ? '#32C8A6'
+              : 'grey'}
+            />
+          </Text>
+          </TouchableOpacity>
+          <Image style={styles.robotPic} source={currentRobot.pic}/>
+          <TouchableOpacity
+            style={styles.arrow}
+            onPress={next
+            ? () => this.buildNext()
+            : null}>
+            <Text >
+            <Icon
+            name="arrow-circle-down"
+            size={45}
+            color={next
+            ? '#32C8A6'
+            : 'grey'}/>
+          </Text>
+          </TouchableOpacity>
+        </View>
+
         {this
           .resourceTypes
           .map((resource) => {
@@ -257,7 +281,7 @@ export default class RobotBuild extends React.Component < Props > {
             let enough = required <= owned
             return (
               <View style={styles.resource} key={resource + currentRobot}>
-                <Text style={styles.resourceName}>{resource}</Text>
+                <Text style={styles.resourceName}>{resource.toUpperCase()}</Text>
                 <Text
                   style={enough
                   ? styles.resourceAmountGreen
@@ -268,16 +292,17 @@ export default class RobotBuild extends React.Component < Props > {
             )
           })}
         <View style={styles.buttonBar}>
-          <TouchableOpacity style={styles.build} onPress={() => this.changeBuildCheck()}>
-            <Text style={styles.buttonBuildText}>Build</Text>
+          <TouchableOpacity style={styles.button} onPress={() => this.changeBuildCheck()}>
+            <Text style={styles.buttonText}>Build</Text>
           </ TouchableOpacity>
           <TouchableOpacity
-            style={styles.cancel}
+            style={styles.button}
             onPress={() => this.props.navigation.goBack()}>
-            <Text style={styles.buttonCancelText}>Back</Text>
+            <Text style={styles.buttonText}>Back</Text>
           </ TouchableOpacity>
         </ View>
       </View>
+      </ImageBackground>
 
     )
   }
