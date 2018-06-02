@@ -181,7 +181,7 @@ export default class RobotBuild extends React.Component < Props > {
         fontSize: 22,
         marginLeft: 10,
         fontWeight: '700',
-        color: 'black'
+        color: '#115767'
       },
       resourceAmountRed: {
         fontSize: 20,
@@ -192,7 +192,7 @@ export default class RobotBuild extends React.Component < Props > {
       resourceAmountGreen: {
         fontSize: 20,
         marginRight: 10,
-        color: 'black',
+        color: '#115767',
         fontWeight: '700'
       },
       buttonBar: {
