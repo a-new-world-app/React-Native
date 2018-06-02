@@ -28,6 +28,18 @@ export default class RobotBuild extends React.Component < Props > {
       .getGameData(this.props.sessionToken)
   }
 
+  componentWillReceiveProps(newProps) {
+    this.setState({
+      gameData: newProps.gameData,
+      currentlyBuilding: newProps.gameData.build
+        ? newProps.gameData.build.robot
+        : null,
+      lookingAt: 1,
+      resources: newProps.gameData.resources,
+      robots: Object.keys(newProps.gameData.robots)
+    })
+  }
+
   componentWillUnmount() {
     this
       .props
@@ -45,7 +57,7 @@ export default class RobotBuild extends React.Component < Props > {
   changeBuildCheck = () => {
     if (this.state.currentlyBuilding === null) 
       this.checkResources()
-    else if (this.state.currentlyBuilding !== this.state.lookingAt) {
+    else if ((this.state.currentlyBuilding !== this.state.lookingAt)) {
       Alert.alert("Change Build", "This will reset your progress, are you sure?", [
         {
           text: "Nevermind"
@@ -59,15 +71,20 @@ export default class RobotBuild extends React.Component < Props > {
 
   checkResources = () => {
     const robot = robotTypes[this.state.lookingAt]
-    const neededRes = robot.resources
+    const neededRes = robot.buildReq
     const myRes = this.state.resources
-    for (resource in neededRes) {
-      if (neededRes[resource] > myRes[resource]) {
-        Alert.alert(`Not Enough Resources`, `You do not have enough ${resource}.`)
-        return false;
-      }
-    }
-    this.changeBuild()
+    console.log('resources', robot, neededRes, myRes)
+    let canBuild = true
+    this
+      .resourceTypes
+      .forEach(resource => {
+        if (neededRes[resource] > myRes[resource]) {
+          Alert.alert(`Not Enough Resources`, `You do not have enough ${resource}.`)
+          canBuild = false;
+        }
+      })
+    if (canBuild) 
+      this.changeBuild()
   }
 
   changeBuild = () => {
@@ -164,7 +181,7 @@ export default class RobotBuild extends React.Component < Props > {
       buttonBar: {
         flexDirection: 'row',
         justifyConten: 'space-between',
-        paddingTop: '5%'
+        flex: 1
       },
       build: {
         height: 40,
@@ -258,8 +275,10 @@ export default class RobotBuild extends React.Component < Props > {
           <TouchableOpacity style={styles.build} onPress={() => this.changeBuildCheck()}>
             <Text style={styles.buttonBuildText}>Build</Text>
           </ TouchableOpacity>
-          <TouchableOpacity style={styles.cancel}>
-            <Text style={styles.buttonCancelText}>Cancel</Text>
+          <TouchableOpacity
+            style={styles.cancel}
+            onPress={() => this.props.navigation.goBack()}>
+            <Text style={styles.buttonCancelText}>Back</Text>
           </ TouchableOpacity>
         </ View>
       </View>
