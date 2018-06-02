@@ -11,30 +11,6 @@ const defaultState = {
       build: 0,
       explore: 0,
       gathering: 0
-    },
-    2: {
-      waiting: 2,
-      build: 0,
-      explore: 0,
-      gathering: 0
-    },
-    3: {
-      waiting: 2,
-      build: 0,
-      explore: 0,
-      gathering: 0
-    },
-    4: {
-      waiting: 2,
-      build: 0,
-      explore: 0,
-      gathering: 0
-    },
-    5: {
-      waiting: 2,
-      build: 0,
-      explore: 0,
-      gathering: 0
     }
   },
   build: {},
