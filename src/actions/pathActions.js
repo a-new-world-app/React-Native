@@ -10,9 +10,10 @@ export const receivePathUpdate = payload => ({type: RECEIVE_PATH_UPDATE, payload
 
 export const clearPath = () => ({type: CLEAR_PATH});
 
-export const endPath = (token, dispatch) => pathAPIUtil
-  .endPath(token)
-  .then((payload) => dispatch(clearPath(payload)));
+export const endPath = (token, dispatch) => {
+  pathAPIUtil.endPath(token);
+  dispatch(clearPath());
+};
 
 export const createPath = (token, path, dispatch) => pathAPIUtil
   .submitPath(token, path)
