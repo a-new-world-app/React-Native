@@ -14,14 +14,7 @@ const defaultState = {
     }
   },
   build: {},
-  gather: [
-    // {   end: 1527773625378,   start: 1527763624377,   resource: 'iron',   amount:
-    // 100000,   robot: 1,   latitude: 37.76416667,   longitude: -122.4266667 }, {
-    // end: 1527773625379,   start: 1527763624377,   resource: 'copper',   amount:
-    // 100000,   robot: 4,   latitude: 37.79527778,   longitude: -122.3936111 }, {
-    // end: 1527773625377,   start: 1527763624377,   resource: 'gold',   amount:
-    // 100000,   robot: 5,   latitude: 37.75638889,   longitude: -122.4188889 }
-  ],
+  gather: [],
   resources: {
     iron: 0,
     copper: 0,
