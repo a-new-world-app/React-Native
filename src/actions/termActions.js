@@ -1,18 +1,9 @@
 import * as sessionAPIUtils from "../utils/sessionAPIUtils";
-
-export const RECEIVE_CURRENT_AGREEMENT = "RECEIVE_CURRENT_AGREEMENT";
-
+import {receiveCurrentUser}  from "../actions/sessionActions";
 
 
-const receiveAgreement = term => ({
-  type: RECEIVE_CURRENT_AGREEMENT,
-  term
-});
-
-
-
-export const getAgreement = (token, agreement, dispatch) =>
+export const submitAgreement = (token, dispatch) =>
   sessionAPIUtils
-  .submitAgreement(token, agreement)
+  .submitAgreement(token)
   .then(res => res.json())
-  .then(term => dispatch(receiveAgreement(term)));
+  .then(user => dispatch(receiveCurrentUser(user)));

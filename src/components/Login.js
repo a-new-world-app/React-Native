@@ -14,12 +14,10 @@ import {
   Alert,
 } from "react-native";
 
-<<<<<<< HEAD
 import { submitPath } from "../utils/pathAPIUtils";
 import { submitAgreement } from "../utils/sessionAPIUtils";
-=======
-import {submitPath} from "../utils/pathAPIUtils";
->>>>>>> e8c889933a79df478c2df2b8cdfa4dfbb16e95f5
+
+// import {submitPath} from "../utils/pathAPIUtils";
 
 export default class Test extends React.Component {
   constructor(props) {
@@ -46,7 +44,7 @@ export default class Test extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.props.user.sessionToken && this.props.term) {
+    if (this.props.user.sessionToken ) {
       this.props.navigation.navigate("HomeScreen");
     }
   }
@@ -102,33 +100,7 @@ export default class Test extends React.Component {
           <Text style = {styles.label}>Log Out </Text>
         </TouchableOpacity>
 
-        <Modal
-         animationType="slide"
-         transparent={false}
-         visible={this.state.openModal}
-         onRequestClose={() => {
-            this.setState({openModal:false});
-         }}>
-         <View style={{marginTop: 22}}>
-           <View>
-             <Text>Hello World!</Text>
-
-             <TouchableOpacity
-               onPress={() => {
-                 Alert.alert('', 'By clicking agreed, you agreed to our terms',
-                 [ { text: 'OK',
-                   onPress: () => {
-                     this.handleSubmit();
-                     this.setState({openModal:false});} },
-                   { text: 'Cancel', onPress: () => {} }],
-                 { onDismiss: () => {} })
-                 }
-               } >
-               <Text>Agreed</Text>
-             </TouchableOpacity>
-           </View>
-         </View>
-       </Modal>
+        
 
         <TouchableOpacity style = {styles.button} onPress={() => this.setState({openModal:true})} >
           <Text style = {styles.label}> Agreement </Text>
