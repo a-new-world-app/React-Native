@@ -17,16 +17,13 @@ import {
 import { submitPath } from "../utils/pathAPIUtils";
 import { submitAgreement } from "../utils/sessionAPIUtils";
 
-// import {submitPath} from "../utils/pathAPIUtils";
 
 export default class Test extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
        description: "",
-       openModal: false,
-       hasUserAgreed: this.props.term};
-    this.handleSubmit = this.handleSubmit.bind(this);
+       };
     this.handleOpenURL = this.handleOpenURL.bind(this);
 
   }
@@ -62,9 +59,7 @@ export default class Test extends React.Component {
       .logIn(token);
   }
 
-  handleSubmit() {
-    this.props.submitAgreement(this.props.user.sessionToken, this.state.hasUserAgreed);
-  }
+
 
   handleChange(description) {
     this.setState({description});
@@ -82,6 +77,7 @@ export default class Test extends React.Component {
     return (
       <ImageBackground source={require('../../assets/background/login.png')}
                 style={styles.backgroundImage}>
+
       <Image source={require('../../assets/background/landing.png')}
         style = {styles.robots}>
       </Image>
@@ -100,11 +96,7 @@ export default class Test extends React.Component {
           <Text style = {styles.label}>Log Out </Text>
         </TouchableOpacity>
 
-        
 
-        <TouchableOpacity style = {styles.button} onPress={() => this.setState({openModal:true})} >
-          <Text style = {styles.label}> Agreement </Text>
-        </TouchableOpacity>
       </View>
       </ImageBackground>
     );

@@ -7,7 +7,9 @@ import {
   TouchableOpacity,
   ImageBackground
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome'
+import Icon from 'react-native-vector-icons/FontAwesome';
+
+import AgreementModal from "../agreementModal.js";
 
 export default class HomeScreen extends React.Component < Props > {
 
@@ -38,6 +40,7 @@ export default class HomeScreen extends React.Component < Props > {
       <ImageBackground
         source={require('../../../assets/background/homeScreen.jpeg')}
         style={styles.backgroundImage}>
+        <AgreementModal />
         <View style={styles.main}>
           <Image source={robotPic} style={styles.Bob}/>
           <Text style={styles.welcome}>Hello, what do you want to do?

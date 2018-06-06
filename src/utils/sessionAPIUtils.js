@@ -5,6 +5,5 @@ export const fetchCurrentUser = (token) =>
 
 export const submitAgreement = (token) =>
   request("https://a-new-world.herokuapp.com/api/agree", token, {
-
     method: "PATCH"
   });
