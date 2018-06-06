@@ -55,7 +55,7 @@ export default class RobotBuild extends React.Component < Props > {
   })
 
   changeBuildCheck = () => {
-    if (this.state.currentlyBuilding === null) 
+    if (this.state.currentlyBuilding === null)
       this.checkResources()
     else if ((this.state.currentlyBuilding !== this.state.lookingAt)) {
       Alert.alert("Change Build", "This will reset your progress, are you sure?", [
@@ -83,7 +83,7 @@ export default class RobotBuild extends React.Component < Props > {
           canBuild = false;
         }
       })
-    if (canBuild) 
+    if (canBuild)
       this.changeBuild()
   }
 
