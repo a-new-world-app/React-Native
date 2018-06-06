@@ -26,8 +26,8 @@ class agreementModal extends React.Component {
   }
 
   render(){
-    console.log('props', this.props)
-    console.log('openModal', this.state)
+    console.log('props', this.props);
+    console.log('openModal', this.state);
     return (
     <Modal
      animationType="slide"
@@ -53,26 +53,26 @@ class agreementModal extends React.Component {
           <Text>You are free to stop any time</Text>
 
          <TouchableOpacity
+          style={{backgroundColor: 'blue'}}
            onPress={() => {
              Alert.alert('Agreement', 'By clicking confrimed, you have read and agreed to our terms',
              [ { text: 'OK',
                onPress:
                () => {
                  this.setState({openModal:false});
-                 this.props.submitAgreement(this.props.sessionToken.sessionToken)
+                 this.props.submitAgreement(this.props.sessionToken.sessionToken);
                }
                },
                { text: 'Cancel', onPress: () => {} }],
-             { onDismiss: () => {} })
+             { onDismiss: () => {} });
              }
            } >
-           <Text>Confrimed</Text>
+           <Text>Confirmed</Text>
          </TouchableOpacity>
        </View>
      </View>
    </Modal>
- )
-  }
+  );}
 }
 
   const mapStateToProps = state => ({

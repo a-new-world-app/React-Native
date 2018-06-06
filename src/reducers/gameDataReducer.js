@@ -33,7 +33,6 @@ const defaultState = {
 const gameDataReducer = (oldState = defaultState, action) => {
   Object.freeze(oldState);
   let newState = merge({}, oldState);
-  return defaultState;
   switch (action.type) {
     case RECEIVE_GAME_DATA:
       if (!action.gameData) {

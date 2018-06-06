@@ -1,4 +1,5 @@
 import React from 'react';
+import connect from 'react-redux';
 import {
   View,
   Text,
@@ -149,3 +150,9 @@ const styles = StyleSheet.create({
     padding: 10
   }
 })
+
+const mapStateToProps = state => ({sessionToken: state.session.sessionToken, agreed: state.session.agreeds});
+const mapDispatchToProps = dispatch => ({});
+
+// export default connect(mapStateToProps, mapDispatchToProps)(Map);
+
