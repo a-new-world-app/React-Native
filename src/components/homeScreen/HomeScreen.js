@@ -1,4 +1,5 @@
 import React from 'react';
+import connect from 'react-redux';
 import {
   View,
   Text,
@@ -7,7 +8,9 @@ import {
   TouchableOpacity,
   ImageBackground
 } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome'
+import Icon from 'react-native-vector-icons/FontAwesome';
+
+import AgreementModal from "../agreementModal.js";
 
 export default class HomeScreen extends React.Component < Props > {
 
@@ -38,6 +41,7 @@ export default class HomeScreen extends React.Component < Props > {
       <ImageBackground
         source={require('../../../assets/background/homeScreen.jpeg')}
         style={styles.backgroundImage}>
+        <AgreementModal />
         <View style={styles.main}>
           <Image source={robotPic} style={styles.Bob}/>
           <Text style={styles.welcome}>Hello, what do you want to do?
@@ -146,3 +150,9 @@ const styles = StyleSheet.create({
     padding: 10
   }
 })
+
+const mapStateToProps = state => ({sessionToken: state.session.sessionToken, agreed: state.session.agreeds});
+const mapDispatchToProps = dispatch => ({});
+
+// export default connect(mapStateToProps, mapDispatchToProps)(Map);
+

@@ -14,9 +14,9 @@ export const updateGameData = (token, gameData, dispatch) => gameDataAPIUtil
     console.log('update res', res, gameData);
     return res.json();
   })
-  .then(payload => dispatch(receiveGameData(payload)).then(res => console.log(res), errors => console.error(errors)));
+  .then(payload => dispatch(receiveGameData(payload)));
 
 export const getGameData = (token, dispatch) => gameDataAPIUtil
   .getGameData(token)
   .then(res => res.json())
-  .then(payload => dispatch(receiveGameData(payload)).then(res => console.log(res), errors => console.error(errors)));
+  .then(payload => dispatch(receiveGameData(payload)));

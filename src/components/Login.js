@@ -6,25 +6,26 @@ import {
   Button,
   Linking,
   ImageBackground,
+  TouchableHighlight,
   TouchableOpacity,
   Image,
-  Text
+  Text,
+  Modal,
+  Alert,
 } from "react-native";
 
-import {submitPath} from "../utils/pathAPIUtils";
+import { submitPath } from "../utils/pathAPIUtils";
+import { submitAgreement } from "../utils/sessionAPIUtils";
+
 
 export default class Test extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      description: ""
-    };
-    this.handleSubmit = this
-      .handleSubmit
-      .bind(this);
-    this.handleOpenURL = this
-      .handleOpenURL
-      .bind(this);
+       description: "",
+       };
+    this.handleOpenURL = this.handleOpenURL.bind(this);
+
   }
 
   componentDidMount() {
@@ -40,11 +41,8 @@ export default class Test extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.props.user.sessionToken) {
-      this
-        .props
-        .navigation
-        .navigate("HomeScreen");
+    if (this.props.user.sessionToken ) {
+      this.props.navigation.navigate("HomeScreen");
     }
   }
 
@@ -61,9 +59,7 @@ export default class Test extends React.Component {
       .logIn(token);
   }
 
-  handleSubmit() {
-    submitPath(this.props.user.sessionToken, this.state.description);
-  }
+
 
   handleChange(description) {
     this.setState({description});
@@ -73,29 +69,35 @@ export default class Test extends React.Component {
     Linking.openURL("https://a-new-world.herokuapp.com/auth/google");
   }
 
+
+
   render() {
+    console.log('modal',this.state);
+    console.log('userInfo', this.props.user);
     return (
-      <ImageBackground
-        source={require('../../assets/background/login.png')}
-        style={styles.backgroundImage}>
-        <Image
-          source={require('../../assets/background/landing.png')}
-          style={styles.robots}></Image>
-        <Image source={require('../../assets/background/logo.png')} style={styles.logo}></Image>
-        <View
-          style={{
-          marginTop: '30%',
-          alignItems: 'center'
-        }}>
-          <TouchableOpacity style={styles.button} onPress={this.handleLogin}>
-            <Text style={styles.label}>Log In With Google
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={this.props.logOut}>
-            <Text style={styles.label}>Log Out
-            </Text>
-          </TouchableOpacity>
-        </View>
+      <ImageBackground source={require('../../assets/background/login.png')}
+                style={styles.backgroundImage}>
+
+      <Image source={require('../../assets/background/landing.png')}
+        style = {styles.robots}>
+      </Image>
+      <Image source={require('../../assets/background/logo.png')}
+        style = {styles.logo}>
+      </Image>
+      <View style={{marginTop: '30%', alignItems: 'center'}} >
+
+        <TouchableOpacity style = {styles.button}
+          onPress={this.handleLogin}
+
+          >
+          <Text style = {styles.label}>Log In With Google </Text>
+        </TouchableOpacity>
+        <TouchableOpacity style = {styles.button} onPress={this.props.logOut} >
+          <Text style = {styles.label}>Log Out </Text>
+        </TouchableOpacity>
+
+
+      </View>
       </ImageBackground>
     );
   }

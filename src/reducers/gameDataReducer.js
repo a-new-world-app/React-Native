@@ -14,7 +14,10 @@ const defaultState = {
     }
   },
   build: {},
-  gather: [],
+  gather: [
+    {type: 'iron',
+     amount: 10000}
+  ],
   resources: {
     iron: 0,
     copper: 0,

@@ -8,9 +8,14 @@ const receiveCurrentUser = user => ({
   user
 });
 
+
+
+
 export const logOut = () => ({
   type: LOG_OUT
 });
+
+
 
 export const logIn = (token, dispatch) =>
   sessionAPIUtils

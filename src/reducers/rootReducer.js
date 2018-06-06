@@ -8,7 +8,7 @@ import { LOG_OUT } from "../actions/sessionActions";
 const rootReducer = combineReducers({
   session,
   gameData,
-  path
+  path,
 });
 
 export default (state, action) => {
