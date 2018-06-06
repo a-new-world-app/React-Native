@@ -11,6 +11,7 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import AgreementModal from "../agreementModal.js";
+import TutorialButton from "../tutorialButton.js";
 
 export default class HomeScreen extends React.Component < Props > {
 
@@ -41,7 +42,8 @@ export default class HomeScreen extends React.Component < Props > {
       <ImageBackground
         source={require('../../../assets/background/homeScreen.jpeg')}
         style={styles.backgroundImage}>
-        <AgreementModal />
+        <TutorialButton />
+        
         <View style={styles.main}>
           <Image source={robotPic} style={styles.Bob}/>
           <Text style={styles.welcome}>Hello, what do you want to do?
