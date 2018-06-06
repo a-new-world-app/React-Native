@@ -118,7 +118,7 @@ class TutorialButton extends React.Component{
 const styles = StyleSheet.create({
   tutorialButton: {
     position: 'absolute',
-    top: '2%',
+    marginTop: '2%',
     left: '5%',
     width: 40,
     height: 40,
