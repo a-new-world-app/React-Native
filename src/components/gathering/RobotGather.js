@@ -5,7 +5,8 @@ import {
   TouchableOpacity,
   Text,
   Alert,
-  Button
+  Button,
+  ScrollView
 } from 'react-native';
 // import { merge } from 'lodash';
 
@@ -96,14 +97,14 @@ export default class RobotGather extends Component < Props > {
     const gathers = this.state.gather;
     const currentGath = gathers[gatherIdx]
     currentGath.start = Date.now()
-    const duration = 1000 * 60 * 60 * 2 / robotTypes[robotIdx].gather
+    const duration = 1000 * 60 * 60 * 2 / robotTypes[robotIdx].carry
     currentGath.end = currentGath.start + duration
     currentGath.robot = robotIdx
 
     const robots = this.state.robots
     robots[robotIdx].waiting -= 1
     robots[robotIdx].gathering += 1
-
+    console.log('assign', duration, currentGath, robotTypes[robotIdx])
     this.setState({gather: gathers, robots: robots})
   }
 
@@ -133,7 +134,7 @@ export default class RobotGather extends Component < Props > {
   render() {
     const list = this.generateList()
     return (
-      <View>
+      <ScrollView>
         <View>
           {list}
           {this.noGather()}
@@ -143,7 +144,7 @@ export default class RobotGather extends Component < Props > {
           style={styles.back}>
           <Text style={styles.backText}>Go Back</Text>
         </TouchableOpacity>
-      </View>
+      </ScrollView>
     );
   }
 }

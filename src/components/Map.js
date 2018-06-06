@@ -88,7 +88,9 @@ class Map extends Component < {} > {
           latitudeDelta: LATITUDE_DELTA,
           longitudeDelta: LONGITUDE_DELTA
         };
-        this.setState({initialPos: initialRegion, currentPos: initialRegion});
+        this.setState({initialPos: initialRegion, 
+                       currentPos: initialRegion,
+                      landmarkPos: selectedLandmarks(initialRegion.latitude, initialRegion.longitude, this.previousLandmarks())});
       }, error => console.log(JSON.stringify(error)), {
         enableHighAccuracy: false,
         // timeout: 20000, maximumAge: 100
@@ -132,8 +134,8 @@ class Map extends Component < {} > {
   };
 
   componentWillReceiveProps(nextProps) {
-    console.log("nextProps", nextProps);
-    if (this.props !== nextProps) {
+    // console.log("nextProps", nextProps);
+    // if (this.props !== nextProps) {
       this.setState({
         steps: nextProps.path.steps || [],
         pathId: nextProps.path.id,
@@ -141,7 +143,11 @@ class Map extends Component < {} > {
         startPoint: nextProps.path.start_point,
         landmarkPos: selectedLandmarks(this.state.currentPos.latitude, this.state.currentPos.longitude, this.previousLandmarks())
       });
-    }
+    // }else {
+    //   this.setState({
+    //     landmarkPos: selectedLandmarks(this.state.currentPos.latitude, this.state.currentPos.longitude, this.previousLandmarks())
+    //   })
+    // };
   }
 
   componentWillUnmount() {
@@ -390,9 +396,10 @@ class Map extends Component < {} > {
   }
 
   render() {
-    console.log(this.enableTakePicture());
+    console.log('render', this.state);
     let markers = [];
     if (this.state.nextLocation) {
+      console.log('if')
       markers = [this.state.nextLocation].map(landmark => {
         return (<MapView.Marker
           key={landmark
@@ -406,6 +413,7 @@ class Map extends Component < {} > {
         }}/>);
       });
     } else {
+      console.log('else')
       markers = this
         .state
         .landmarkPos
@@ -428,6 +436,7 @@ class Map extends Component < {} > {
           })}/>);
         });
     }
+    console.log('markers', markers)
     markers = this.addGatherMarkers(markers);
     // markers.push((<MapView.Marker   key={'home'}
     // image={require('../../assets/robots/mark.home4.png')}   coordinate={{
