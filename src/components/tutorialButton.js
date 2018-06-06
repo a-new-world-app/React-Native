@@ -5,14 +5,23 @@ StyleSheet,
 TouchableOpacity,
 Modal,
 Text,
+Alert
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const INSTRUCTIONS = [
-'You will be given 5 landmarks based on your current location. Choose one as your starting position and walk towards it.',
-'Once you are at starting position, you will be able to choose your next step.',
-'On your way to the next step, submit at least 2 descriptions and photos but no more than 10 for the path.',
-'Upon successful completion of the path, you will be rewarded some resources which can be used to build robots.'
+' 5 landmarks will be given. Choose one as your starting position and walk towards it.',
+'On the way to the next step, submit at least 2 descriptions and photos but no more than 10 for the path.',
+'Upon successful completion of the path, resources will be given to build robots.'
+];
+
+const DESCRIPTIONS_EXAMPLES = [
+  [" When you reach the other side of the street, turn right and keep walking for about a block-and-a-half. You'll cross Webster Street.",
+  ' Pass Jamba Juice and Specialties. Pass Lee’s Deli. Tokyo Express on the left.'
+  ],
+  [' Walk five blocks and turn left on Sansome when you see the CVS.',
+  ' Walk 18 feet across the river. OR Walk 134 blocks up Market Street.'
+  ]
 ];
 class TutorialButton extends React.Component{
   constructor(props){
@@ -33,7 +42,19 @@ class TutorialButton extends React.Component{
          transparent={false}
          visible={this.state.modalVisible}
          onRequestClose={() => {
-           alert('Modal has been closed.');
+           Alert.alert(
+             "", "Exit insturction?", [
+             {
+               text: "OK",
+               onPress: () => {this.setModalVisible(false);}
+             },
+             {
+               text: "Cancel",
+               onPress: () => {this.setModalVisible(true);}
+             }
+           ], {
+             onDismiss: () => {}
+           });
          }}>
          <View style={styles.topBand}>
           <Text style={styles.instructionTitle}>Instructions</Text>
@@ -47,16 +68,34 @@ class TutorialButton extends React.Component{
                {instruction}
                </Text>
              )}
+             <View >
+              <Text style={[styles.exampleContainer]}>
+              <Text style={{color:'#C1727D',fontWeight: 'bold'}}>Valid </Text>
+               Description should be
+              <Text style={{color: 'black'}}> coherent & plausible</Text>
+              </Text>
+
+              {DESCRIPTIONS_EXAMPLES.map(examples =>
+                <View key={Math.random()}>
+                  <Text style={styles.exampleContainer}>
+                    <Icon name="check" size={20} color="#32C8A6"/>
+                    {examples[0]}
+                  </Text>
+                  <Text style={styles.exampleContainer}>
+                  <Icon name="times" size={20} color="#C1727D"/>
+                  {examples[1]}
+                  </Text>
+                </View>
+              )}
+             </View>
              <View style={styles.bottomBand}>
-
-             <TouchableOpacity
-              style = {styles.closeButton}
-               onPress={() => {
-                 this.setModalVisible(!this.state.modalVisible);
-               }}>
-               <Icon name="window-close" size={50} color="white"/>
-             </TouchableOpacity>
-
+               <TouchableOpacity
+                style = {styles.closeButton}
+                 onPress={() => {
+                   this.setModalVisible(!this.state.modalVisible);
+                 }}>
+                 <Icon name="window-close" size={50} color="white"/>
+               </TouchableOpacity>
              </View>
 
            </View>
@@ -98,27 +137,37 @@ const styles = StyleSheet.create({
   },
   bottomBand: {
     position: 'relative',
-    height: '17%',
+    height: '10%',
     width: '100%',
-    bottom: '2%',
+    bottom: '0%',
     backgroundColor: '#72BAAC',
     padding: 5
   },
   closeButton: {
     backgroundColor:'#72BAAC',
-    borderWidth: 10,
     borderRadius: 10,
   },
   instruction: {
     // height: '18%',
     width: '100%',
-    padding:5,
+    paddingHorizontal:15,
+    paddingVertical: 10,
     backgroundColor:'#F8F6E7',
-    fontSize: 20,
-    fontWeight: '700',
+    fontSize: 19,
+    fontWeight: '500',
+    color: '#83837A',
     borderBottomWidth: 2,
-    borderColor:'#EFCA6F'
+    borderColor:'#DDDBCC'
 
+  },
+  exampleContainer:{
+    width: '100%',
+    paddingHorizontal:15,
+    paddingVertical: 5,
+    color: '#83837A',
+    backgroundColor:'#F8F6E7',
+    fontSize: 19,
+    fontWeight: '700',
   }
 
 });
