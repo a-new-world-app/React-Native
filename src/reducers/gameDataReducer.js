@@ -15,8 +15,6 @@ const defaultState = {
   },
   build: {},
   gather: [
-    {resource: 'iron',
-     amount: 10000}
   ],
   resources: {
     iron: 0,
@@ -32,7 +30,8 @@ const defaultState = {
 
 const gameDataReducer = (oldState = defaultState, action) => {
   Object.freeze(oldState);
-  let newState = merge({}, oldState);
+  let newState;
+  // return defaultState;
   switch (action.type) {
     case RECEIVE_GAME_DATA:
       if (!action.gameData) {
