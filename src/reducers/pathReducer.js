@@ -7,7 +7,7 @@ const pathReducer = (oldState = {}, action) => {
   let path;
   switch (action.type) {
     case RECEIVE_PATH:
-      if (!action.pathData) 
+      if (!action.payload.pathData) 
         return {};
       path = action.payload.pathData.path;
       console.log(path);
