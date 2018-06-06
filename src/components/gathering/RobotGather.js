@@ -44,6 +44,15 @@ export default class RobotGather extends Component < Props > {
       .updateGameData(this.props.sessionToken, this.state.gameData,)
   }
 
+  componentWillReceiveProps(newProps) {
+    this.setState({
+      gameData: newProps.gameData,
+      gather: newProps.gameData.gather,
+      robots: newProps.gameData.robots,
+      modal: false
+    })
+  }
+
   generateList = () => {
     let list = this
       .state
@@ -132,6 +141,7 @@ export default class RobotGather extends Component < Props > {
   }
 
   render() {
+    console.log('gather', this.state)
     const list = this.generateList()
     return (
       <ScrollView>
