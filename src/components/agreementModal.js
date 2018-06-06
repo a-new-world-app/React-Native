@@ -29,6 +29,7 @@ class agreementModal extends React.Component {
     console.log('props', this.props);
     console.log('openModal', this.state);
     return (
+      this.state.openModal ? (
     <Modal
      animationType="slide"
      transparent={false}
@@ -71,7 +72,8 @@ class agreementModal extends React.Component {
          </TouchableOpacity>
        </View>
      </View>
-   </Modal>
+   </Modal>)
+   : <View ></View>
   );}
 }
 

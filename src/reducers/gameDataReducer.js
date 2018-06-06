@@ -15,7 +15,7 @@ const defaultState = {
   },
   build: {},
   gather: [
-    {type: 'iron',
+    {resource: 'iron',
      amount: 10000}
   ],
   resources: {
@@ -38,7 +38,7 @@ const gameDataReducer = (oldState = defaultState, action) => {
       if (!action.gameData) {
         return oldState;
       }
-      newState = merge(newState, action.gameData);
+      newState = merge({}, action.gameData);
       newState = calculateProgress(newState);
       return newState;
     case RECEIVE_GATHER:
@@ -47,9 +47,10 @@ const gameDataReducer = (oldState = defaultState, action) => {
         .push(action.gather);
       return newState;
     default:
+    return oldState;
   }
-  newState = calculateProgress(newState);
-  return newState;
+  // newState = calculateProgress(newState);
+  // return newState;
 };
 
 export default gameDataReducer;
