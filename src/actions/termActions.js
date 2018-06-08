@@ -10,5 +10,8 @@ export const submitAgreement = (token, dispatch) => {
     console.log('terms', res.json());
     return res.json();
   })
-  .then(user => dispatch(receiveCurrentUser(user)));
+  .then(user => {
+    console.log('receiveUser', user);
+    dispatch(receiveCurrentUser(user));
+  });
 };
