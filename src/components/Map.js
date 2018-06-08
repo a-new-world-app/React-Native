@@ -47,7 +47,7 @@ class Map extends Component < {} > {
         longitude: 0
       },
       description: "",
-      endImageURL: 'null',
+      endImageURL: null,
       landmarkPos: [],
       steps: this.props.path.steps || [],
       pathId: this.props.path.id,
@@ -88,7 +88,11 @@ class Map extends Component < {} > {
           latitudeDelta: LATITUDE_DELTA,
           longitudeDelta: LONGITUDE_DELTA
         };
-        this.setState({initialPos: initialRegion, currentPos: initialRegion});
+        this.setState({
+          initialPos: initialRegion,
+          currentPos: initialRegion,
+          landmarkPos: selectedLandmarks(initialRegion.latitude, initialRegion.longitude, this.previousLandmarks())
+        });
       }, error => console.log(JSON.stringify(error)), {
         enableHighAccuracy: false,
         // timeout: 20000, maximumAge: 100
@@ -132,16 +136,17 @@ class Map extends Component < {} > {
   };
 
   componentWillReceiveProps(nextProps) {
-    console.log("nextProps", nextProps);
-    if (this.props !== nextProps) {
-      this.setState({
-        steps: nextProps.path.steps || [],
-        pathId: nextProps.path.id,
-        nextLocation: nextProps.path.nextLocation,
-        startPoint: nextProps.path.start_point,
-        landmarkPos: selectedLandmarks(this.state.currentPos.latitude, this.state.currentPos.longitude, this.previousLandmarks())
-      });
-    }
+    // console.log("nextProps", nextProps); if (this.props !== nextProps) {
+    this.setState({
+      steps: nextProps.path.steps || [],
+      pathId: nextProps.path.id,
+      nextLocation: nextProps.path.nextLocation,
+      startPoint: nextProps.path.start_point,
+      landmarkPos: selectedLandmarks(this.state.currentPos.latitude, this.state.currentPos.longitude, this.previousLandmarks())
+    });
+    // }else {   this.setState({     landmarkPos:
+    // selectedLandmarks(this.state.currentPos.latitude,
+    // this.state.currentPos.longitude, this.previousLandmarks())   }) };
   }
 
   componentWillUnmount() {
@@ -196,7 +201,7 @@ class Map extends Component < {} > {
   };
 
   resetFields = () => {
-    this.setState({description: "", endImageURL: 'null'});
+    this.setState({description: "", endImageURL: null});
   };
 
   handleSubmit = () => {
@@ -206,11 +211,16 @@ class Map extends Component < {} > {
     let landMarkLng = this.state.landmarkPos[0].pos.longitude;
 
     if (!this.state.startPoint) {
-      // if (!Submition.isCloseToLandmark(curLat, curLng, landMarkLat, landMarkLng)) {
-      //   Alert.alert('Alert', 'Go closer to the Landmark!', [     {       text:
-      // 'OK',       onPress: () => {}     }   ], {     onDismiss: () => {}   }); }
-      // else
-      if (!this.state.endImageURL) {
+      if (!Submition.isCloseToLandmark(curLat, curLng, landMarkLat, landMarkLng)) {
+        Alert.alert('Alert', 'Go closer to the Landmark!', [
+          {
+            text: 'OK',
+            onPress: () => {}
+          }
+        ], {
+          onDismiss: () => {}
+        });
+      } else if (!this.state.endImageURL) {
         Alert.alert("Alert", "Please take a picture of the landmark first.", [
           {
             text: "OK",
@@ -220,6 +230,7 @@ class Map extends Component < {} > {
           onDismiss: () => {}
         });
       } else {
+        this.state.nextLocation.images = [this.state.endImageURL];
         this
           .props
           .createPath(this.props.sessionToken, {
@@ -250,11 +261,17 @@ class Map extends Component < {} > {
       ], {
         onDismiss: () => {}
       });
+
+    } else if (!Submition.isCloseToLandmark(curLat, curLng, landMarkLat, landMarkLng)) {
+      Alert.alert('Alert', 'Go closer to the Landmark!', [
+        {
+          text: 'OK',
+          onPress: () => {}
+        }
+      ], {
+        onDismiss: () => {}
+      });
     } else {
-      // } else if (!Submition.isCloseToLandmark(curLat, curLng, landMarkLat,
-      // landMarkLng)) {   Alert.alert('Alert', 'Go closer to the Landmark!', [     {
-      // text: 'OK',       onPress: () => {}     }   ], {     onDismiss: () => {} });
-      // } else {
       console.log("handleSubmit");
       let endPosition = this.state.nextLocation;
       endPosition.images = [this.state.endImageURL];
@@ -390,9 +407,10 @@ class Map extends Component < {} > {
   }
 
   render() {
-    console.log(this.enableTakePicture());
+    console.log('render', this.state);
     let markers = [];
     if (this.state.nextLocation) {
+      console.log('if')
       markers = [this.state.nextLocation].map(landmark => {
         return (<MapView.Marker
           key={landmark
@@ -406,6 +424,7 @@ class Map extends Component < {} > {
         }}/>);
       });
     } else {
+      console.log('else')
       markers = this
         .state
         .landmarkPos
@@ -428,6 +447,7 @@ class Map extends Component < {} > {
           })}/>);
         });
     }
+    console.log('markers', markers)
     markers = this.addGatherMarkers(markers);
     // markers.push((<MapView.Marker   key={'home'}
     // image={require('../../assets/robots/mark.home4.png')}   coordinate={{
