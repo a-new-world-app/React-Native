@@ -28,7 +28,8 @@ class agreementModal extends React.Component {
 
   render(){
     console.log('props', this.props)
-    console.log('agree', this.props.session.agree)
+    console.log('agree', this.props.session.agree);
+    console.log('agree', this.props.session.sessionToken);
     console.log('openModal', this.state)
     return (
     <Modal
@@ -78,7 +79,7 @@ class agreementModal extends React.Component {
 }
 
   const mapStateToProps = state => ({
-    session: state.session,
+    session: state.session.user,
   });
 
   const mapDispatchToProps = dispatch => ({

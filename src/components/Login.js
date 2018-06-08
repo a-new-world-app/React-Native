@@ -41,8 +41,10 @@ export default class Test extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.props.user.sessionToken ) {
-      this.props.navigation.navigate("HomeScreen");
+    if(this.props.user.user){
+      if (this.props.user.user.sessionToken ) {
+        this.props.navigation.navigate("HomeScreen");
+      }
     }
   }
 
@@ -72,7 +74,7 @@ export default class Test extends React.Component {
 
 
   render() {
-  
+
     return (
       <ImageBackground source={require('../../assets/background/login.png')}
                 style={styles.backgroundImage}>
