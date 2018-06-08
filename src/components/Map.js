@@ -230,6 +230,7 @@ class Map extends Component < {} > {
           onDismiss: () => {}
         });
       } else {
+        this.state.nextLocation.images = [this.state.endImageURL];
         this
           .props
           .createPath(this.props.sessionToken, {
