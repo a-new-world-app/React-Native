@@ -3,7 +3,7 @@ import {View, Text} from "react-native";
 import {Provider} from "react-redux";
 import {createStackNavigator} from "react-navigation"; // Version can be specified in package.json
 
-import RobotInstuctionsContainer from "./components/robots/RobotInstructionsContainer";
+import RobotInstuctionsContainer from "./components/robots/robotInstructionsContainer";
 import RobotBuildContainer from "./components/robotBuild/RobotBuildContainer";
 import RobotGatherContainer from "./components/gathering/RobotGatherContainer";
 import HomeScreen from "./components/homeScreen/HomeScreen";
