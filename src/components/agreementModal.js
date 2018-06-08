@@ -18,8 +18,9 @@ import { submitAgreement } from "../actions/termActions";
 class agreementModal extends React.Component {
   constructor(props) {
     super(props);
+    console.log('agree', this.props.sessionToken.agree)
     this.state = {
-      openModal: !this.props.sessionToken
+      openModal: this.props.sessionToken.agree
       ? false
       : true
     };
@@ -82,5 +83,7 @@ class agreementModal extends React.Component {
   const mapDispatchToProps = dispatch => ({
     submitAgreement: (token) => submitAgreement(token, dispatch)
   });
+
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(agreementModal);

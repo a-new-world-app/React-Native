@@ -72,8 +72,7 @@ export default class Test extends React.Component {
 
 
   render() {
-    console.log('modal',this.state);
-    console.log('userInfo', this.props.user);
+  
     return (
       <ImageBackground source={require('../../assets/background/login.png')}
                 style={styles.backgroundImage}>
