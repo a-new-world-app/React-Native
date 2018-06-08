@@ -27,7 +27,7 @@ class agreementModal extends React.Component {
   }
 
   render(){
-  
+
     return (
       this.state.openModal ? (
     <Modal
@@ -60,12 +60,9 @@ class agreementModal extends React.Component {
              [ { text: 'OK',
                onPress:
                () => {
-                 this.setState({openModal:false});
-<<<<<<< HEAD
+
                  this.props.submitAgreement(this.props.session.sessionToken)
-=======
-                 this.props.submitAgreement(this.props.sessionToken.sessionToken);
->>>>>>> master
+
                }
                },
                { text: 'Cancel', onPress: () => {} }],
