@@ -3,7 +3,7 @@ import * as sessionAPIUtils from "../utils/sessionAPIUtils";
 export const RECEIVE_CURRENT_USER = "RECEIVE_CURRENT_USER";
 export const LOG_OUT = "LOGOUT";
 
-const receiveCurrentUser = user => ({
+export const receiveCurrentUser = user => ({
   type: RECEIVE_CURRENT_USER,
   user
 });

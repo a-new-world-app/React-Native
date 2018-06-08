@@ -18,9 +18,9 @@ import { submitAgreement } from "../actions/termActions";
 class agreementModal extends React.Component {
   constructor(props) {
     super(props);
-    console.log('agree', this.props.sessionToken.agree)
+
     this.state = {
-      openModal: this.props.sessionToken.agree
+      openModal: this.props.session.agree
       ? false
       : true
     };
@@ -28,6 +28,7 @@ class agreementModal extends React.Component {
 
   render(){
     console.log('props', this.props)
+    console.log('agree', this.props.session.agree)
     console.log('openModal', this.state)
     return (
     <Modal
@@ -60,7 +61,7 @@ class agreementModal extends React.Component {
                onPress:
                () => {
                  this.setState({openModal:false});
-                 this.props.submitAgreement(this.props.sessionToken.sessionToken)
+                 this.props.submitAgreement(this.props.session.sessionToken)
                }
                },
                { text: 'Cancel', onPress: () => {} }],
@@ -77,7 +78,7 @@ class agreementModal extends React.Component {
 }
 
   const mapStateToProps = state => ({
-    sessionToken: state.session,
+    session: state.session,
   });
 
   const mapDispatchToProps = dispatch => ({

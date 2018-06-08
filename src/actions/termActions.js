@@ -7,4 +7,7 @@ export const submitAgreement = (token, dispatch) =>
   sessionAPIUtils
   .submitAgreement(token)
   .then(res => res.json())
-  .then(user => dispatch(receiveCurrentUser(user)));
+  .then(user =>{
+    console.log('receiveCurrentUser');
+    dispatch(receiveCurrentUser(user));
+  } );
